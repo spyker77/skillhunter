@@ -18,6 +18,7 @@ django-crispy-forms = "*"
 pytest-django = "*"
 psycopg2-binary = "*"
 django-csp = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
