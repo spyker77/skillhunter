@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Skillhunter{% endblock title %}
+
+{% block content %}
+<h1 class="mt-5 text-center">Find out what job market needs</h1>
+<form class="form-inline pt-2 pb-2 justify-content-center" action="{% url 'search_results' %}" method="GET">
+    <input id="form-input" name="q" class="form-control w-75 text-center" type="text"
+        placeholder="Enter desired job title" aria-label="Search">
+</form>
+<p id="reminder" class="mt-2 mb-2 text-center text-muted">Please note that data is collected in real time, so be patient
+    🧘</p>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form-input').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                $("#reminder").toggle();
+            };
+        });
+    });
+</script>
+{% endblock content %}

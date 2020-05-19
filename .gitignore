@@ -1,0 +1,9 @@
+*.log
+*.pot
+*.pyc
+.env
+.DS_Store
+.pytest_cache
+__pycache__
+db.sqlite3
+media
