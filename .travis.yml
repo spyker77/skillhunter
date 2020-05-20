@@ -6,7 +6,8 @@ install:
   - pip install pipenv
 before_script:
   - pipenv install
+  - pipenv shell
   - python manage.py migrate
   - python manage.py collectstatic --no-input
 script:
-  - pipenv shell pytest
+  - pytest
