@@ -2,12 +2,12 @@ import os
 import socket
 
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENVIRONMENT = os.environ.get("ENVIRONMENT", default="production")
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -76,10 +76,16 @@ WSGI_APPLICATION = "skillhunter_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DATABASE_NAME"),
+        "USER": os.environ.get("DATABASE_USER"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
+
+# DATABASES["default"] = dj_database_url.config(conn_max_age=600)
 
 
 # Password validation
@@ -124,8 +130,6 @@ STATICFILES_FINDERS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-django_heroku.settings(locals())
-
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
@@ -133,34 +137,36 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Production settings
-# if ENVIRONMENT == "production":
-#     X_FRAME_OPTIONS = "DENY"
-#     SECURE_BROWSER_XSS_FILTER = True
-#     SECURE_REFERRER_POLICY = "same-origin"
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-#     SECURE_HSTS_SECONDS = 2592000
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-#     SECURE_CONTENT_TYPE_NONSNIFF = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
+if ENVIRONMENT == "production":
+    X_FRAME_OPTIONS = "DENY"
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_REFERRER_POLICY = "same-origin"
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_HSTS_SECONDS = 2592000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NONSNIFF = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Content-Security-Policy settings for django-csp
-# CSP_DEFAULT_SRC = ("'none'",)
-# CSP_STYLE_SRC = (
-#     "'self'",
-#     "fonts.googleapis.com",
-#     "stackpath.bootstrapcdn.com",
-# )
-# CSP_SCRIPT_SRC = (
-#     "'self'",
-#     "stackpath.bootstrapcdn.com",
-#     "cdn.jsdelivr.net",
-#     "code.jquery.com",
-# )
-# CSP_FONT_SRC = (
-#     "'self'",
-#     "fonts.gstatic.com",
-# )
-# CSP_IMG_SRC = ("'self'",)
+CSP_DEFAULT_SRC = ("'none'",)
+CSP_STYLE_SRC = (
+    "'self'",
+    "fonts.googleapis.com",
+    "stackpath.bootstrapcdn.com",
+)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "stackpath.bootstrapcdn.com",
+    "cdn.jsdelivr.net",
+    "code.jquery.com",
+)
+CSP_FONT_SRC = (
+    "'self'",
+    "fonts.gstatic.com",
+)
+CSP_IMG_SRC = ("'self'",)
+
+django_heroku.settings(locals())
