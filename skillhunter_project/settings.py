@@ -168,6 +168,6 @@ if ENVIRONMENT == "production":
     SECURE_CONTENT_TYPE_NONSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DATABASES["default"] = dj_database_url.config(conn_max_age=600)
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 django_heroku.settings(locals())
