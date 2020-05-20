@@ -18,7 +18,7 @@ class TestHomePage:
         assert "home.html" in response.template_name
 
     def test_homepage_contains_correct_html(self, response):
-        assert "Find out what job market needs" in response.rendered_content
+        assert "Skillhunter" in response.rendered_content
 
     def test_homepage_does_not_contains_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
@@ -41,7 +41,7 @@ class TestAboutPage:
         assert "about.html" in response.template_name
 
     def test_aboutpage_contains_correct_html(self, response):
-        assert "What is it all about" in response.rendered_content
+        assert "About" in response.rendered_content
 
     def test_aboutpage_does_not_contains_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content

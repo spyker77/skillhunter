@@ -11,14 +11,4 @@
 </form>
 <p id="reminder" class="mt-2 mb-2 text-center text-muted">Please note that data is collected in real time, so be patient
     🧘</p>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#form-input').keypress(function (event) {
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if (keycode == '13') {
-                $("#reminder").toggle();
-            };
-        });
-    });
-</script>
 {% endblock content %}

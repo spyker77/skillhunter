@@ -31,10 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
-    # Local apps
     "scraping",
     "pages",
-    # 3rd party apps
     "crispy_forms",
     "debug_toolbar",
 ]
@@ -157,7 +155,6 @@ CSP_STYLE_SRC = (
 )
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-inline'",
     "stackpath.bootstrapcdn.com",
     "cdn.jsdelivr.net",
     "code.jquery.com",
