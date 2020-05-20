@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.8"
+dist: bionic
+install:
+  - pip install pipenv
+before_script:
+  - pipenv install
+  - python manage.py migrate
+  - python manage.py collectstatic --no-input
+script:
+  - pytest
