@@ -20,6 +20,7 @@ django-csp = "*"
 whitenoise = "*"
 dj-database-url = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
