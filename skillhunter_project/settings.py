@@ -136,20 +136,6 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-# Production settings
-if ENVIRONMENT == "production":
-    X_FRAME_OPTIONS = "DENY"
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_REFERRER_POLICY = "same-origin"
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    SECURE_HSTS_SECONDS = 2592000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_CONTENT_TYPE_NONSNIFF = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
 # Content-Security-Policy settings for django-csp
 CSP_DEFAULT_SRC = ("'none'",)
 CSP_STYLE_SRC = (
@@ -168,5 +154,20 @@ CSP_FONT_SRC = (
     "fonts.gstatic.com",
 )
 CSP_IMG_SRC = ("'self'",)
+
+# Production settings
+if ENVIRONMENT == "production":
+    X_FRAME_OPTIONS = "DENY"
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_REFERRER_POLICY = "same-origin"
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_HSTS_SECONDS = 2592000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NONSNIFF = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600)
 
 django_heroku.settings(locals())
