@@ -1,7 +1,7 @@
 import asyncio
 from django.core.management.base import BaseCommand
 
-from .skillhunter_v2 import main
+from .skillhunter_v3 import main
 
 
 class Command(BaseCommand):

@@ -9,7 +9,8 @@ class TestSearchResultsListView:
     @pytest.fixture
     def response(self, client):
         self.url = reverse("search_results")
-        return client.get(self.url)
+        query = "?q=junior+python+developer"
+        return client.get(self.url + query)
 
     def test_searchresults_status_code(self, response):
         assert response.status_code == 200
