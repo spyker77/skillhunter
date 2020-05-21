@@ -9,8 +9,8 @@ class TestSearchResultsListView:
     @pytest.fixture
     def response(self, client):
         self.url = reverse("search_results")
-        query = "?q=junior+python+developer"
-        return client.get(self.url + query)
+        test_query = "?q=junior+python+developer"
+        return client.get(self.url + test_query)
 
     def test_searchresults_status_code(self, response):
         assert response.status_code == 200
@@ -25,5 +25,5 @@ class TestSearchResultsListView:
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_searchresults_url_resolves_searchresultslistview(self):
-        self.view = resolve("/search/")
+        self.view = resolve("/search/?q=junior+python+developer")
         assert self.view.func.__name__ == SearchResultsListView.as_view().__name__
