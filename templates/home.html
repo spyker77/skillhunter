@@ -1,14 +1,16 @@
 {% extends "_base.html" %}
 
 {% block title %}Skillhunter{% endblock title %}
+{% block description %}Find out what skills will help you get hired fast. Real-time scanning of the most relevant
+vacancies around the world.{% endblock description %}
 
 {% block content %}
-<h1 class="mt-5 text-center">Find out what skills companies need</h1>
+<h1 class="mt-5 text-center">Find the skills you need to get a job</h1>
 <form id="home-form" class="form-inline pt-2 pb-2 justify-content-center" action="{% url 'search_results' %}"
     method="GET">
     <input id="form-input" name="q" class="form-control w-75 text-center" type="text"
         placeholder="Enter desired job title" aria-label="Search" required autofocus>
 </form>
-<p id="reminder" class="mt-2 mb-2 text-center text-muted">Please note that data is collected in real time, so be patient
-    🧘</p>
+<p id="reminder" class="mt-2 mb-2 text-center text-muted">Please note that data is collected in real time, so be
+    patient 🧘</p>
 {% endblock content %}
