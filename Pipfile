@@ -21,6 +21,7 @@ whitenoise = "*"
 dj-database-url = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+django-redis = "*"
 
 [requires]
 python_version = "3.8"
