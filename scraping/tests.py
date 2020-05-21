@@ -25,5 +25,5 @@ class TestSearchResultsListView:
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_searchresults_url_resolves_searchresultslistview(self):
-        self.view = resolve("/search/?q=junior+python+developer")
+        self.view = resolve("/search/")
         assert self.view.func.__name__ == SearchResultsListView.as_view().__name__

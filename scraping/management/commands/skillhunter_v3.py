@@ -26,6 +26,9 @@ try:
     STOPWORDS = [*russian_stopwords, *english_stopwords]
 except LookupError:
     nltk.download("stopwords")
+    russian_stopwords = stopwords.words("russian")
+    english_stopwords = stopwords.words("english")
+    STOPWORDS = [*russian_stopwords, *english_stopwords]
 
 with open("static/tech.txt", mode="r", encoding="utf-8") as file:
     TECH = file.read().replace(",", "").splitlines()
