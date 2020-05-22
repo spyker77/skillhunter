@@ -36,7 +36,8 @@ with open("static/tech.txt", mode="r", encoding="utf-8",) as file:
 
 def ask_vacancy(raw_query):
     # Ask for vacancy to parse.
-    query = f'"{raw_query}"'
+    stripped_raw_query = raw_query.strip('"')
+    query = f'"{stripped_raw_query}"'
     return query
 
 

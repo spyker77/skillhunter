@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% block title %}404 error{% endblock title %}
+{% block description %}You've tried to reach the page that no longer exists or never was – that's why you've got a 404
+Not Found error.{% endblock description %}
+
+{% block content %}
+<h1 class="mt-5 text-center">Oops!</h1>
+<p class="mt-2 mb-2 text-center text-muted">There's nothing here... How about trying again on the home page?</p>
+<div class="text-center">
+    <a class="btn btn-outline-primary" href="{% url 'home' %}" role="button">Try
+        again</a>
+</div>
+{% endblock content %}

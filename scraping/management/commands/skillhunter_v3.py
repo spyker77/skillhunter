@@ -37,7 +37,8 @@ with open("static/tech.txt", mode="r", encoding="utf-8") as file:
 def ask_vacancy():
     # Ask for vacancy to parse.
     raw_query = input("1/5) Please, enter the job you wanna check 👉 ")
-    query = f'"{raw_query}"'
+    stripped_raw_query = raw_query.strip('"')
+    query = f'"{stripped_raw_query}"'
     return query
 
 

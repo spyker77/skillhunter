@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% block title %}400 error{% endblock title %}
+{% block description %}You've got 400 Bad Request error due to malformed request syntax, invalid request message
+framing, or deceptive request routing.{% endblock description %}
+
+{% block content %}
+<h1 class="mt-5 text-center">Aaaaaghhh!</h1>
+<p class="mt-2 mb-2 text-center text-muted">Looks like there is something wrong with the request... How about trying
+    again on the home page?</p>
+<div class="text-center">
+    <a class="btn btn-outline-primary text-center" href="{% url 'home' %}" role="button">Try again</a>
+</div>
+{% endblock content %}
