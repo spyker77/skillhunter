@@ -1,2 +1,2 @@
-web: uvicorn skillhunter_project.asgi:application --port 5000
+web: gunicorn skillhunter_project.wsgi
 release: python manage.py migrate
