@@ -4,10 +4,8 @@ import asyncio
 import collections
 from multiprocessing import Pool
 
-import nltk
 import aiohttp
 from bs4 import BeautifulSoup
-from nltk.corpus import stopwords
 from aiohttp.client_exceptions import ClientPayloadError
 
 
@@ -20,17 +18,12 @@ headers = {
 }
 RANDOM_AGENT = random.choice(headers["user-agent"])
 
-try:
-    russian_stopwords = stopwords.words("russian")
-    english_stopwords = stopwords.words("english")
-    STOPWORDS = [*russian_stopwords, *english_stopwords]
-except LookupError:
-    nltk.download("stopwords")
-    russian_stopwords = stopwords.words("russian")
-    english_stopwords = stopwords.words("english")
-    STOPWORDS = [*russian_stopwords, *english_stopwords]
+# Combined russian and english stopwords from nltk.
+with open("static/stopwords.txt", mode="r", encoding="utf-8") as file:
+    STOPWORDS = file.read().replace(",", "").splitlines()
 
-with open("static/tech.txt", mode="r", encoding="utf-8",) as file:
+# List of technologies to show in the final result.
+with open("static/tech.txt", mode="r", encoding="utf-8") as file:
     TECH = file.read().replace(",", "").splitlines()
 
 
@@ -48,18 +41,24 @@ async def scan_single_search_page(query, page_num, session):
         "page": page_num,
     }
     async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
-        html = await resp.text()
-        soup = BeautifulSoup(html, "lxml")
-        all_vacancies = soup.find_all("a", href=re.compile(r"https://hh.ru/vacancy/"))
-        # Extract valid links to vacancy pages and clean their tails.
-        links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
-        return links
+        try:
+            html = await resp.text()
+            soup = BeautifulSoup(html, "lxml")
+            all_vacancies = soup.find_all(
+                "a", href=re.compile(r"https://hh.ru/vacancy/")
+            )
+            # Extract valid links to vacancy pages and clean their tails.
+            links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
+            return links
+        except AttributeError:
+            print(f"AttributeError occurred while scanning the URL: {link}")
 
 
 async def scan_all_search_results(query, session):
     # Schedule all search results for further asynchronous processing.
     tasks = list()
-    for page_num in range(100):
+    hh_max_pages = 40
+    for page_num in range(hh_max_pages):
         task = asyncio.create_task(scan_single_search_page(query, page_num, session))
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
@@ -73,17 +72,19 @@ async def scan_all_search_results(query, session):
 async def fetch_vacancy_page(link, session):
     # Extract vacancy description from the provided link.
     async with session.get(link) as resp:
-        try:
-            html = await resp.text()
-            soup = BeautifulSoup(html, "lxml")
-            description = soup.find(attrs={"data-qa": "vacancy-description"}).text
-            return description
-        # except AttributeError:
-        #     print(f"AttributeError occurred with the following URL: {link}")
-        #     pass
-        except ClientPayloadError:
-            print(f"ClientPayloadError occurred with the following URL: {link}")
-            pass
+        attempt = 1
+        while attempt < 10:
+            try:
+                html = await resp.text()
+                soup = BeautifulSoup(html, "lxml")
+                description = soup.find(attrs={"data-qa": "vacancy-description"}).text
+                return description
+            except AttributeError:
+                print(f"AttributeError occurred while fetching the URL: {link}")
+                attempt += 1
+            except ClientPayloadError:
+                print(f"ClientPayloadError occurred while fetching the URL: {link}")
+                attempt += 1
 
 
 async def fetch_all_vacancy_pages(all_links, session):
@@ -143,29 +144,31 @@ def unite_counts(tupled_separate_counts):
     return united_counts
 
 
-def show_skills(united_counts):
-    # Sort key, value pairs by value in descending order and slice the first 20 items.
-    sorted_counts = sorted(united_counts.items(), key=lambda x: x[1], reverse=True)[:20]
-    # for pair in sorted_counts:
-    #     print(f'"{pair[0]}" – {pair[1]}')
-    return sorted_counts
+def sort_skills(united_counts):
+    # Sort key, value pairs by value in descending order.
+    sorted_skills = sorted(united_counts.items(), key=lambda x: x[1], reverse=True)
+    return sorted_skills
 
 
 async def main(raw_query):
     async with aiohttp.ClientSession(headers={"user-agent": RANDOM_AGENT}) as session:
         query = ask_vacancy(raw_query)
         all_links = await scan_all_search_results(query, session)
-        all_descriptions = await fetch_all_vacancy_pages(all_links, session)
+
+        attempt = 1
+        while attempt < 10:
+            try:
+                all_descriptions = await fetch_all_vacancy_pages(all_links, session)
+                break
+            except OSError:
+                print(f"OSError occured on attempt {attempt}")
+                attempt += 1
+
         with Pool() as p:
             separate_counts = p.imap_unordered(
                 process_vacancy_descriptions, all_descriptions
             )
             tupled_separate_counts = tuple(separate_counts)
             united_counts = unite_counts(tupled_separate_counts)
-            sorted_counts = show_skills(united_counts)
-    return sorted_counts
-
-
-# if __name__ == "__main__":
-#     raw_query = "junior python developer"
-#     asyncio.run(main(raw_query))
+            sorted_skills = sort_skills(united_counts)
+    return sorted_skills[:20]

@@ -10,6 +10,6 @@ class SearchResultsListView(ListView):
 
     def get_queryset(self):
         raw_query = self.request.GET.get("q")
-        sorted_counts = asyncio.run(main(raw_query))
-        skills_list = sorted_counts
+        sorted_skills = asyncio.run(main(raw_query))
+        skills_list = sorted_skills
         return skills_list
