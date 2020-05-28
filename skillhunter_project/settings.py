@@ -145,6 +145,7 @@ CSP_SCRIPT_SRC = (
 CSP_FONT_SRC = (
     "'self'",
     "fonts.gstatic.com",
+    "fonts.googleapis.com",
 )
 CSP_IMG_SRC = ("'self'",)
 
