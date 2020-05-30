@@ -1,7 +1,7 @@
 import asyncio
 from django.views.generic import ListView
 
-from .scraper import main
+from .hh_scraper import main
 
 
 class SearchResultsListView(ListView):
