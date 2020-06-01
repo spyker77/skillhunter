@@ -16,6 +16,11 @@ body {
     color: #2962FF;
 }
 
+.btn-outline-primary {
+    color: #2962FF;
+    border-color: #2962FF;
+}
+
 .footer {
     position: absolute;
     bottom: 0;

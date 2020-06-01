@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Vacancy, Skill
+from .models import Vacancy, Job, Skill, Stopword
 
 
 class VacancyAdmin(admin.ModelAdmin):
@@ -13,4 +13,6 @@ class VacancyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Vacancy, VacancyAdmin)
+admin.site.register(Job)
 admin.site.register(Skill)
+admin.site.register(Stopword)

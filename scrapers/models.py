@@ -20,9 +20,31 @@ class Vacancy(models.Model):
         ]
 
 
+class Job(models.Model):
+    title = models.CharField(max_length=50)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+
 class Skill(models.Model):
     name = models.CharField(max_length=50)
     type_hard = models.BooleanField(default=True)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name
+
+
+class Stopword(models.Model):
+    LANGUAGES = (
+        ("EN", "English"),
+        ("RU", "Russian"),
+    )
+    name = models.CharField(max_length=50)
+    language = models.CharField(max_length=2, choices=LANGUAGES)
+    created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name

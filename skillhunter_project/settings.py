@@ -18,7 +18,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ["skillhunter-app.herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "skillhunter.app",
+    "skillhunter-app.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -31,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",
     "scrapers",
     "pages",
     "crispy_forms",

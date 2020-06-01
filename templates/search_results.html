@@ -5,14 +5,23 @@
 Learn this and you will be hired quickly!{% endblock description %}
 
 {% block content %}
-<h1 class="mt-5 text-center">TOP-20 most wanted hard skills for this job<br>👇</h1>
-{% for skill in skills_list %}
+
+{% if skills_dict %}
+<h1 class="mt-5 text-center">TOP-20 most wanted hard skills for
+    <br><b>{{skills_dict.vacancy_name}}</b>
+    <br>👇
+</h1>
+{% for key, value in skills_dict.skills.items %}
 <h5 class="text-center">
-    {{ skill.0 }} – <span class="badge badge-primary badge-pill  shadow-sm">{{skill.1}}</span>
+    {{ key }} – <span class="badge badge-primary badge-pill  shadow-sm">{{value}}</span>
 </h5>
-{% empty %}
-<div class="text-center">
-    <h5>Hmm, seems like we can’t determine the skills for this job...</h5>
-</div>
 {% endfor %}
+{% else %}
+<h1 class="mt-5 text-center">😩</h1>
+<p class="mt-2 mb-2 text-center text-muted">Oh no, it looks like we can’t find the skills for this job...</p>
+<div class="text-center">
+    <a class="btn btn-outline-primary rounded-pill shadow-sm" href="{% url 'home' %}" role="button">Try another</a>
+</div>
+{% endif %}
+
 {% endblock content %}
