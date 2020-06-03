@@ -3,7 +3,7 @@ import collections
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .models import Vacancy
+from .models import Vacancy, Search
 
 
 class SearchResultsListView(ListView):
@@ -13,6 +13,11 @@ class SearchResultsListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
+
+        # Save the search query for future analysis.
+        Search.objects.create(query=query)
+
+        # From here, the main skill collection process continues.
         suitable_vacancies = Vacancy.objects.filter(
             Q(title__icontains=query) & Q(content__icontains=query)
         )
@@ -28,11 +33,16 @@ class SearchResultsListView(ListView):
                     super_dict[k].append(v)
             else:
                 pass
+        # Summ skills that are the same.
         merged_skills = {k: sum(v) for k, v in super_dict.items()}
-        # Prepare the final result with extra fields for vacancy name and its quantity.
+        # Sort summed skills in descending order and slice TOP-20.
+        sorted_skills = sorted(merged_skills.items(), key=lambda x: x[1], reverse=True)[
+            :20
+        ]
+        # Prepare the final result with extra fields for the vacancy name and the number of vacancies found.
         skills_dict = {
             "vacancy_name": query,
             "number_of_vacancies": len(suitable_vacancies),
-            "skills": merged_skills,
+            "rated_skills": sorted_skills,
         }
         return skills_dict

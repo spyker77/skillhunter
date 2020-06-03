@@ -28,6 +28,14 @@ class Job(models.Model):
         return self.title
 
 
+class Search(models.Model):
+    query = models.CharField(max_length=200)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.query
+
+
 class Skill(models.Model):
     name = models.CharField(max_length=50)
     type_hard = models.BooleanField(default=True)

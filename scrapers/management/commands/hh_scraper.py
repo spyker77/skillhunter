@@ -1,8 +1,7 @@
 import re
 import random
 import asyncio
-import collections
-from multiprocessing import Pool
+from time import sleep
 
 import aiohttp
 from bs4 import BeautifulSoup
@@ -18,20 +17,11 @@ headers = {
 }
 RANDOM_AGENT = random.choice(headers["user-agent"])
 
-# Combined russian and english stopwords from nltk.
-with open("static/stopwords.txt", mode="r", encoding="utf-8") as file:
-    STOPWORDS = file.read().replace(",", "").splitlines()
 
-# List of technologies to show in the final result.
-with open("static/tech.txt", mode="r", encoding="utf-8") as file:
-    TECH = file.read().replace(",", "").splitlines()
-
-
-def ask_vacancy():
-    # Ask for vacancy to parse.
-    raw_query = input("1/5) Please, enter the job you wanna check 👉 ")
-    stripped_raw_query = raw_query.strip('"')
-    query = f'"{stripped_raw_query}"'
+def prepare_query(job_title):
+    # Prepare job title for use in the phrase search.
+    stripped = job_title.strip('"')
+    query = f'"{stripped}"'
     return query
 
 
@@ -56,7 +46,7 @@ async def scan_single_search_page(query, page_num, session):
 
 
 async def scan_all_search_results(query, session):
-    # Schedule all search results for further asynchronous processing.
+    # Schedule all search results for asynchronous processing.
     tasks = list()
     hh_max_pages = 40
     for page_num in range(hh_max_pages):
@@ -71,15 +61,18 @@ async def scan_all_search_results(query, session):
 
 
 async def fetch_vacancy_page(link, session):
-    # Extract vacancy description from the provided link.
+    # Put the link, title and content in a dict – so far without skills.
     async with session.get(link) as resp:
         attempt = 1
         while attempt < 10:
+            sleep(0.5)
             try:
                 html = await resp.text()
                 soup = BeautifulSoup(html, "lxml")
-                description = soup.find(attrs={"data-qa": "vacancy-description"}).text
-                return description
+                title = soup.find(attrs={"data-qa": "vacancy-title"}).text
+                content = soup.find(attrs={"data-qa": "vacancy-description"}).text
+                vacancy_page = {"url": link, "title": title, "content": content}
+                return vacancy_page
             except AttributeError:
                 print(f"AttributeError occurred while fetching the URL: {link}")
                 attempt += 1
@@ -89,96 +82,28 @@ async def fetch_vacancy_page(link, session):
 
 
 async def fetch_all_vacancy_pages(all_links, session):
-    # Schedule all the vacancy pages for further asynchronous processing.
+    # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
     for link in all_links:
         task = asyncio.create_task(fetch_vacancy_page(link, session))
         tasks.append(task)
-    all_descriptions = await asyncio.gather(*tasks)
-    return all_descriptions
+    vacancies_without_skills = await asyncio.gather(*tasks)
+    return vacancies_without_skills
 
 
-def process_vacancy_descriptions(description):
-    # Extract keywords from the descriptions and count each keyword.
-    counts = dict()
-    # This pattern doesn't identify phrases like "Visual Basic .NET"!
-    pattern = r"\w+\S+\w+|[a-zA-Z]+[+|#]+|\S+[a-zA-Z]|\w+"
-    if description != None:
-        separated_words = re.findall(pattern, description.casefold())
-        # Clean from the unnecessary stopwords.
-        cleaned_words = (word for word in separated_words if word not in STOPWORDS)
-        for word in cleaned_words:
-            case_insensitive_counts = (key.casefold() for key in counts)
-            case_insensitive_tech = [element.casefold() for element in TECH]
-
-            # Option 1. Rate technologies by frequency.
-            if word in case_insensitive_counts and word in case_insensitive_tech:
-                position = case_insensitive_tech.index(word)
-                counts[TECH[position]] += 1
-            elif word not in case_insensitive_counts and word in case_insensitive_tech:
-                position = case_insensitive_tech.index(word)
-                counts[TECH[position]] = 1
-            else:
-                pass
-
-            # Option 2. Identify new technologies in the entire list of words.
-            # if word in case_insensitive_counts:
-            #     counts[word] += 1
-            # else:
-            #     counts[word] = 1
-
-        return counts
-    else:
-        pass
-
-
-def unite_counts(tupled_separate_counts):
-    # Unite all the dicts created by multiprocessing.
-    super_dict = collections.defaultdict(list)
-    for count in tupled_separate_counts:
-        if count != None:
-            for k, v in count.items():
-                super_dict[k].append(v)
-        else:
-            pass
-    united_counts = {k: sum(v) for k, v in super_dict.items()}
-    return united_counts
-
-
-def sort_skills(united_counts):
-    # Sort key, value pairs by value in descending order.
-    sorted_skills = sorted(united_counts.items(), key=lambda x: x[1], reverse=True)
-    return sorted_skills
-
-
-async def main():
+async def main(job_title):
+    # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(headers={"user-agent": RANDOM_AGENT}) as session:
-        query = ask_vacancy()
-        print("2/5) Checking the job...")
+        query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
-        print(f"3/5) The number of jobs available is {len(all_links)}")
-        print("4/5) Analyzing this jobs...")
-
         attempt = 1
         while attempt < 10:
             try:
-                all_descriptions = await fetch_all_vacancy_pages(all_links, session)
+                vacancies_without_skills = await fetch_all_vacancy_pages(
+                    all_links, session
+                )
                 break
             except OSError:
                 print(f"OSError occured on attempt {attempt}")
                 attempt += 1
-
-        with Pool() as p:
-            separate_counts = p.imap_unordered(
-                process_vacancy_descriptions, all_descriptions
-            )
-            tupled_separate_counts = tuple(separate_counts)
-            united_counts = unite_counts(tupled_separate_counts)
-            sorted_skills = sort_skills(united_counts)
-            print(f"5/5) Here are the TOP-20 most demanded skills for this job:")
-            for pair in sorted_skills[:20]:
-                print(f'"{pair[0]}" – {pair[1]}')
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    return vacancies_without_skills

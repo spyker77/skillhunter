@@ -5,6 +5,7 @@ from .views import SearchResultsListView
 import pytest
 
 
+@pytest.mark.django_db
 class TestSearchResultsListView:
     @pytest.fixture
     def response(self, client):

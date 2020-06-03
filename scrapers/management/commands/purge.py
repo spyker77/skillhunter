@@ -11,3 +11,4 @@ class Command(BaseCommand):
         # Delete records older than 7 days.
         past = timezone.datetime.today() - timezone.timedelta(days=7)
         Vacancy.objects.filter(created_date__lte=past).delete()
+        self.stdout.write("Database successfully cleaned from outdated records")

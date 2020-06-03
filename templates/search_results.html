@@ -6,16 +6,20 @@ Learn this and you will be hired quickly!{% endblock description %}
 
 {% block content %}
 
-{% if skills_dict %}
+{% if skills_dict.number_of_vacancies > 0 %}
 <h1 class="mt-5 text-center">TOP-20 most wanted hard skills for
-    <br><b>{{skills_dict.vacancy_name}}</b>
+    <br><b>{{ skills_dict.vacancy_name }}</b>
     <br>👇
 </h1>
-{% for key, value in skills_dict.skills.items %}
+{% for skill in skills_dict.rated_skills %}
 <h5 class="text-center">
-    {{ key }} – <span class="badge badge-primary badge-pill  shadow-sm">{{value}}</span>
+    {{ skill.0 }} – <span class="badge badge-primary badge-pill  shadow-sm">{{ skill.1 }}</span>
 </h5>
 {% endfor %}
+<div class="text-center">
+    <span class="text-muted">Based on an analysis of {{ skills_dict.number_of_vacancies }} vacancies posted
+        over the past month.</span>
+</div>
 {% else %}
 <h1 class="mt-5 text-center">😩</h1>
 <p class="mt-2 mb-2 text-center text-muted">Oh no, it looks like we can’t find the skills for this job...</p>
