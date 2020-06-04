@@ -8,17 +8,22 @@ body {
     padding-bottom: 4.5rem;
 }
 
-.badge-primary {
-    background-color: #2962FF;
-}
-
 .navbar-brand {
     color: #2962FF;
+}
+
+.badge-primary {
+    background-color: #2962FF;
 }
 
 .btn-outline-primary {
     color: #2962FF;
     border-color: #2962FF;
+}
+
+.card {
+    border: None;
+    border-radius: 1.25rem;
 }
 
 .footer {

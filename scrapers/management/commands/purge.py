@@ -5,10 +5,10 @@ from scrapers.models import Vacancy
 
 
 class Command(BaseCommand):
-    help = "Clean database from outdated vacancies"
+    help = "Clean database from outdated vacancies."
 
     def handle(self, *args, **options):
-        # Delete records older than 7 days.
+        # Delete records older than 7 days (before scraping new data).
         past = timezone.datetime.today() - timezone.timedelta(days=7)
         Vacancy.objects.filter(created_date__lte=past).delete()
-        self.stdout.write("Database successfully cleaned from outdated records")
+        self.stdout.write("Database successfully cleaned from outdated records.")

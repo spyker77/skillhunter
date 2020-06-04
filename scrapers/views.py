@@ -1,7 +1,7 @@
 import collections
 
-from django.db.models import Q
 from django.views.generic import ListView
+from django.contrib.postgres.search import SearchVector
 
 from .models import Vacancy, Search
 
@@ -15,12 +15,12 @@ class SearchResultsListView(ListView):
         query = self.request.GET.get("q")
 
         # Save the search query for future analysis.
-        Search.objects.create(query=query)
+        # Search.objects.create(query=query)
 
         # From here, the main skill collection process continues.
-        suitable_vacancies = Vacancy.objects.filter(
-            Q(title__icontains=query) & Q(content__icontains=query)
-        )
+        suitable_vacancies = Vacancy.objects.annotate(
+            search=SearchVector("title", "content"),
+        ).filter(search=query)
         # Get skills for each vacancy and convert it from str to dict.
         rated_skills_to_merge = (
             eval(vacancy.rated_skills) for vacancy in suitable_vacancies

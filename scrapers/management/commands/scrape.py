@@ -52,20 +52,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for job_title in self.JOBS:
-            print(job_title)
-            # vacancies_without_skills = asyncio.run(main(job_title))
-            # collected_jobs = (
-            #     self.process_vacancy_content(vacancy_without_skills)
-            #     for vacancy_without_skills in vacancies_without_skills
-            # )
-            # for job in collected_jobs:
-            #     Vacancy.objects.update_or_create(
-            #         url=job["url"],
-            #         defaults={
-            #             "url": job["url"],
-            #             "title": job["title"],
-            #             "content": job["content"],
-            #             "rated_skills": job["rated_skills"],
-            #         },
-            #     )
-            # self.stdout.write(f"👍 {job_title} successfully parsed and added to DB")
+            vacancies_without_skills = asyncio.run(main(job_title))
+            collected_jobs = (
+                self.process_vacancy_content(vacancy_without_skills)
+                for vacancy_without_skills in vacancies_without_skills
+            )
+            all_jobs = (
+                Vacancy(
+                    url=job["url"],
+                    title=job["title"],
+                    content=job["content"],
+                    rated_skills=job["rated_skills"],
+                )
+                for job in collected_jobs
+            )
+            Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
+            self.stdout.write(f"👍 {job_title} 👍 – parsed and added to DB.")

@@ -16,9 +16,48 @@ Learn this and you will be hired quickly!{% endblock description %}
     {{ skill.0 }} – <span class="badge badge-primary badge-pill  shadow-sm">{{ skill.1 }}</span>
 </h5>
 {% endfor %}
-<div class="text-center">
-    <span class="text-muted">Based on an analysis of {{ skills_dict.number_of_vacancies }} vacancies posted
-        over the past month.</span>
+<div class="mt-3 mb-3 text-center">
+    <span class="text-muted">Based on an analysis of <abbr title="Examined vacancies posted over the last month.">
+            {{ skills_dict.number_of_vacancies }} vacancies.</abbr></span>
+</div>
+<h2 class="mt-5 mb-5 text-center">Still not sure where to start?
+    <br>Give these <u><b>online courses</b></u> a try!
+</h2>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card mb-3 text-center shadow">
+            <div class="card-body">
+                <h5 class="card-title">Skillshare</h5>
+                <p class="card-text">Skillshare is a learning platform with online classes taught by the
+                    world's best practitioners.</p>
+                <a href="https://www.skillshare.com/search?query={{ skills_dict.vacancy_name }}"
+                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Check out</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card mb-3 text-center shadow">
+            <div class="card-body">
+                <h5 class="card-title">Udemy</h5>
+                <p class="card-text">Udemy is an online learning and teaching marketplace with over 100000 courses and
+                    24 million students.</p>
+                <a href="https://www.udemy.com/courses/search/?q={{ skills_dict.vacancy_name }}"
+                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Try it</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card text-center shadow">
+            <div class="card-body">
+                <h5 class="card-title">edX</h5>
+                <p class="card-text">edX is a massive open online course provider created by founding partners Harvard
+                    and MIT.</p>
+                <a href="https://www.edx.org/search?q={{ skills_dict.vacancy_name }}"
+                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Take a
+                    look</a>
+            </div>
+        </div>
+    </div>
 </div>
 {% else %}
 <h1 class="mt-5 text-center">😩</h1>

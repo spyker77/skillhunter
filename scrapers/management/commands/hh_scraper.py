@@ -1,7 +1,6 @@
 import re
 import random
 import asyncio
-from time import sleep
 
 import aiohttp
 from bs4 import BeautifulSoup
@@ -65,7 +64,6 @@ async def fetch_vacancy_page(link, session):
     async with session.get(link) as resp:
         attempt = 1
         while attempt < 10:
-            sleep(0.5)
             try:
                 html = await resp.text()
                 soup = BeautifulSoup(html, "lxml")
@@ -93,7 +91,9 @@ async def fetch_all_vacancy_pages(all_links, session):
 
 async def main(job_title):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(headers={"user-agent": RANDOM_AGENT}) as session:
+    async with aiohttp.ClientSession(
+        headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
+    ) as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         attempt = 1
