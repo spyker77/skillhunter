@@ -15,39 +15,45 @@
     <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}" />
     <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/tailwind.min.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <!-- JavaScript -->
-    <script defer src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
-    <script defer src="{% static 'js/popper.min.js' %}"></script>
-    <script defer src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script defer src="{% static 'js/base.js' %}"></script>
+    <!-- <script defer src="{% static 'js/base.js' %}"></script> -->
 </head>
 
 <body>
 
-    <header>
-        <div class="navbar fixed-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white shadow-sm">
-            <a href="{% url 'home' %}" class="navbar-brand">SkillHunter</a>
-            <nav>
-                <a class="pt-4 pb-4 text-dark" href="{% url 'about' %}">About</a>
-            </nav>
-        </div>
+    <header class="z-30 relative">
+        <nav class="flex flex-wrap fixed bg-white shadow-lg p-5 w-full">
+            <div class="flex-grow text-center lg:text-left text-purple-600">
+                <a href="{% url 'home' %}" class="text-xl">SkillHunter</a>
+            </div>
+            <div class="flex-grow w-full lg:w-auto mt-2 lg:m-1">
+                <div class="text-center lg:text-right">
+                    <a href="{% url 'about' %}" class="hover:text-purple-600 transition ease-in duration-200">
+                        About
+                    </a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <main class="container pt-2 pb-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <main class="z-10 relative shadow-lg">
+        <div class="flex justify-center pt-32 pb-20 bg-white min-h-screen">
+            <div class="w-1/6"></div>
+            <div class="w-4/6">
                 {% block content %}
                 {% endblock content %}
             </div>
+            <div class="w-1/6"></div>
         </div>
     </main>
 
-    <footer class="footer p-3 px-md-4">
-        <div class="text-center">
+    <footer class="z-0 relative my-24">
+        <div class="fixed bottom-0 w-full flex justify-center bg-gray-200 p-10">
             <a href="https://github.com/spyker77" target="_blank" rel="noopener">
-                <span class="text-muted mt-2 mb-2">Crafted 🙌 in Belarus</span>
+                <span class="text-gray-600 hover:text-purple-600 transition ease-in duration-200">Crafted 🙌 in
+                    Belarus</span>
             </a>
         </div>
     </footer>

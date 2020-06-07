@@ -7,63 +7,32 @@ Learn this and you will be hired quickly!{% endblock description %}
 {% block content %}
 
 {% if skills_dict.number_of_vacancies > 0 %}
-<h1 class="mt-5 text-center">TOP-20 most wanted hard skills for
+<h1 class="text-center text-4xl font-medium pb-5">TOP-20 most wanted hard skills for
     <br><b>{{ skills_dict.vacancy_name }}</b>
-    <br>👇
+    <br><a href="#skills">👇</a>
+    <a name="skills"></a>
 </h1>
 {% for skill in skills_dict.rated_skills %}
-<h5 class="text-center">
-    {{ skill.0 }} – <span class="badge badge-primary badge-pill  shadow-sm">{{ skill.1 }}</span>
-</h5>
+<p class="text-center text-lg font-semibold pb-2">
+    {{ skill.0 }} – <span
+        class="rounded-full bg-purple-600 text-white text-sm px-3 py-1 shadow-md hover:shadow-xl transition ease-in duration-200">{{ skill.1 }}</span>
+</p>
 {% endfor %}
-<div class="mt-3 mb-3 text-center">
-    <span class="text-muted">Based on an analysis of <abbr title="Examined vacancies posted over the last month.">
-            {{ skills_dict.number_of_vacancies }} vacancies.</abbr></span>
+<div class="text-center text-gray-600 pt-3">
+    <span>(based on an analysis of <abbr class="cursor-pointer" title="Posted over the last month.">
+            {{ skills_dict.number_of_vacancies }}</abbr> vacancies)</span>
 </div>
-<h2 class="mt-5 mb-5 text-center">Still not sure where to start?
-    <br>Give these <u><b>online courses</b></u> a try!
-</h2>
-<div class="row">
-    <div class="col-sm-4">
-        <div class="card mb-3 text-center shadow">
-            <div class="card-body">
-                <h5 class="card-title">Skillshare</h5>
-                <p class="card-text">Skillshare is a learning platform with online classes taught by the
-                    world's best practitioners.</p>
-                <a href="https://www.skillshare.com/search?query={{ skills_dict.vacancy_name }}"
-                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Check out</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="card mb-3 text-center shadow">
-            <div class="card-body">
-                <h5 class="card-title">Udemy</h5>
-                <p class="card-text">Udemy is an online learning and teaching marketplace with over 100000 courses and
-                    24 million students.</p>
-                <a href="https://www.udemy.com/courses/search/?q={{ skills_dict.vacancy_name }}"
-                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Try it</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="card text-center shadow">
-            <div class="card-body">
-                <h5 class="card-title">edX</h5>
-                <p class="card-text">edX is a massive open online course provider created by founding partners Harvard
-                    and MIT.</p>
-                <a href="https://www.edx.org/search?q={{ skills_dict.vacancy_name }}"
-                    class="btn btn-outline-primary rounded-pill shadow-sm" target="_blank" rel="noopener">Take a
-                    look</a>
-            </div>
-        </div>
-    </div>
-</div>
+<h2 class="text-center text-4xl font-medium pt-12 pb-8">Still not sure where to start?
+    <br>Give these <u><b>online courses</b></u> a try!</h2>
+
+{% include "cards.html" %}
+
 {% else %}
-<h1 class="mt-5 text-center">😩</h1>
-<p class="mt-2 mb-2 text-center text-muted">Oh no, it looks like we can’t find the skills for this job...</p>
+<h1 class="text-center text-4xl pb-5">😩</h1>
+<p class="text-center text-gray-600 pb-8">Oh no, it looks like we can’t find the skills for this job...</p>
 <div class="text-center">
-    <a class="btn btn-outline-primary rounded-pill shadow-sm" href="{% url 'home' %}" role="button">Try another</a>
+    <a class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-4 border border-purple-600 hover:border-transparent rounded-full shadow-lg hover:shadow-2xl transition ease-in duration-200"
+        href="{% url 'home' %}" role="button">Try another</a>
 </div>
 {% endif %}
 

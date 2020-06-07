@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     SKILLS = [skill.name for skill in Skill.objects.all()]
     STOPWORDS = [stopword.name for stopword in Stopword.objects.all()]
-    JOBS = (job.title for job in Job.objects.all())
+    JOBS = [job.title for job in Job.objects.all()]
 
     def process_vacancy_content(self, vacancy_without_skills):
         # Extract keywords from the content of the vacancy and count each keyword.

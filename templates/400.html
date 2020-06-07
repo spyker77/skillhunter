@@ -5,11 +5,12 @@
 framing, or deceptive request routing.{% endblock description %}
 
 {% block content %}
-<h1 class="mt-5 text-center">Aaaaaghhh!</h1>
-<p class="mt-2 mb-2 text-center text-muted">Looks like there is something wrong with the request... How about trying
+<h1 class="text-center text-4xl font-medium pb-5">Aaaaaghhh!</h1>
+<p class="text-center text-gray-600 pb-8">Looks like there is something wrong with the request... How about trying
     again on the home page?</p>
 <div class="text-center">
-    <a class="btn btn-outline-primary text-center rounded-pill shadow-sm" href="{% url 'home' %}" role="button">Try
+    <a class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-4 border border-purple-600 hover:border-transparent rounded-full shadow-lg hover:shadow-2xl transition ease-in duration-200"
+        href="{% url 'home' %}" role="button">Try
         again</a>
 </div>
 {% endblock content %}

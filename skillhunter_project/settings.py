@@ -25,6 +25,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
+SITE_ID = 1
 
 # Application definition
 
@@ -37,10 +38,13 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "scrapers",
     "pages",
     "crispy_forms",
     "debug_toolbar",
+    "robots",
 ]
 
 MIDDLEWARE = [
@@ -136,7 +140,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Content-Security-Policy settings for django-csp
-CSP_DEFAULT_SRC = ("'none'",)
+CSP_DEFAULT_SRC = ("'self'",)
 CSP_STYLE_SRC = (
     "'self'",
     "fonts.googleapis.com",

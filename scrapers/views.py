@@ -1,3 +1,4 @@
+import os
 import collections
 
 from django.views.generic import ListView
@@ -15,7 +16,9 @@ class SearchResultsListView(ListView):
         query = self.request.GET.get("q")
 
         # Save the search query for future analysis.
-        # Search.objects.create(query=query)
+        ENVIRONMENT = os.environ.get("ENVIRONMENT")
+        if ENVIRONMENT == "production":
+            Search.objects.create(query=query)
 
         # From here, the main skill collection process continues.
         suitable_vacancies = Vacancy.objects.annotate(
