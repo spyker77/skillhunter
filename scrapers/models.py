@@ -27,6 +27,9 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ["title"]
+
 
 class Search(models.Model):
     query = models.CharField(max_length=200)
@@ -44,6 +47,9 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Stopword(models.Model):
     LANGUAGES = (
@@ -56,3 +62,6 @@ class Stopword(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["name"]

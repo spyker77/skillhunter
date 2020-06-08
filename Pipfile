@@ -21,6 +21,7 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 django-robots = "*"
+flashtext = "*"
 
 [requires]
 python_version = "3.8.3"

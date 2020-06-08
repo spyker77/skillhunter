@@ -1,9 +1,11 @@
 import re
 import random
 import asyncio
+from collections import Counter
 
 import aiohttp
 from bs4 import BeautifulSoup
+from flashtext import KeywordProcessor
 from aiohttp.client_exceptions import ClientPayloadError
 
 
@@ -28,6 +30,7 @@ async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {
         "text": query,
+        "search_period": 7,
         "page": page_num,
     }
     async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
@@ -89,7 +92,25 @@ async def fetch_all_vacancy_pages(all_links, session):
     return vacancies_without_skills
 
 
-async def main(job_title):
+def process_vacancy_content(vacancy_without_skills, SKILLS):
+    # Extract keywords from the content of the vacancy and count each keyword.
+    content = vacancy_without_skills["content"]
+    if content != None:
+        keyword_processor = KeywordProcessor()
+        for skill in SKILLS:
+            keyword_processor.add_keyword(skill)
+        keywords_found = keyword_processor.extract_keywords(content)
+
+        counts = dict(Counter(keywords_found))
+        skills = {"rated_skills": counts}
+        vacancy_plus_skills = vacancy_without_skills.copy()
+        vacancy_plus_skills.update(skills)
+        return vacancy_plus_skills
+    else:
+        pass
+
+
+async def main(job_title, SKILLS):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
         headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
@@ -106,4 +127,8 @@ async def main(job_title):
             except OSError:
                 print(f"OSError occured on attempt {attempt}")
                 attempt += 1
-    return vacancies_without_skills
+        collected_jobs = (
+            process_vacancy_content(vacancy_without_skills, SKILLS)
+            for vacancy_without_skills in vacancies_without_skills
+        )
+    return collected_jobs
