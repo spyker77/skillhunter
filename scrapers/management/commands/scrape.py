@@ -1,17 +1,17 @@
-import re
 import asyncio
 from django.core.management.base import BaseCommand
 
 from .hh_scraper import main
-from scrapers.models import Vacancy, Job, Skill, Stopword
+from scrapers.models import Vacancy, Job, Skill
 
 
 class Command(BaseCommand):
     help = "Scan job websites and analyze available IT vacancies."
 
-    SKILLS = [skill.name for skill in Skill.objects.all()]
-    # STOPWORDS = [stopword.name for stopword in Stopword.objects.all()]
     JOBS = [job.title for job in Job.objects.all()]
+    SKILLS = {
+        skill.clean_name: eval(skill.unclean_names) for skill in Skill.objects.all()
+    }
 
     def handle(self, *args, **options):
         for job_title in self.JOBS:

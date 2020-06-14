@@ -92,15 +92,11 @@ async def fetch_all_vacancy_pages(all_links, session):
     return vacancies_without_skills
 
 
-def process_vacancy_content(vacancy_without_skills, SKILLS):
+def process_vacancy_content(vacancy_without_skills, keyword_processor):
     # Extract keywords from the content of the vacancy and count each keyword.
     content = vacancy_without_skills["content"]
     if content != None:
-        keyword_processor = KeywordProcessor()
-        for skill in SKILLS:
-            keyword_processor.add_keyword(skill)
         keywords_found = keyword_processor.extract_keywords(content)
-
         counts = dict(Counter(keywords_found))
         skills = {"rated_skills": counts}
         vacancy_plus_skills = vacancy_without_skills.copy()
@@ -127,8 +123,10 @@ async def main(job_title, SKILLS):
             except OSError:
                 print(f"OSError occured on attempt {attempt}")
                 attempt += 1
+        keyword_processor = KeywordProcessor()
+        keyword_processor.add_keywords_from_dict(SKILLS)
         collected_jobs = (
-            process_vacancy_content(vacancy_without_skills, SKILLS)
+            process_vacancy_content(vacancy_without_skills, keyword_processor)
             for vacancy_without_skills in vacancies_without_skills
         )
     return collected_jobs

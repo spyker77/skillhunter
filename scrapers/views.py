@@ -1,5 +1,5 @@
 import os
-import collections
+from collections import defaultdict
 
 from django.views.generic import ListView
 from django.contrib.postgres.search import SearchVector
@@ -29,7 +29,7 @@ class SearchResultsListView(ListView):
             eval(vacancy.rated_skills) for vacancy in suitable_vacancies
         )
         # Combine skills from all suitable vacancies into one dict.
-        super_dict = collections.defaultdict(list)
+        super_dict = defaultdict(list)
         for rated_skills in rated_skills_to_merge:
             if rated_skills != None:
                 for k, v in rated_skills.items():

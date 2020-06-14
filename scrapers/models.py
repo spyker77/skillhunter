@@ -15,6 +15,7 @@ class Vacancy(models.Model):
         return self.title
 
     class Meta:
+        verbose_name_plural = "Vacancies"
         indexes = [
             models.Index(fields=["id"], name="id_index"),
         ]
@@ -38,30 +39,17 @@ class Search(models.Model):
     def __str__(self):
         return self.query
 
+    class Meta:
+        verbose_name_plural = "Searches"
+
 
 class Skill(models.Model):
-    name = models.CharField(max_length=50)
-    type_hard = models.BooleanField(default=True)
+    clean_name = models.CharField(max_length=50)
+    unclean_names = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return self.clean_name
 
     class Meta:
-        ordering = ["name"]
-
-
-class Stopword(models.Model):
-    LANGUAGES = (
-        ("EN", "English"),
-        ("RU", "Russian"),
-    )
-    name = models.CharField(max_length=50)
-    language = models.CharField(max_length=2, choices=LANGUAGES)
-    created_date = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
+        ordering = ["clean_name"]
