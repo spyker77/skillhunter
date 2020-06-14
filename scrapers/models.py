@@ -17,7 +17,7 @@ class Vacancy(models.Model):
     class Meta:
         verbose_name_plural = "Vacancies"
         indexes = [
-            models.Index(fields=["id"], name="id_index"),
+            models.Index(fields=["title", "content"]),
         ]
 
 
