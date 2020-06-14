@@ -1,0 +1,5101 @@
+[{
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": ".NET",
+        "unclean_names": "['.net', 'net']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "1C",
+        "unclean_names": "['1c']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "2GIS",
+        "unclean_names": "['2gis', '2 gis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "3ds Max",
+        "unclean_names": "['3ds max', '3d max', '3dmax', 'autodesk 3d', 'autodesk 3ds']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "8base",
+        "unclean_names": "['8base']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "A/B testing",
+        "unclean_names": "['a/b', 'a b', 'a-b']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ACID",
+        "unclean_names": "['acid']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ADO.NET",
+        "unclean_names": "['ado.net', 'entityframework', 'entity framework']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AI",
+        "unclean_names": "['ai', 'artificial intelligence']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AIX",
+        "unclean_names": "['aix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ALM",
+        "unclean_names": "['alm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AMQP",
+        "unclean_names": "['amqp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AOP",
+        "unclean_names": "['aop']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AOSP",
+        "unclean_names": "['aosp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AR/VR",
+        "unclean_names": "['ar/vr', 'vr/ar', 'arvr', 'vrar', 'ar', 'vr']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ARIS",
+        "unclean_names": "['aris']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ARKit",
+        "unclean_names": "['arkit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ARPU",
+        "unclean_names": "['arppu', 'arpu']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ASO",
+        "unclean_names": "['aso', 'app store optimization']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ASOdesk",
+        "unclean_names": "['asodesk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ASP.NET",
+        "unclean_names": "['asp.net']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AWK",
+        "unclean_names": "['awk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AWS",
+        "unclean_names": "['aws', 'amazon web services']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AWS CloudFormation",
+        "unclean_names": "['cloudformation', 'cloud formation']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AWS IAM",
+        "unclean_names": "['iam']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AWS Lambda",
+        "unclean_names": "['lambda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Acceptance testing",
+        "unclean_names": "['acceptance testing', 'acceptance tests']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ActionScript",
+        "unclean_names": "['actionscript']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AdScale",
+        "unclean_names": "['adscale']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Admitad",
+        "unclean_names": "['admitad']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Acrobat",
+        "unclean_names": "['acrobat']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe After Effects",
+        "unclean_names": "['after effects', 'aftereffects']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Animate",
+        "unclean_names": "['adobe animate']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Audition",
+        "unclean_names": "['adobe audition']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Dreamweaver",
+        "unclean_names": "['dreamweaver', 'dream weaver']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Illustrator",
+        "unclean_names": "['adobe illustrator']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe InCopy",
+        "unclean_names": "['incopy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe InDesign",
+        "unclean_names": "['indesign']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Lightroom",
+        "unclean_names": "['lightroom']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Photoshop",
+        "unclean_names": "['photoshop']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe Premiere",
+        "unclean_names": "['premiere']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Adobe XD",
+        "unclean_names": "['xd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Affinity",
+        "unclean_names": "['affinity']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Affise",
+        "unclean_names": "['affise']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Agile",
+        "unclean_names": "['agile']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ahrefs",
+        "unclean_names": "['ahrefs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ajax",
+        "unclean_names": "['ajax']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Akka",
+        "unclean_names": "['akka']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Alamofire",
+        "unclean_names": "['alamofire']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Alfresco",
+        "unclean_names": "['alfresco']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Allure",
+        "unclean_names": "['allure']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Altium Designer",
+        "unclean_names": "['altium']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon Cognito",
+        "unclean_names": "['cognito']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon EC2",
+        "unclean_names": "['ec2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon ECS",
+        "unclean_names": "['ecs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon Kinesis",
+        "unclean_names": "['kinesis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon RDS",
+        "unclean_names": "['rds']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon Redshift",
+        "unclean_names": "['redshift']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon S3",
+        "unclean_names": "['s3']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon SNS",
+        "unclean_names": "['sns']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon SQS",
+        "unclean_names": "['sqs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amazon VPC",
+        "unclean_names": "['vpc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Amplitude",
+        "unclean_names": "['amplitude']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Android Debug Bridge",
+        "unclean_names": "['android debug bridge', 'adb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Angular",
+        "unclean_names": "['angular', 'angularjs', 'angular.js', 'angular2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ansible",
+        "unclean_names": "['ansible']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AnyLogic",
+        "unclean_names": "['anylogic']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache",
+        "unclean_names": "['apache server']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache ActiveMQ",
+        "unclean_names": "['activemq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Airflow",
+        "unclean_names": "['airflow']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache CXF",
+        "unclean_names": "['cxf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Cassandra",
+        "unclean_names": "['cassandra', 'casandra']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Flink",
+        "unclean_names": "['flink']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Hive",
+        "unclean_names": "['hive']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Ignite",
+        "unclean_names": "['ignite']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Impala",
+        "unclean_names": "['impala']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache JMeter",
+        "unclean_names": "['jmeter']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Kafka",
+        "unclean_names": "['kafka']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Maven",
+        "unclean_names": "['maven']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache NiFi",
+        "unclean_names": "['nifi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Oozie",
+        "unclean_names": "['oozie']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Parquet",
+        "unclean_names": "['parquet']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Solr",
+        "unclean_names": "['solr']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apache Spark",
+        "unclean_names": "['spark']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Apollo GraphQL",
+        "unclean_names": "['apollo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "App Annie",
+        "unclean_names": "['appannie', 'appanie', 'app annie', 'app anie']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppFollow",
+        "unclean_names": "['appfollow', 'app follow']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppLovin",
+        "unclean_names": "['applovin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppMetrica",
+        "unclean_names": "['appmetrica', 'app metrica']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppSee",
+        "unclean_names": "['appsee', 'app see']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppTweak",
+        "unclean_names": "['apptweak', 'app tweak']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Appium",
+        "unclean_names": "['appium']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AppsFlyer",
+        "unclean_names": "['appsflyer', 'apps flyer']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ArcGIS",
+        "unclean_names": "['arcgis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ArchiMate",
+        "unclean_names": "['archimate']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Artifactory",
+        "unclean_names": "['artifactory', 'arti factory']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Asana",
+        "unclean_names": "['asana', 'assana']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Aspose.Words",
+        "unclean_names": "['aspose.words', 'aspose']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Asterisk",
+        "unclean_names": "['asterisk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Async/await",
+        "unclean_names": "['async/await', 'async-await', 'async await']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "AutoCAD",
+        "unclean_names": "['autocad']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Autodesk Maya",
+        "unclean_names": "['maya']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Autoprefixer",
+        "unclean_names": "['autoprefixer']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Axure RP",
+        "unclean_names": "['axure']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Azure Service Fabric",
+        "unclean_names": "['service fabric', 'servicefabric']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BABOK",
+        "unclean_names": "['babok']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BAPI",
+        "unclean_names": "['bapi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BDD",
+        "unclean_names": "['bdd', 'behavior driven development', 'behavior-driven']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BGP",
+        "unclean_names": "['bgp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BLAST",
+        "unclean_names": "['blast']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BPMN",
+        "unclean_names": "['bpmn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BPMS",
+        "unclean_names": "['bpms']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BPO",
+        "unclean_names": "['bpo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Babel",
+        "unclean_names": "['babel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Backbone.js",
+        "unclean_names": "['backbone.js', 'backbonejs', 'backbone']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Balsamiq",
+        "unclean_names": "['balsamiq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Bamboo",
+        "unclean_names": "['bamboo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Bash",
+        "unclean_names": "['bash']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "BeautifulSoup",
+        "unclean_names": "['beautifulsoup', 'beautiful soup']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Behance",
+        "unclean_names": "['behance']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Bitbucket",
+        "unclean_names": "['bitbucket']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Bitrix",
+        "unclean_names": "['bitrix', 'bitrix24', '\u0431\u0438\u0442\u0440\u0438\u043a\u0441']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Blend4Web",
+        "unclean_names": "['blend4web']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Blender",
+        "unclean_names": "['blender']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Bootstrap",
+        "unclean_names": "['bootstrap', 'bootstrap4']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Burp Suite",
+        "unclean_names": "['burp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Butter Knife",
+        "unclean_names": "['butter knife', 'butterknife']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "C",
+        "unclean_names": "['c']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "C#",
+        "unclean_names": "['c#', 'c #', 'c sharp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "C++",
+        "unclean_names": "['c++', 'c ++', 'c++14', 'c++17', 'c++11', 'c++14/17']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "C3D Toolkit",
+        "unclean_names": "['c3d']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CDH",
+        "unclean_names": "['cdh']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CDI",
+        "unclean_names": "['cdi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CFA",
+        "unclean_names": "['cfa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CFD",
+        "unclean_names": "['cfd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CI/CD",
+        "unclean_names": "['cd', 'ci/cd', 'cd/ci', 'ci\\\\cd', 'cd\\\\ci', 'cicd', 'ci-cd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CIM",
+        "unclean_names": "['cim']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CJM",
+        "unclean_names": "['cjm', 'customer journey']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CLR",
+        "unclean_names": "['clr']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CMake",
+        "unclean_names": "['cmake']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CNN",
+        "unclean_names": "['cnn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CPA",
+        "unclean_names": "['cpa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CPC",
+        "unclean_names": "['cpc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CPI",
+        "unclean_names": "['cpi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CPL",
+        "unclean_names": "['cpl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CQRS",
+        "unclean_names": "['cqrs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CS-Cart",
+        "unclean_names": "['cs-cart', 'cscart', 'cs cart']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CSS",
+        "unclean_names": "['css', 'css3']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CSV",
+        "unclean_names": "['csv']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CUDA",
+        "unclean_names": "['cuda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CakePHP",
+        "unclean_names": "['cakephp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Camunda",
+        "unclean_names": "['camunda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CanvasJS",
+        "unclean_names": "['canvasjs', 'canvas.js', 'canvas']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Capistrano",
+        "unclean_names": "['capistrano']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Capybara",
+        "unclean_names": "['capybara']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Celery",
+        "unclean_names": "['celery']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CentOS",
+        "unclean_names": "['centos']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Centrifugo",
+        "unclean_names": "['centrifugo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ceph",
+        "unclean_names": "['ceph']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cg",
+        "unclean_names": "['cg']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Chai",
+        "unclean_names": "['chai']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Chef",
+        "unclean_names": "['chef']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Chromium",
+        "unclean_names": "['chromium']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Churn rate",
+        "unclean_names": "['churn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CircleCI",
+        "unclean_names": "['circleci', 'circle ci']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cisco AnyConnect",
+        "unclean_names": "['anyconnect']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cisco Webex",
+        "unclean_names": "['webex']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Clang",
+        "unclean_names": "['clang']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ClickHouse",
+        "unclean_names": "['clickhouse', 'click house']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Clojure",
+        "unclean_names": "['clojure']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CloudLinux",
+        "unclean_names": "['cloudlinux', 'cloud linux']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cocoa",
+        "unclean_names": "['cocoa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CocoaPods",
+        "unclean_names": "['cocoapods']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cocos2d",
+        "unclean_names": "['cocos2d']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CodeIgniter",
+        "unclean_names": "['codeigniter', 'code igniter']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Composer",
+        "unclean_names": "['composer']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Confluence",
+        "unclean_names": "['confluence']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cordova",
+        "unclean_names": "['cordova']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Corel Photo-Paint",
+        "unclean_names": "['photo-paint', 'corelphoto-paint']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CorelDRAW",
+        "unclean_names": "['coreldraw']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Creatio",
+        "unclean_names": "['creatio']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Crowdin",
+        "unclean_names": "['crowdin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Crucible",
+        "unclean_names": "['crucible']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CryEngine",
+        "unclean_names": "['cryengine']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cube.js",
+        "unclean_names": "['cube.js', 'cubejs', 'cube js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cucumber",
+        "unclean_names": "['cucumber']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "CustDev",
+        "unclean_names": "['custdev', 'customer development']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Cypress",
+        "unclean_names": "['cypress']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "D",
+        "unclean_names": "['d']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "D3.js",
+        "unclean_names": "['d3.js', 'd3 js', 'd3js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DAU",
+        "unclean_names": "['dau']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DB2",
+        "unclean_names": "['db2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DCImanager",
+        "unclean_names": "['dci manager', 'dcimanager']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DDD",
+        "unclean_names": "['domain-driven design', 'ddd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DFD",
+        "unclean_names": "['dfd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DHCP",
+        "unclean_names": "['dhcp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DLP",
+        "unclean_names": "['dlp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DML",
+        "unclean_names": "['dml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DMP",
+        "unclean_names": "['dmp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DSO",
+        "unclean_names": "['dso']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DSP",
+        "unclean_names": "['dsp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DSS",
+        "unclean_names": "['dss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Dagger",
+        "unclean_names": "['dagger', 'dagger2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Dart",
+        "unclean_names": "['dart']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Databricks",
+        "unclean_names": "['databricks']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Datadog",
+        "unclean_names": "['datadog', 'data dog']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Datalore",
+        "unclean_names": "['batalore']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Debian",
+        "unclean_names": "['debian']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Deep Learning",
+        "unclean_names": "['deep learning', 'deeplearning']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Defold",
+        "unclean_names": "['defold']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Delphi",
+        "unclean_names": "['delphi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DevExpress",
+        "unclean_names": "['devexpress']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DigitalOcean",
+        "unclean_names": "['digitalocean', 'digital ocean']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DirectX",
+        "unclean_names": "['directx', 'direct x']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Django",
+        "unclean_names": "['django']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Django REST framework",
+        "unclean_names": "['django rest framework', 'drf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Docker",
+        "unclean_names": "['docker']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Docker Swarm",
+        "unclean_names": "['swarm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DoubleClick",
+        "unclean_names": "['doubleclick', 'double click']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Dovecot",
+        "unclean_names": "['dovecot']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Draw.io",
+        "unclean_names": "['draw.io', 'drawio', 'draw io']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Dribbble",
+        "unclean_names": "['dribbble', 'dribble']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "DriverPack Solution",
+        "unclean_names": "['driverpack', 'driver pack']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Drupal",
+        "unclean_names": "['drupal']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "E2E testing",
+        "unclean_names": "['e2e test', 'e2e tests', 'e2e testing', 'end-to-end test', 'end-to-end tests', 'end-to-end testing']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ECM",
+        "unclean_names": "['ecm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ECMAScript",
+        "unclean_names": "['ecmascript', 'ecma script']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "EDI",
+        "unclean_names": "['edi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "EJB",
+        "unclean_names": "['EJB', 'javabeans', 'java beans']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ELMA",
+        "unclean_names": "['elma']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ERD",
+        "unclean_names": "['erd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ERM",
+        "unclean_names": "['erm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ES10",
+        "unclean_names": "['es10', 'es 10']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ES5",
+        "unclean_names": "['es5', 'es 5']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ES6",
+        "unclean_names": "['es6', 'es 6']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ES7",
+        "unclean_names": "['es7', 'es 7']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ESB",
+        "unclean_names": "['esb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ESLint",
+        "unclean_names": "['eslint', 'es lint']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ETL",
+        "unclean_names": "['etl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Eclipse",
+        "unclean_names": "['eclipse']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "EclipseLink",
+        "unclean_names": "['eclipselink', 'eclipse link']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Elasticsearch",
+        "unclean_names": "['elasticsearch', 'elastic search', 'elasticksearch', 'elastiksearch']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Electron",
+        "unclean_names": "['electron']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Elixir",
+        "unclean_names": "['elixir']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Enzyme",
+        "unclean_names": "['enzyme']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Erlang",
+        "unclean_names": "['erlang']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ethereum",
+        "unclean_names": "['ethereum']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Evernote",
+        "unclean_names": "['evernote']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Exonum",
+        "unclean_names": "['exonum']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Express.js",
+        "unclean_names": "['express.js', 'expressjs', 'express js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ext JS",
+        "unclean_names": "['ext', 'extjs', 'ext.js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "F#",
+        "unclean_names": "['f#', 'f #', 'f sharp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FFmpeg",
+        "unclean_names": "['ffmpeg']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FPM",
+        "unclean_names": "['fastcgi', 'fpm', 'php-fpm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FTP",
+        "unclean_names": "['ftp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FUSE",
+        "unclean_names": "['fuse']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Facebook ads",
+        "unclean_names": "['facebook ads']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Falcon",
+        "unclean_names": "['falcon']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FastAPI",
+        "unclean_names": "['fastapi', 'fast api']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Fiddler",
+        "unclean_names": "['fiddler']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Figma",
+        "unclean_names": "['figma']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Firebase",
+        "unclean_names": "['firebase']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Firebase Crashlytics",
+        "unclean_names": "['crashlytics']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Firebird",
+        "unclean_names": "['firebird', 'firebirdsql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Five9",
+        "unclean_names": "['five9']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Flask",
+        "unclean_names": "['flask']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Flexbox",
+        "unclean_names": "['flex', 'flexbox']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Flixir",
+        "unclean_names": "['flixir']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Fluentd",
+        "unclean_names": "['fluentd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Flurry",
+        "unclean_names": "['flurry', 'flury']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Flutter",
+        "unclean_names": "['flutter', 'fluter']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FreeBSD",
+        "unclean_names": "['freebsd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FreePBX",
+        "unclean_names": "['freepbx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "FreeSWITCH",
+        "unclean_names": "['freeswitch']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Functional testing",
+        "unclean_names": "['functional tests', 'functional testing']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GAAP",
+        "unclean_names": "['gaap']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GCD",
+        "unclean_names": "['gcd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GDPR",
+        "unclean_names": "['gdpr']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GIMP",
+        "unclean_names": "['gimp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GNS",
+        "unclean_names": "['gns', 'gns3']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GNU Debugger",
+        "unclean_names": "['gnu debugger', 'gdb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GOSU.AI",
+        "unclean_names": "['gosu', 'gosu.ai']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GRC",
+        "unclean_names": "['grc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Gatling",
+        "unclean_names": "['gatling']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Gekko",
+        "unclean_names": "['gekko']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Gherkin",
+        "unclean_names": "['gherkin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Git",
+        "unclean_names": "['git']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GitFlow",
+        "unclean_names": "['gitflow', 'git-flow', 'git flow']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GitHub",
+        "unclean_names": "['github']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GitLab",
+        "unclean_names": "['gitlab', 'gitlab-ci', 'gitlabci']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GlassFish",
+        "unclean_names": "['glassfish', 'glass fish']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Glide",
+        "unclean_names": "['glide']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Golang",
+        "unclean_names": "['go', 'golang']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Ads",
+        "unclean_names": "['google ads', 'adwords', 'google.adwords', 'google-adwords']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Analytics",
+        "unclean_names": "['ga', 'google analytics', 'google.analytics', 'google-analytics']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Cloud",
+        "unclean_names": "['google cloud', 'gcp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Compute Engine",
+        "unclean_names": "['gce']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Guice",
+        "unclean_names": "['guice']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Search Console",
+        "unclean_names": "['search console']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Tag Manager",
+        "unclean_names": "['tag manager', 'gtm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Google Web Toolkit",
+        "unclean_names": "['google web toolkit', 'gwt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Gradle",
+        "unclean_names": "['gradle']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Grafana",
+        "unclean_names": "['grafana']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GraphQL",
+        "unclean_names": "['graphql', 'graph ql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Graphite",
+        "unclean_names": "['graphite']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Graylog",
+        "unclean_names": "['graylog']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Greenplum Database",
+        "unclean_names": "['greenplum']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Grid",
+        "unclean_names": "['grid', 'cssgrid', 'gridcss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "GridGain",
+        "unclean_names": "['gridgain']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Groovy",
+        "unclean_names": "['groovy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Grunt",
+        "unclean_names": "['grunt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Gson",
+        "unclean_names": "['gson']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HBase",
+        "unclean_names": "['hbase']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HCM",
+        "unclean_names": "['hcm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HIG",
+        "unclean_names": "['hig']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HLD",
+        "unclean_names": "['hld']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HLS",
+        "unclean_names": "['hls']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HMI",
+        "unclean_names": "['hmi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HTML",
+        "unclean_names": "['html', 'html5']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HTTP",
+        "unclean_names": "['http']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HTTPS",
+        "unclean_names": "['https', 'http/s']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hadoop",
+        "unclean_names": "['hadoop', 'hdfs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hamcrest",
+        "unclean_names": "['hamcrest']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Haskell",
+        "unclean_names": "['haskell']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hazelcast",
+        "unclean_names": "['hazelcast']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Helm",
+        "unclean_names": "['helm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Heroku",
+        "unclean_names": "['heroku']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hibernate",
+        "unclean_names": "['hibernate']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hierarchical NSW",
+        "unclean_names": "['hnsw']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Houdini",
+        "unclean_names": "['houdini']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "HubSpot",
+        "unclean_names": "['hubspot']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hyperledger",
+        "unclean_names": "['hyperledger', 'hyper ledger']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Hypervisor",
+        "unclean_names": "['hypervisor', 'hyper visor']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "I2C",
+        "unclean_names": "['i2c']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IBM Cloud",
+        "unclean_names": "['ibm cloud']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IDA Pro",
+        "unclean_names": "['ida']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IDEF",
+        "unclean_names": "['idef', 'idef0']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IDEF1X",
+        "unclean_names": "['idef1x']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IDEF3",
+        "unclean_names": "['idef3']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IDoc",
+        "unclean_names": "['idoc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IFRS",
+        "unclean_names": "['ifrs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IIS",
+        "unclean_names": "['iis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IMS",
+        "unclean_names": "['ims']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IPC",
+        "unclean_names": "['ipc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IPsec",
+        "unclean_names": "['ipsec']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IQVIA",
+        "unclean_names": "['iqvia']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ISPsystem",
+        "unclean_names": "['ispsystem', 'isp system']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ISpring Suite",
+        "unclean_names": "['ispring']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ITSM",
+        "unclean_names": "['itsm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Imunify360",
+        "unclean_names": "['imunify360', 'imunify']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "InfluxDB",
+        "unclean_names": "['influxdb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Integration testing",
+        "unclean_names": "['integration testing', 'integration test', 'integration tests']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "IntelliJ",
+        "unclean_names": "['intellij']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ionic",
+        "unclean_names": "['ionic']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Iptables",
+        "unclean_names": "['iptables']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Istio",
+        "unclean_names": "['istio']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JAX-RS",
+        "unclean_names": "['jax-rs', 'jax rs', 'jaxrs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JAX-WS",
+        "unclean_names": "['jax-ws', 'jax ws', 'jaxws']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JAXB",
+        "unclean_names": "['jaxb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JDBC",
+        "unclean_names": "['jdbc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JIRA",
+        "unclean_names": "['jira']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JNI",
+        "unclean_names": "['jni']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JOOQ",
+        "unclean_names": "['jooq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JPA",
+        "unclean_names": "['jpa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JSON",
+        "unclean_names": "['json']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JSON Web Token",
+        "unclean_names": "['jwt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JSP",
+        "unclean_names": "['jsp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JTBD",
+        "unclean_names": "['jtbd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JUnit",
+        "unclean_names": "['junit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jaeger",
+        "unclean_names": "['jaeger']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jakarta EE",
+        "unclean_names": "['jee', 'j2ee', 'jakarta', 'javaee']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jasmine",
+        "unclean_names": "['jasmine']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JasperReports",
+        "unclean_names": "['jasperreports', 'jasper']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java",
+        "unclean_names": "['java', 'j2se', 'java8', 'java11']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java Development Kit",
+        "unclean_names": "['jdk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java Memory Model",
+        "unclean_names": "['jmm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java Message Service",
+        "unclean_names": "['jms']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java Transaction API",
+        "unclean_names": "['jta']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Java Virtual Machine",
+        "unclean_names": "['jvm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JavaScript",
+        "unclean_names": "['javascript', 'js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "JavaServer Faces",
+        "unclean_names": "['jsf', 'javaserver faces']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jenkins",
+        "unclean_names": "['jenkins']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jest",
+        "unclean_names": "['jest']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jetty",
+        "unclean_names": "['jetty']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Joomla!",
+        "unclean_names": "['joomla!', 'joomla']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Juniper Networks",
+        "unclean_names": "['juniper']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Jupyter",
+        "unclean_names": "['jupyter']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "KVM",
+        "unclean_names": "['kvm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kaizen",
+        "unclean_names": "['kaizen']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kanban",
+        "unclean_names": "['kanban', 'kan ban']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Karma",
+        "unclean_names": "['karma']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Katalon",
+        "unclean_names": "['katalon']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Keras",
+        "unclean_names": "['keras']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kerberos",
+        "unclean_names": "['kerberos']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Keycloack",
+        "unclean_names": "['keycloack']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kibana",
+        "unclean_names": "['kibana']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Knockout.js",
+        "unclean_names": "['knockout.js', 'knockoutjs', 'knockout js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Koa",
+        "unclean_names": "['koa', 'koa.js', 'koajs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kotlin",
+        "unclean_names": "['kotlin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Krita",
+        "unclean_names": "['krita']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Kubernetes",
+        "unclean_names": "['kubernetes', 'k8s']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LDAP",
+        "unclean_names": "['ldap']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LINQ",
+        "unclean_names": "['linq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LLVM",
+        "unclean_names": "['llvm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LMS",
+        "unclean_names": "['lms']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Laravel",
+        "unclean_names": "['laravel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Lean",
+        "unclean_names": "['lean']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Lerna",
+        "unclean_names": "['lerna']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LESS",
+        "unclean_names": "['les', 'less']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Liferay",
+        "unclean_names": "['liferay']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Linux",
+        "unclean_names": "['linux']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LiveData",
+        "unclean_names": "['livedata']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "LoadRunner",
+        "unclean_names": "['loadrunner']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Locality-sensitive hashing",
+        "unclean_names": "['lsh']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Lodash",
+        "unclean_names": "['lodash']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Lucene",
+        "unclean_names": "['lucene']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Luigi",
+        "unclean_names": "['luigi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MATLAB",
+        "unclean_names": "['matlab', 'mat lab']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MAU",
+        "unclean_names": "['mau']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MDM",
+        "unclean_names": "['mdm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MDX",
+        "unclean_names": "['mdx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ML",
+        "unclean_names": "['ml', 'machine learning', 'ml/dl', 'dl/ml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MODX",
+        "unclean_names": "['modx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MPLS",
+        "unclean_names": "['mpls']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MQTT",
+        "unclean_names": "['mqtt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MVC",
+        "unclean_names": "['mvc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MVI",
+        "unclean_names": "['mvi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MVVM",
+        "unclean_names": "['mvvm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Magento",
+        "unclean_names": "['magento']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MailChimp",
+        "unclean_names": "['mailchimp', 'mail chimp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MariaDB",
+        "unclean_names": "['mariadb', 'maria']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Material-UI",
+        "unclean_names": "['material-ui', 'materialui', 'material ui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Matplotlib",
+        "unclean_names": "['matplotlib', 'matplot lib']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Maven",
+        "unclean_names": "['maven']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Memcached",
+        "unclean_names": "['memcached', 'memcache']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Mercurial",
+        "unclean_names": "['mercurial', 'hg']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microservices",
+        "unclean_names": "['micro services', 'microservices', 'micro sevice', 'microservice']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft Azure",
+        "unclean_names": "['azure', 'azur']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft Excel",
+        "unclean_names": "['excel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft Hyper-V",
+        "unclean_names": "['hyper-v', 'hyperv', 'hyper v']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft Outlook",
+        "unclean_names": "['outlook']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft PowerPoint",
+        "unclean_names": "['powerpoint', 'power point']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft SQL Server",
+        "unclean_names": "['mssql', 'ms-sql', 'ms sql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft SharePoint",
+        "unclean_names": "['sharepoint', 'share point']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Microsoft Visio",
+        "unclean_names": "['visio']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Miro",
+        "unclean_names": "['miro']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Mixpanel",
+        "unclean_names": "['mixpanel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MobX",
+        "unclean_names": "['mobx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Mocha",
+        "unclean_names": "['mocha']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Mockito",
+        "unclean_names": "['mockito']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Modbus",
+        "unclean_names": "['modbus']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MongoDB",
+        "unclean_names": "['mongodb', 'mongo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Movavi",
+        "unclean_names": "['movavi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Multithreading",
+        "unclean_names": "['multithreading', 'miltitreding', 'multytreading', 'multytreding', 'multi-threading']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MyBatis",
+        "unclean_names": "['mybatis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "MySQL",
+        "unclean_names": "['mysql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NATS",
+        "unclean_names": "['nats']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NGUI",
+        "unclean_names": "['ngui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NLP",
+        "unclean_names": "['nlp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NLTK",
+        "unclean_names": "['nltk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NPS",
+        "unclean_names": "['nps']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NSQ",
+        "unclean_names": "['nsq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NUnit",
+        "unclean_names": "['nunit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NW.js",
+        "unclean_names": "['nw.js', 'nwjs', 'nw js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nagios",
+        "unclean_names": "['nagios']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nameko",
+        "unclean_names": "['nameko']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Neo4j",
+        "unclean_names": "['neo4j', 'neo 4j', 'neo 4 j']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NeoFS",
+        "unclean_names": "['neofs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NestJS",
+        "unclean_names": "['nestjs', 'nest.js', 'nest js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NetBeans",
+        "unclean_names": "['netbeans', 'net beans']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NetSuite",
+        "unclean_names": "['netsuite', 'net suite']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Netty",
+        "unclean_names": "['netty']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "New Relic",
+        "unclean_names": "['newrelic', 'new relic']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Next.js",
+        "unclean_names": "['next.js', 'nextjs', 'next js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nextcloud",
+        "unclean_names": "['nextcloud', 'next cloud']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nginx",
+        "unclean_names": "['nginx', 'ngin x']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NoSQL",
+        "unclean_names": "['nosql', 'no-sql', 'no sql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Node.js",
+        "unclean_names": "['node.js', 'nodejs', 'node']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nomad",
+        "unclean_names": "['nomad']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Non-Metric Space Library",
+        "unclean_names": "['nmslib']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "NumPy",
+        "unclean_names": "['numpy', 'num py']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Nuxt.js",
+        "unclean_names": "['nuxt', 'nuxt.js', 'nuxtjs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OAuth",
+        "unclean_names": "['oauth', 'oauth2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OCCT",
+        "unclean_names": "['occt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ODBC",
+        "unclean_names": "['odbc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OLAP",
+        "unclean_names": "['olap']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OLTP",
+        "unclean_names": "['oltp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OOD",
+        "unclean_names": "['ood']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OOP",
+        "unclean_names": "['oop']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OSGi",
+        "unclean_names": "['osgi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OSM",
+        "unclean_names": "['osm', 'openstreetmap', 'open street map']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OSPF",
+        "unclean_names": "['ospf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OSS/BSS",
+        "unclean_names": "['oss/bss', 'oss', 'bss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Objective-C",
+        "unclean_names": "['objective-c', 'objective c', 'objectivec', 'obj-c']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OkHttp",
+        "unclean_names": "['okhttp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Omnitracker",
+        "unclean_names": "['omnitracker', 'omni tracker']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenAPI",
+        "unclean_names": "['openapi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenCL",
+        "unclean_names": "['opencl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenCV",
+        "unclean_names": "['opencv']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenGL",
+        "unclean_names": "['opengl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenID",
+        "unclean_names": "['openid']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenNebula",
+        "unclean_names": "['opennebula']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenSCAD",
+        "unclean_names": "['openscad']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OpenShift",
+        "unclean_names": "['openshift']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Oracle Cloud",
+        "unclean_names": "['oracle cloud']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Oracle Database",
+        "unclean_names": "['oracle database']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Oracle VM VirtualBox",
+        "unclean_names": "['oracle vm', 'virtualbox', 'virtual box']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "OrientDB",
+        "unclean_names": "['orientdb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PBN",
+        "unclean_names": "['pbn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PEP8",
+        "unclean_names": "['pep8', 'pep 8']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PFM",
+        "unclean_names": "['pfm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PHP",
+        "unclean_names": "['php', 'php5', 'php7', 'php5/7']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PHPDoc",
+        "unclean_names": "['phpdoc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PHPStan",
+        "unclean_names": "['phpstan']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PHPUnit",
+        "unclean_names": "['phpunit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PMBOK",
+        "unclean_names": "['pmbok']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "POSIX",
+        "unclean_names": "['posix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PRINCE2",
+        "unclean_names": "['prince2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PSM",
+        "unclean_names": "['psm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PVS-Studio",
+        "unclean_names": "['pvs-studio', 'pvs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PWA",
+        "unclean_names": "['pwa', 'progressive web']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Percona",
+        "unclean_names": "['percona']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Perforce",
+        "unclean_names": "['perforce']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Performance testing",
+        "unclean_names": "['performance testing', 'performance tests']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Perl",
+        "unclean_names": "['perl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Phalcon",
+        "unclean_names": "['phalcon']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PhpStorm",
+        "unclean_names": "['phpstorm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PixiJS",
+        "unclean_names": "['pixi.js', 'pixijs', 'pixi js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PlayCanvas",
+        "unclean_names": "['playcanvas']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Plesk",
+        "unclean_names": "['plesk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Polarion",
+        "unclean_names": "['polarion']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Polymer",
+        "unclean_names": "['polymer']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PostCSS",
+        "unclean_names": "['postcss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Postfix",
+        "unclean_names": "['postfix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PostgreSQL",
+        "unclean_names": "['postgresql', 'postgressql', 'postgres', 'postgress', 'postgre']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Postman",
+        "unclean_names": "['postman', 'post man']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Power BI",
+        "unclean_names": "['power bi', 'powerbi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PowerShell",
+        "unclean_names": "['powershell', 'power shell']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Prettier",
+        "unclean_names": "['prettier']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Programmatic",
+        "unclean_names": "['programmatic']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Project Lombok",
+        "unclean_names": "['lombok']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PromiseKit",
+        "unclean_names": "['promisekit', 'promise-kit', 'promise kit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Proxmox Virtual Environment",
+        "unclean_names": "['proxmox']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Pug",
+        "unclean_names": "['pug']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Puppet",
+        "unclean_names": "['puppet']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Puppeteer",
+        "unclean_names": "['puppeteer']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PyCharm",
+        "unclean_names": "['pycharm', 'py charm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PySpark",
+        "unclean_names": "['pyspark']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "PyTorch",
+        "unclean_names": "['pytorch', 'py torch']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Pyramid",
+        "unclean_names": "['pyramid']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Pyrus",
+        "unclean_names": "['pyrus']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Python",
+        "unclean_names": "['python', 'python3', 'phyton']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "QGIS",
+        "unclean_names": "['qgis', 'q gis', 'quantum gis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "QML",
+        "unclean_names": "['qml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "QlikView",
+        "unclean_names": "['qlikview']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Qt",
+        "unclean_names": "['qt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Quasar",
+        "unclean_names": "['quasar']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "R",
+        "unclean_names": "['r']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RAML",
+        "unclean_names": "['raml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RBAC",
+        "unclean_names": "['rbac']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "REST",
+        "unclean_names": "['rest']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RESY",
+        "unclean_names": "['resy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RFM",
+        "unclean_names": "['rfm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RFP",
+        "unclean_names": "['rfp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RNN",
+        "unclean_names": "['rnn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ROI",
+        "unclean_names": "['roi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ROMI",
+        "unclean_names": "['romi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RPA",
+        "unclean_names": "['rpa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RPM",
+        "unclean_names": "['rpm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RSpec",
+        "unclean_names": "['rspec', 'r spec']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RTOS",
+        "unclean_names": "['rtos']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RTP",
+        "unclean_names": "['rtp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RabbitMQ",
+        "unclean_names": "['rabbitmq', 'rabbit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ramda",
+        "unclean_names": "['ramda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Rational Unified Process",
+        "unclean_names": "['rup']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Razer Synapse",
+        "unclean_names": "['synapse']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ReSharper",
+        "unclean_names": "['re sharper', 'resharper']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "React",
+        "unclean_names": "['react', 'react.js', 'reactjs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Realm",
+        "unclean_names": "['realm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Red Hat Enterprise Linux",
+        "unclean_names": "['rhel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Redis",
+        "unclean_names": "['redis', 'reddis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Redmine",
+        "unclean_names": "['redmine', 'red mine']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Redux",
+        "unclean_names": "['redux', 'redux-saga', 'saga', 'redux-form']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RegEx",
+        "unclean_names": "['regex']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Remarketing",
+        "unclean_names": "['remarketing']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Reras",
+        "unclean_names": "['reras']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Resilio Sync",
+        "unclean_names": "['resilio']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Retargeting",
+        "unclean_names": "['retargeting']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Retrofit",
+        "unclean_names": "['retrofit', 'retrofit2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Revit",
+        "unclean_names": "['revit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Riot.js",
+        "unclean_names": "['riot.js', 'riotjs', 'riot js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Roistat",
+        "unclean_names": "['roistat']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ruby",
+        "unclean_names": "['ruby']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ruby on Rails",
+        "unclean_names": "['rails']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RubyMine",
+        "unclean_names": "['rubymine']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Rust",
+        "unclean_names": "['rust']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RxAndroid",
+        "unclean_names": "['rxandroid']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RxJS",
+        "unclean_names": "['rxjs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RxJava",
+        "unclean_names": "['rxjava', 'rxjava2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RxKotlin",
+        "unclean_names": "['rxkotlin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "RxSwift",
+        "unclean_names": "['rxswift']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAML",
+        "unclean_names": "['saml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP",
+        "unclean_names": "['sap']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP Ariba",
+        "unclean_names": "['ariba']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP BPC",
+        "unclean_names": "['bpc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP FICO",
+        "unclean_names": "['fico', 'fi/co', 'fi-co']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP Hybris",
+        "unclean_names": "['hybris']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP MM/SD",
+        "unclean_names": "['mm/sd', 'mm', 'sd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SAP NetWeaver",
+        "unclean_names": "['netweaver']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SCAD Office",
+        "unclean_names": "['scad']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SCADA",
+        "unclean_names": "['scada']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SCCM",
+        "unclean_names": "['sccm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SCM",
+        "unclean_names": "['scm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SDLC",
+        "unclean_names": "['sdlc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SEM",
+        "unclean_names": "['sem']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SEMrush",
+        "unclean_names": "['semrush']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SEO",
+        "unclean_names": "['seo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SERM",
+        "unclean_names": "['serm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SIEM",
+        "unclean_names": "['siem']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SIP",
+        "unclean_names": "['sip']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SMB",
+        "unclean_names": "['smb']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SMM",
+        "unclean_names": "['smm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SMO",
+        "unclean_names": "['smo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SMTP",
+        "unclean_names": "['smtp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SOA",
+        "unclean_names": "['soa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SOAP",
+        "unclean_names": "['soap']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SOLID",
+        "unclean_names": "['solid']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SPA",
+        "unclean_names": "['spa', 'single page application']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SPSS Statistics",
+        "unclean_names": "['spss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SQL",
+        "unclean_names": "['sql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SQL Server Data Tools",
+        "unclean_names": "['ssdt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SQLAlchemy",
+        "unclean_names": "['sqlalchemy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SQLite",
+        "unclean_names": "['sqlite']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SRE",
+        "unclean_names": "['sre']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SRM",
+        "unclean_names": "['srm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SSDLC",
+        "unclean_names": "['ssdlc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SSH",
+        "unclean_names": "['ssh']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SSIS",
+        "unclean_names": "['ssis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SSO",
+        "unclean_names": "['sso']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "STL",
+        "unclean_names": "['stl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "STM32",
+        "unclean_names": "['stm2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SUSE Linux Enterprise Server",
+        "unclean_names": "['sles']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SWOT",
+        "unclean_names": "['swot']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sailfish OS",
+        "unclean_names": "['sailfish', 'sail fish']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Salesforce",
+        "unclean_names": "['salesforce', 'sales force', 'salesforce.com']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SaltStack",
+        "unclean_names": "['saltstack', 'salt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sanic",
+        "unclean_names": "['sanic']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sass",
+        "unclean_names": "['sass', 'saas', 'sas', 'scss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Scala",
+        "unclean_names": "['scala']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ScalaTest",
+        "unclean_names": "['scalatest', 'scala test']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SciPy",
+        "unclean_names": "['scipy', 'sci py', 'sci-py']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Scrapy",
+        "unclean_names": "['scrapy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Screaming Frog",
+        "unclean_names": "['screaming frog']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Scrum",
+        "unclean_names": "['scrum']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Searchanise",
+        "unclean_names": "['searchanise']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Selenide",
+        "unclean_names": "['selenide']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Selenium",
+        "unclean_names": "['selenium']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sencha",
+        "unclean_names": "['sencha']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sensor Tower",
+        "unclean_names": "['sensor tower', 'sensortower']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sentry",
+        "unclean_names": "['sentry']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sequelize",
+        "unclean_names": "['sequelize']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Serial Peripheral Interface",
+        "unclean_names": "['spi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Serpstat",
+        "unclean_names": "['serpstat']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Serverless",
+        "unclean_names": "['serverless']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Shopify",
+        "unclean_names": "['shopify']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sidekiq",
+        "unclean_names": "['sidekiq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Siebel",
+        "unclean_names": "['siebel']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Simatic WinCC",
+        "unclean_names": "['wincc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sketch",
+        "unclean_names": "['sketch']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SketchUp",
+        "unclean_names": "['sketchup', 'sketch up']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Skype",
+        "unclean_names": "['skype']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Slack",
+        "unclean_names": "['slack']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Smoke testing",
+        "unclean_names": "['smoke testing', 'smoke tests']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SnapKit",
+        "unclean_names": "['snapkit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SoapUI",
+        "unclean_names": "['soapui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Socket.IO",
+        "unclean_names": "['socket.io', 'socketio', 'socket io']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Softswitch",
+        "unclean_names": "['softswitch']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SonarQube",
+        "unclean_names": "['sonar', 'sonarqube']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sound eXchange",
+        "unclean_names": "['sox']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SpecFlow",
+        "unclean_names": "['specflow']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sphinx",
+        "unclean_names": "['sphinx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Spine",
+        "unclean_names": "['spine']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Spock",
+        "unclean_names": "['spock']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Spring",
+        "unclean_names": "['spring']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Spring Boot",
+        "unclean_names": "['spring boot', 'springboot', 'spring-boot']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Sqoop",
+        "unclean_names": "['sqoop']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Starlette",
+        "unclean_names": "['starlette']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Subversion",
+        "unclean_names": "['subversion', 'svn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Swagger",
+        "unclean_names": "['swagger', 'swaggerui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Swift",
+        "unclean_names": "['swift']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SwiftLint",
+        "unclean_names": "['swiftlint', 'swift lint']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "SwiftUI",
+        "unclean_names": "['swiftui', 'swift ui', 'swift-ui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Swing",
+        "unclean_names": "['swing']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Swinject",
+        "unclean_names": "['swinject']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Symfony",
+        "unclean_names": "['symfony']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Symphony",
+        "unclean_names": "['symphony']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TCP",
+        "unclean_names": "['tcp', 'tcp/ip']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TDD",
+        "unclean_names": "['tdd', 'test driven development', 'test-driven']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TLS",
+        "unclean_names": "['tls']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TMS",
+        "unclean_names": "['tms']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TOGAF",
+        "unclean_names": "['togaf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tableau",
+        "unclean_names": "['tableau']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tailwind CSS",
+        "unclean_names": "['tailwind', 'tailwindcss']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tarantool",
+        "unclean_names": "['tarantool']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tealium",
+        "unclean_names": "['tealium']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Team Foundation Server",
+        "unclean_names": "['tfs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TeamCity",
+        "unclean_names": "['teamcity', 'team city']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Telegraf",
+        "unclean_names": "['telegraf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TensorFlow",
+        "unclean_names": "['tensorflow', 'tensor flow']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Teradata",
+        "unclean_names": "['teradata']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Terraform",
+        "unclean_names": "['terraform', 'terra form']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TestComplete",
+        "unclean_names": "['testcomplete']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TestLink",
+        "unclean_names": "['testlink']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TestNG",
+        "unclean_names": "['testng']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TestRail",
+        "unclean_names": "['testrail']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Theano",
+        "unclean_names": "['theano']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Thymeleaf",
+        "unclean_names": "['thymeleaf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TikTok",
+        "unclean_names": "['tiktok', 'tik tok']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tilda",
+        "unclean_names": "['tilda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tomcat",
+        "unclean_names": "['tomcat', 'tom cat']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Toothpick",
+        "unclean_names": "['toothpick', 'tooth pick']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Tornado",
+        "unclean_names": "['tornado']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Transact-SQL",
+        "unclean_names": "['transact-sql', 't-sql', 'tsql']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Travis CI",
+        "unclean_names": "['travis ci', 'travisci', 'travis']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Trello",
+        "unclean_names": "['trello']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Twig",
+        "unclean_names": "['twig']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "TypeScript",
+        "unclean_names": "['typescript', 'ts']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UART",
+        "unclean_names": "['uart']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UAT",
+        "unclean_names": "['user acceptance', 'uat']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UCaaS",
+        "unclean_names": "['ucaas']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UDP",
+        "unclean_names": "['udp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UIkit",
+        "unclean_names": "['uikit', 'ui-kit']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UML",
+        "unclean_names": "['uml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UX/UI",
+        "unclean_names": "['ux/ui', 'ui/ux', 'ux', 'ux\\\\ui', 'ui\\\\ux']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Ubuntu",
+        "unclean_names": "['ubuntu']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "UniSender",
+        "unclean_names": "['unisender']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Unit testing",
+        "unclean_names": "['unit testing', 'unit tests']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Unity",
+        "unclean_names": "['unity', 'unity3d']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Unix",
+        "unclean_names": "['unix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Unreal Engine",
+        "unclean_names": "['unreal engine', 'ue4']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Uvicorn",
+        "unclean_names": "['uvicorn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VBA",
+        "unclean_names": "['vba']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VBScript",
+        "unclean_names": "['basic-script', 'basic-scrip', 'vbscript']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VDI",
+        "unclean_names": "['vdi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VIPER",
+        "unclean_names": "['viper']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VMware ESX",
+        "unclean_names": "['esx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VMware Workstation",
+        "unclean_names": "['vmware workstation']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "VMware vSphere",
+        "unclean_names": "['vsphere']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vagrant",
+        "unclean_names": "['vagrant']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vault",
+        "unclean_names": "['vault']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Veeam Backup & Replication",
+        "unclean_names": "['veeam']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vert.x",
+        "unclean_names": "['vert.x', 'vertx']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vertica",
+        "unclean_names": "['vertica']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vigbo",
+        "unclean_names": "['vigbo']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Visualforce",
+        "unclean_names": "['visualforce']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vue.js",
+        "unclean_names": "['vue', 'vue.js', 'vuejs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vuetify.js",
+        "unclean_names": "['vuetify', 'vuetify.js', 'vuetifyjs']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Vuex",
+        "unclean_names": "['vuex']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WAF",
+        "unclean_names": "['waf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WAY4",
+        "unclean_names": "['way4']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WCF",
+        "unclean_names": "['wcf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WMS",
+        "unclean_names": "['wms']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WSDL",
+        "unclean_names": "['wsdl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WSUS",
+        "unclean_names": "['wsus']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebFlux",
+        "unclean_names": "['webflux']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebGL",
+        "unclean_names": "['webgl']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebRTC",
+        "unclean_names": "['webrtc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebSocket",
+        "unclean_names": "['websocket', 'web socket', 'websockets']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebSphere",
+        "unclean_names": "['websphere']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WebStorm",
+        "unclean_names": "['webstorm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Webix",
+        "unclean_names": "['webix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Webpack",
+        "unclean_names": "['webpack']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WildFly",
+        "unclean_names": "['wildfly', 'wildfy']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WinAPI",
+        "unclean_names": "['winapi']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WinDbg",
+        "unclean_names": "['windbg']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Windows Presentation Foundation",
+        "unclean_names": "['wpf']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Wireshark",
+        "unclean_names": "['wireshark']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WooCommerce",
+        "unclean_names": "['woocommerce', 'woo commerce']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WordPress",
+        "unclean_names": "['wordpress', 'word press']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "WorkPLAN",
+        "unclean_names": "['workplan', 'planwork']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Wrike",
+        "unclean_names": "['wrike']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "X-Cart",
+        "unclean_names": "['x-cart']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XAML",
+        "unclean_names": "['xaml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XCTest",
+        "unclean_names": "['xctest']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XGBoost",
+        "unclean_names": "['xgboost']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XHProf",
+        "unclean_names": "['xhprof']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XIB",
+        "unclean_names": "['xib']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XML",
+        "unclean_names": "['xml', 'xsd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XMPP",
+        "unclean_names": "['xmpp', 'jabber']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XQuery",
+        "unclean_names": "['xquery', 'x query']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "XSL",
+        "unclean_names": "['xsl', 'xslt']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Xamarin",
+        "unclean_names": "['xamarin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Xcode",
+        "unclean_names": "['xcode']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Xdebug",
+        "unclean_names": "['xdebug']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Xen",
+        "unclean_names": "['xen', 'xenserver']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "YAGNI",
+        "unclean_names": "['yagni']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "YAML",
+        "unclean_names": "['yaml']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Yandex.Direct",
+        "unclean_names": "['yandex.direct', '\u044f\u043d\u0434\u0435\u043a\u0441.\u0434\u0438\u0440\u0435\u043a\u0442', '\u044f\u043d\u0434\u0435\u043a\u0441 \u0434\u0438\u0440\u0435\u043a\u0442']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Yandex.Metrica",
+        "unclean_names": "['yandex.metrica', '\u044f\u043d\u0434\u0435\u043a\u0441.\u043c\u0435\u0442\u0440\u0438\u043a\u0430', '\u044f\u043d\u0434\u0435\u043a\u0441 \u043c\u0435\u0442\u0440\u0438\u043a\u0430']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Yandex.Webmaster",
+        "unclean_names": "['yandex.webmaster', '\u044f\u043d\u0434\u0435\u043a\u0441.\u0432\u0435\u0431\u043c\u0430\u0441\u0442\u0435\u0440', '\u044f\u043d\u0434\u0435\u043a\u0441 \u0432\u0435\u0431\u043c\u0430\u0441\u0442\u0435\u0440']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Yarn",
+        "unclean_names": "['yarn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Yii",
+        "unclean_names": "['yii', 'yii1', 'yii2']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "YouTrack",
+        "unclean_names": "['youtrack', 'you track']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ZBrush",
+        "unclean_names": "['zbrush']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zabbix",
+        "unclean_names": "['zabbix']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zappa",
+        "unclean_names": "['zappa']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zend",
+        "unclean_names": "['zend']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zendesk",
+        "unclean_names": "['zendesk']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zenject",
+        "unclean_names": "['zenject']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zephyr",
+        "unclean_names": "['zephyr']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zeplin",
+        "unclean_names": "['zeplin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "ZeroMQ",
+        "unclean_names": "['zeromq']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zoom",
+        "unclean_names": "['zoom']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zsh",
+        "unclean_names": "['zsh', 'z shell', 'shell']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "Zuul",
+        "unclean_names": "['zuul']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "aiohttp",
+        "unclean_names": "['aiohttp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "amoCRM",
+        "unclean_names": "['amocrm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "appserver.io",
+        "unclean_names": "['appserver']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "assembly",
+        "unclean_names": "['assembly']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "asyncio",
+        "unclean_names": "['asyncio', 'async io', 'async i/o']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "axios",
+        "unclean_names": "['axios']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "cron",
+        "unclean_names": "['cron']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "direnv",
+        "unclean_names": "['direnv']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "docker-compose",
+        "unclean_names": "['docker compose', 'docker-compose']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "erwin Data Modeler",
+        "unclean_names": "['erwin']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "etcd",
+        "unclean_names": "['etcd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "f.lux",
+        "unclean_names": "['f.lux', 'flux']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "fastText",
+        "unclean_names": "['fasttext']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "fastlane",
+        "unclean_names": "['fastlane']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "gRPC",
+        "unclean_names": "['grpc', 'rpc']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "grep",
+        "unclean_names": "['grep']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "gulp",
+        "unclean_names": "['gulp']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "jBPM",
+        "unclean_names": "['jbpm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "jQuery",
+        "unclean_names": "['jquery', 'j query']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "jabberd",
+        "unclean_names": "['jabberd', 'jabberd14']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "myTarget",
+        "unclean_names": "['mytarget', 'my target']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "npm",
+        "unclean_names": "['npm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "pandas",
+        "unclean_names": "['pandas', 'panda']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "pytest",
+        "unclean_names": "['pytest', 'py test', 'py.test']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "retailCRM",
+        "unclean_names": "['retailcrm', 'retail crm']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "scikit-learn",
+        "unclean_names": "['scikit', 'scikit-learn', 'sklearn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "seaborn",
+        "unclean_names": "['seaborn']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "sed",
+        "unclean_names": "['sed']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "shell",
+        "unclean_names": "['shell']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "systemd",
+        "unclean_names": "['systemd']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "tcpdump",
+        "unclean_names": "['tcpdump']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "three.js",
+        "unclean_names": "['three.js', 'threejs', 'three js']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "uGUI",
+        "unclean_names": "['ugui']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "unittest",
+        "unclean_names": "['unittest']"
+    }
+}, {
+    "model": "scrapers.skill",
+    "fields": {
+        "clean_name": "xUnit",
+        "unclean_names": "['xunit']"
+    }
+}]

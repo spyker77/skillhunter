@@ -3,8 +3,8 @@
 *.pyc
 .env
 .DS_Store
+.mypy_cache
 .pytest_cache
 __pycache__
 db.sqlite3
 media
-fixtures
