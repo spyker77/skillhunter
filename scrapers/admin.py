@@ -20,7 +20,7 @@ class SkillAdmin(admin.ModelAdmin):
     )
 
 
-# admin.site.register(Vacancy, VacancyAdmin)
+admin.site.register(Vacancy, VacancyAdmin)
 admin.site.register(Job)
 admin.site.register(Search)
 admin.site.register(Skill, SkillAdmin)

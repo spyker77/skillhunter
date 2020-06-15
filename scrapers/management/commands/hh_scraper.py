@@ -95,14 +95,14 @@ async def fetch_all_vacancy_pages(all_links, session):
 def process_vacancy_content(vacancy_without_skills, keyword_processor):
     # Extract keywords from the content of the vacancy and count each keyword.
     content = vacancy_without_skills["content"]
-    if content != None:
+    try:
         keywords_found = keyword_processor.extract_keywords(content)
         counts = dict(Counter(keywords_found))
         skills = {"rated_skills": counts}
         vacancy_plus_skills = vacancy_without_skills.copy()
         vacancy_plus_skills.update(skills)
         return vacancy_plus_skills
-    else:
+    except TypeError:
         pass
 
 
