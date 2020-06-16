@@ -21,9 +21,7 @@ class SearchResultsListView(ListView):
             Search.objects.create(query=query)
 
         # From here, the main skill collection process continues.
-        suitable_vacancies = Vacancy.objects.annotate(
-            search=SearchVector("title", "content"),
-        ).filter(search=query)
+        suitable_vacancies = Vacancy.objects.filter(search_vector=query)
         # Get skills for each vacancy and convert it from str to dict.
         rated_skills_to_merge = (
             eval(vacancy.rated_skills) for vacancy in suitable_vacancies

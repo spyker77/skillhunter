@@ -7,7 +7,8 @@ Learn this and you will be hired quickly!{% endblock description %}
 {% block content %}
 
 {% if skills_dict.number_of_vacancies > 0 %}
-<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ skills_dict.rated_skills|length }} most wanted hard skills for
+<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ skills_dict.rated_skills|length }} most wanted hard
+    skill{{ skills_dict.rated_skills|pluralize }} for
     <br><b>"{{ skills_dict.vacancy_name }}"</b>
     <br><a href="#skills">👇</a>
     <a name="skills"></a>
@@ -20,7 +21,8 @@ Learn this and you will be hired quickly!{% endblock description %}
 {% endfor %}
 <div class="text-center text-gray-600 pt-3">
     <span>(based on an analysis of <abbr class="cursor-pointer" title="Posted over the last 7 days.">
-            {{ skills_dict.number_of_vacancies }}</abbr> vacancies)</span>
+            {{ skills_dict.number_of_vacancies }}</abbr>
+        vacanc{{ skills_dict.number_of_vacancies|pluralize:"y,ies" }})</span>
 </div>
 <h2 class="text-center text-4xl font-medium pt-12 pb-8">Still not sure where to start?
     <br>Give these <u><b>online courses</b></u> a try!</h2>

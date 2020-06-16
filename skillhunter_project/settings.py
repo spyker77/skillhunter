@@ -139,31 +139,41 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 # Content-Security-Policy settings for django-csp
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = (
+CSP_DEFAULT_SRC = [
+    "'self'",
+]
+CSP_STYLE_SRC = [
     "'self'",
     "fonts.googleapis.com",
     "stackpath.bootstrapcdn.com",
-)
-CSP_SCRIPT_SRC = (
+]
+CSP_SCRIPT_SRC = [
     "'self'",
     "stackpath.bootstrapcdn.com",
     "cdn.jsdelivr.net",
     "code.jquery.com",
-)
-CSP_FONT_SRC = (
+]
+CSP_FONT_SRC = [
     "'self'",
     "fonts.gstatic.com",
     "fonts.googleapis.com",
-)
-CSP_IMG_SRC = ("'self'",)
+]
+CSP_IMG_SRC = [
+    "'self'",
+]
 
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+# if DEBUG:
+#     DEBUG_TOOLBAR_CONFIG = {
+#         "SHOW_TOOLBAR_CALLBACK": lambda request: not request.is_ajax()
+#     }
+#     CSP_SCRIPT_SRC.append("'unsafe-inline'")
+#     CSP_STYLE_SRC.append("'unsafe-inline'")
 
 # Production settings
 if ENVIRONMENT == "production":
