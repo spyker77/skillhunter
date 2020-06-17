@@ -24,6 +24,7 @@ class Command(BaseCommand):
                     rated_skills=job["rated_skills"],
                 )
                 for job in collected_jobs
+                if job is not None
             )
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
             self.stdout.write(f"👍 {job_title} 👍 – parsed and added to DB.")

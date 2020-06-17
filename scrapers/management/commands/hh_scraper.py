@@ -44,7 +44,7 @@ async def scan_single_search_page(query, page_num, session):
             links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
             return links
         except AttributeError:
-            print(f"AttributeError occurred while scanning the URL: {link}")
+            print(f"🚨 AttributeError occurred while scanning the URL: {link}")
 
 
 async def scan_all_search_results(query, session):
@@ -75,10 +75,10 @@ async def fetch_vacancy_page(link, session):
                 vacancy_page = {"url": link, "title": title, "content": content}
                 return vacancy_page
             except AttributeError:
-                print(f"AttributeError occurred while fetching the URL: {link}")
+                print(f"🚨 AttributeError occurred while fetching the URL: {link}")
                 attempt += 1
             except ClientPayloadError:
-                print(f"ClientPayloadError occurred while fetching the URL: {link}")
+                print(f"🚨 ClientPayloadError occurred while fetching the URL: {link}")
                 attempt += 1
 
 
@@ -94,8 +94,8 @@ async def fetch_all_vacancy_pages(all_links, session):
 
 def process_vacancy_content(vacancy_without_skills, keyword_processor):
     # Extract keywords from the content of the vacancy and count each keyword.
-    content = vacancy_without_skills["content"]
     try:
+        content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
         counts = dict(Counter(keywords_found))
         skills = {"rated_skills": counts}
@@ -103,7 +103,8 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         vacancy_plus_skills.update(skills)
         return vacancy_plus_skills
     except TypeError:
-        pass
+        print("🚨 TypeError occurred.")
+        return None
 
 
 async def main(job_title, SKILLS):
@@ -121,12 +122,13 @@ async def main(job_title, SKILLS):
                 )
                 break
             except OSError:
-                print(f"OSError occured on attempt {attempt}")
+                print(f"🚨 OSError occured on attempt {attempt}")
                 attempt += 1
         keyword_processor = KeywordProcessor()
         keyword_processor.add_keywords_from_dict(SKILLS)
         collected_jobs = (
             process_vacancy_content(vacancy_without_skills, keyword_processor)
             for vacancy_without_skills in vacancies_without_skills
+            if vacancy_without_skills["content"] is not None
         )
     return collected_jobs
