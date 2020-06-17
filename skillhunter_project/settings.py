@@ -51,7 +51,9 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -139,7 +141,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 
 # Content-Security-Policy settings for django-csp
 CSP_DEFAULT_SRC = [
@@ -165,6 +169,7 @@ CSP_IMG_SRC = [
     "'self'",
 ]
 
+
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
@@ -174,6 +179,7 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 #     }
 #     CSP_SCRIPT_SRC.append("'unsafe-inline'")
 #     CSP_STYLE_SRC.append("'unsafe-inline'")
+
 
 # Production settings
 if ENVIRONMENT == "production":
@@ -189,5 +195,30 @@ if ENVIRONMENT == "production":
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+
+# Memcachier for Heroku
+servers = os.environ.get("MEMCACHIER_SERVERS")
+username = os.environ.get("MEMCACHIER_USERNAME")
+password = os.environ.get("MEMCACHIER_PASSWORD")
+
+CACHES = {
+    "default": {
+        # Use django-bmemcached
+        "BACKEND": "django_bmemcached.memcached.BMemcached",
+        # TIMEOUT is not the connection timeout! It's the default expiration
+        # timeout that should be applied to keys! Setting it to `None`
+        # disables expiration.
+        "TIMEOUT": 86400,
+        "LOCATION": servers,
+        "OPTIONS": {"username": username, "password": password,},
+    }
+}
+
+# Cashing
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 86400
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
+
 
 django_heroku.settings(locals())
