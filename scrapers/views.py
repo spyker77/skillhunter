@@ -2,7 +2,6 @@ import os
 from collections import defaultdict
 
 from django.views.generic import ListView
-from django.contrib.postgres.search import SearchVector
 
 from .models import Vacancy, Search
 

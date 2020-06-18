@@ -129,6 +129,5 @@ async def main(job_title, SKILLS):
         collected_jobs = (
             process_vacancy_content(vacancy_without_skills, keyword_processor)
             for vacancy_without_skills in vacancies_without_skills
-            if vacancy_without_skills["content"] is not None
         )
     return collected_jobs

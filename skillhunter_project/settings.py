@@ -50,17 +50,17 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.middleware.cache.UpdateCacheMiddleware",
+    # "django.middleware.cache.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.http.ConditionalGetMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "csp.middleware.CSPMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = "skillhunter_project.urls"
@@ -208,7 +208,7 @@ if ENVIRONMENT == "production":
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
-# Memcachier for Heroku
+# # Memcachier for Heroku
 servers = os.environ.get("MEMCACHIER_SERVERS")
 username = os.environ.get("MEMCACHIER_USERNAME")
 password = os.environ.get("MEMCACHIER_PASSWORD")
@@ -220,7 +220,7 @@ CACHES = {
         # TIMEOUT is not the connection timeout! It's the default expiration
         # timeout that should be applied to keys! Setting it to `None`
         # disables expiration.
-        "TIMEOUT": 86400,
+        "TIMEOUT": 12 * 60 * 60,
         "LOCATION": servers,
         "OPTIONS": {"username": username, "password": password,},
     }
@@ -228,7 +228,7 @@ CACHES = {
 
 # Cashing
 CACHE_MIDDLEWARE_ALIAS = "default"
-CACHE_MIDDLEWARE_SECONDS = 86400
+CACHE_MIDDLEWARE_SECONDS = 12 * 60 * 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ""
 
 
