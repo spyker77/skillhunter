@@ -21,27 +21,27 @@ RANDOM_AGENT = random.choice(headers["user-agent"])
 
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
-    stripped = job_title.strip('"')
-    query = f'"{stripped}"'
+    query = job_title.strip('"')
     return query
 
 
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {
-        "text": query,
-        "search_period": 7,
-        "page": page_num,
+        "q": f"title:({query})",
+        "fromage": 7,
+        "limit": 10,
+        "start": page_num,
     }
-    async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
+    async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
         try:
             html = await resp.text()
             soup = BeautifulSoup(html, "lxml")
-            all_vacancies = soup.find_all(
-                "a", href=re.compile(r"https://hh.ru/vacancy/")
+            all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
+            # Extract valid links to vacancy pages.
+            links = set(
+                "https://www.indeed.com" + vacancy["href"] for vacancy in all_vacancies
             )
-            # Extract valid links to vacancy pages and clean their tails.
-            links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
             return links
         except AttributeError:
             print(f"🚨 AttributeError occurred while scanning the URL: {resp.url}")
@@ -54,8 +54,10 @@ async def scan_single_search_page(query, page_num, session):
 async def scan_all_search_results(query, session):
     # Schedule all search results for asynchronous processing.
     tasks = list()
-    hh_max_pages = 40
-    for page_num in range(hh_max_pages):
+    indeed_max_pages = 100
+    for num in range(indeed_max_pages):
+        multiplier = 10
+        page_num = num * multiplier
         task = asyncio.create_task(scan_single_search_page(query, page_num, session))
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
@@ -75,8 +77,12 @@ async def fetch_vacancy_page(link, session):
         try:
             html = await resp.text()
             soup = BeautifulSoup(html, "lxml")
-            title = soup.find(attrs={"data-qa": "vacancy-title"}).text
-            content = soup.find(attrs={"data-qa": "vacancy-description"}).text
+            title = soup.find(
+                attrs={"class": "jobsearch-JobInfoHeader-title-container"}
+            ).text
+            content = soup.find(
+                attrs={"class": "jobsearch-jobDescriptionText"}
+            ).text
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
         except AttributeError:

@@ -1,12 +1,12 @@
 import asyncio
 from django.core.management.base import BaseCommand
 
-from .hh_scraper import main
+from .indeed_scraper import main
 from scrapers.models import Vacancy, Job, Skill
 
 
 class Command(BaseCommand):
-    help = "Scan job websites and analyze available IT vacancies."
+    help = "Scan indeed.com and analyze available IT vacancies."
 
     JOBS = [job.title for job in Job.objects.all()]
     SKILLS = {
@@ -27,4 +27,5 @@ class Command(BaseCommand):
                 if job is not None
             )
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
-            self.stdout.write(f"👍 {job_title} 👍 – parsed and added to DB.")
+            self.stdout.write(f"👍 {job_title} 👍 – processed for indeed.com")
+        self.stdout.write(f"💃🕺 indeed.com successfully parsed!")
