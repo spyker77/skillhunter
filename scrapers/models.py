@@ -11,7 +11,7 @@ class Vacancy(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     rated_skills = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now())
     search_vector = SearchVectorField(null=True)
 
     def __str__(self):

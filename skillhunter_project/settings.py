@@ -50,7 +50,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    # "django.middleware.cache.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.http.ConditionalGetMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -60,7 +59,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "csp.middleware.CSPMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    # "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 ROOT_URLCONF = "skillhunter_project.urls"
