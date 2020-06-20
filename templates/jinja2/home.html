@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% block title %}SkillHunter{% endblock title %}
+
+{% block description %}Find out what skills will help you get hired fast. Real-time scanning of the most relevant
+vacancies around the world.{% endblock description %}
+
+{% block content %}
+<h1 class="text-center text-4xl font-medium pb-5">Find the <u><b>skills</b></u> you need to get a job in
+    <u><b>IT</b></u>
+</h1>
+<form action="{{ url ('search_results') }}" method="GET" autocomplete="off">
+    <div class="text-center text-purple-600">
+        <input name="q" placeholder="Enter desired job title" aria-label="Search" maxlength="50" required autofocus
+            class="rounded-full text-center h-10 lg:w-4/6 outline-none shadow-lg focus:shadow-2xl transition ease-in duration-200">
+    </div>
+</form>
+{% endblock content %}

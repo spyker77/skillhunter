@@ -24,6 +24,7 @@ django-robots = "*"
 flashtext = "*"
 django-bmemcached = "*"
 python-binary-memcached = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8.3"

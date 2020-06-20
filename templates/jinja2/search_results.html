@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block title %}Required skills{% endblock title %}
+{% block description %}Here is a list of the skills you need to have in order to get a new job as soon as possible.
+Learn this and you will be hired quickly!{% endblock description %}
+
+{% block content %}
+
+{% if skills_dict.number_of_vacancies > 0 %}
+<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ skills_dict.rated_skills|length }}
+    most wanted hard
+    {% if skills_dict.number_of_vacancies <= 1 %}
+    skill{% else %}skills
+    {% endif %}
+    for
+    <br><b>"{{ skills_dict.vacancy_name }}"</b>
+    <br><a href="#skills">👇</a>
+    <a name="skills"></a>
+</h1>
+{% for skill in skills_dict.rated_skills %}
+<p class="text-center text-lg font-semibold pb-2">
+    {{ skill.0 }} – <span
+        class="rounded-full bg-purple-600 text-white text-sm px-3 py-1 shadow-md hover:shadow-xl transition ease-in duration-200">{{ skill.1 }}</span>
+</p>
+{% endfor %}
+<div class="text-center text-gray-600 pt-3">
+    <span>(based on an analysis of <abbr class="cursor-pointer"
+            title="Posted over the last 7 days.">{{ skills_dict.number_of_vacancies }}</abbr>
+        {% if skills_dict.number_of_vacancies <= 1 %}
+        vacancy){% else %}vacancies)
+        {% endif %}
+    </span>
+</div>
+<h2 class="text-center text-4xl font-medium pt-12 pb-8">Still not sure where to start?
+    <br>Give these <u><b>online courses</b></u> a try!</h2>
+
+{% include "courses.html" %}
+
+{% else %}
+<h1 class="text-center text-4xl pb-5">😩</h1>
+<p class="text-center text-gray-600 pb-8">Oh no, it looks like we can’t find the skills for this job...</p>
+<div class="text-center">
+    <a class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-4 border border-purple-600 hover:border-transparent rounded-full shadow-lg hover:shadow-2xl transition ease-in duration-200"
+        href="{{ url ('home') }}" role="button">Try another</a>
+</div>
+{% endif %}
+
+{% endblock content %}
