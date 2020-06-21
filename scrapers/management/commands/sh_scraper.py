@@ -28,19 +28,21 @@ def prepare_query(job_title):
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {
-        "q": f"title:({query})",
-        "fromage": 7,
-        "limit": 50,
-        "start": page_num,
+        "q": f'"{query}"',
+        "fdb": 7,
+        "pn": page_num,
     }
-    async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
+    async with session.get(
+        "https://www.simplyhired.com/search", params=payload
+    ) as resp:
         try:
             html = await resp.text()
             soup = BeautifulSoup(html, "lxml")
-            all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
+            all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
             # Extract valid links to vacancy pages.
             links = set(
-                "https://www.indeed.com" + vacancy["href"] for vacancy in all_vacancies
+                ("https://www.simplyhired.com" + vacancy["href"]).split("?tk=")[0]
+                for vacancy in all_vacancies
             )
             return links
         except AttributeError:
@@ -54,10 +56,8 @@ async def scan_single_search_page(query, page_num, session):
 async def scan_all_search_results(query, session):
     # Schedule all search results for asynchronous processing.
     tasks = list()
-    indeed_max_pages = 20
-    for num in range(indeed_max_pages):
-        multiplier = 50
-        page_num = num * multiplier
+    sh_max_pages = 90 + 1
+    for page_num in range(1, sh_max_pages):
         task = asyncio.create_task(scan_single_search_page(query, page_num, session))
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
@@ -77,10 +77,8 @@ async def fetch_vacancy_page(link, session):
         try:
             html = await resp.text()
             soup = BeautifulSoup(html, "lxml")
-            title = soup.find(
-                attrs={"class": "jobsearch-JobInfoHeader-title-container"}
-            ).text
-            content = soup.find(attrs={"class": "jobsearch-jobDescriptionText"}).text
+            title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
+            content = soup.find(attrs={"class": "p"}).text
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
         except AttributeError:
