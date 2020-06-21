@@ -1,0 +1,44 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
+        <div>
+            <div class="text-lg font-semibold">Google Jobs</div>
+            <p class="text-gray-600 py-5">
+                Google brings together job postings from all over the web, whether they're on websites run by small
+                businesses or job sites with tons of listings.
+            </p>
+        </div>
+        <div class="pt-3">
+            <a href='https://www.google.com/search?q="{{ skills_dict.query }}"&ibp=htl;jobs'
+                class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-12 border border-purple-600 hover:border-transparent rounded-full transition ease-in duration-200"
+                role="button" target="_blank" rel="noopener">Go</a>
+        </div>
+    </div>
+
+    <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
+        <div>
+            <div class="text-lg font-semibold">Glassdoor</div>
+            <p class="text-gray-600 py-5">
+                Glassdoor is one of the world's largest recruiting sites offering valuable insights from the
+                people who know best – the employees and candidates.
+            </p>
+        </div>
+        <div class="pt-3">
+            <a href='https://www.glassdoor.com/Job/jobs.htm?sc.keyword="{{ skills_dict.query }}"'
+                class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-12 border border-purple-600 hover:border-transparent rounded-full transition ease-in duration-200"
+                role="button" target="_blank" rel="noopener">Go</a>
+        </div>
+    </div>
+
+    <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
+        <div>
+            <div class="text-lg font-semibold">Dice.com</div>
+            <p class="text-gray-600 py-5">Dice.com provides 70000+ job openings from tech's hottest employers. Salary
+                estimations, career path tips and insights – everything is here.</p>
+        </div>
+        <div class="pt-3">
+            <a href='https://www.dice.com/jobs?q="{{ skills_dict.query }}"'
+                class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-12 border border-purple-600 hover:border-transparent rounded-full transition ease-in duration-200"
+                role="button" target="_blank" rel="noopener">Go</a>
+        </div>
+    </div>
+</div>

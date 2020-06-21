@@ -1,4 +1,5 @@
 import os
+from urllib.parse import quote
 from collections import defaultdict
 
 from django.views.generic import ListView
@@ -42,6 +43,7 @@ class SearchResultsListView(ListView):
         # Prepare the final result with extra fields for the vacancy name and the number of vacancies found.
         skills_dict = {
             "vacancy_name": query,
+            "query": quote(query),
             "number_of_vacancies": len(suitable_vacancies),
             "rated_skills": sorted_skills,
         }
