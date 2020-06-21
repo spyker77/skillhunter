@@ -21,16 +21,19 @@ RANDOM_AGENT = random.choice(headers["user-agent"])
 
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
-    stripped = job_title.strip('"')
-    query = f'"{stripped}"'
+    query = job_title.strip('"')
     return query
 
 
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {
-        "text": query,
+        "L_is_autosearch": "false",
+        "clusters": "true",
+        "enable_snippets": "true",
+        "search_field": "name",
         "search_period": 7,
+        "text": query,
         "page": page_num,
     }
     async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
