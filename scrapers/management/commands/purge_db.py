@@ -9,6 +9,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Delete records older than 7 days (before scraping new data).
-        past = timezone.datetime.today() - timezone.timedelta(days=7)
+        past = timezone.now() - timezone.timedelta(days=7)
         Vacancy.objects.filter(created_date__lte=past).delete()
         self.stdout.write("🗂️ Database successfully cleaned from outdated vacancies.")
