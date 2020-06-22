@@ -20,7 +20,7 @@ class TestSearchResultsListView:
         assert "search_results.html" in response.template_name
 
     def test_searchresultslistview_contains_correct_html(self, response):
-        assert "Required skills" in response.rendered_content
+        assert "Skills you need to be a" in response.rendered_content
 
     def test_searchresultslistview_does_not_contains_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
