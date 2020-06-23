@@ -153,22 +153,18 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Content-Security-Policy settings for django-csp
 CSP_DEFAULT_SRC = [
     "'self'",
+    "front.optimonk.com",
 ]
 CSP_STYLE_SRC = [
     "'self'",
-    "fonts.googleapis.com",
-    "stackpath.bootstrapcdn.com",
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
-    "stackpath.bootstrapcdn.com",
-    "cdn.jsdelivr.net",
-    "code.jquery.com",
+    "'unsafe-inline'",
+    "front.optimonk.com",
 ]
 CSP_FONT_SRC = [
     "'self'",
-    "fonts.gstatic.com",
-    "fonts.googleapis.com",
 ]
 CSP_IMG_SRC = [
     "'self'",
