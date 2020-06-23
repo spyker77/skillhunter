@@ -57,7 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "csp.middleware.CSPMiddleware",
+    "csp.middleware.CSPMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -153,15 +153,12 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Content-Security-Policy settings for django-csp
 CSP_DEFAULT_SRC = [
     "'self'",
-    "front.optimonk.com",
 ]
 CSP_STYLE_SRC = [
     "'self'",
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
-    "'unsafe-inline'",
-    "front.optimonk.com",
 ]
 CSP_FONT_SRC = [
     "'self'",
