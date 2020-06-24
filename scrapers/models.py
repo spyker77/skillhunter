@@ -37,6 +37,8 @@ class Job(models.Model):
 
 class Search(models.Model):
     query = models.CharField(max_length=200)
+    ip_address = models.GenericIPAddressField(default="0.0.0.0")
+    user_agent = models.CharField(max_length=200, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

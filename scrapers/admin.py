@@ -12,6 +12,15 @@ class VacancyAdmin(admin.ModelAdmin):
     )
 
 
+class SearchAdmin(admin.ModelAdmin):
+    list_display = (
+        "query",
+        "ip_address",
+        "user_agent",
+        "created_date",
+    )
+
+
 class SkillAdmin(admin.ModelAdmin):
     list_display = (
         "clean_name",
@@ -22,5 +31,5 @@ class SkillAdmin(admin.ModelAdmin):
 
 admin.site.register(Vacancy, VacancyAdmin)
 admin.site.register(Job)
-admin.site.register(Search)
+admin.site.register(Search, SearchAdmin)
 admin.site.register(Skill, SkillAdmin)

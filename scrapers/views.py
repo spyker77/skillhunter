@@ -14,11 +14,15 @@ class SearchResultsListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
+        ip_address = self.request.META.get("REMOTE_ADDR")
+        user_agent = self.request.META.get("HTTP_USER_AGENT")
 
         # Save the search query for future analysis.
         ENVIRONMENT = os.environ.get("ENVIRONMENT")
         if ENVIRONMENT == "production":
-            Search.objects.create(query=query)
+            Search.objects.create(
+                query=query, ip_address=ip_address, user_agent=user_agent
+            )
 
         # From here, the main skill collection process continues.
         suitable_vacancies = Vacancy.objects.filter(search_vector=query)
