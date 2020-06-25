@@ -14,7 +14,7 @@ class Command(BaseCommand):
     }
 
     def handle(self, *args, **options):
-        for job_title in self.JOBS[:3]:
+        for job_title in self.JOBS:
             collected_jobs = asyncio.run(main(job_title, self.SKILLS))
             all_jobs = (
                 Vacancy(
