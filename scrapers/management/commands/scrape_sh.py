@@ -1,4 +1,5 @@
 import asyncio
+from time import sleep
 from django.core.management.base import BaseCommand
 
 from .sh_scraper import main
@@ -27,5 +28,8 @@ class Command(BaseCommand):
                 if job is not None
             )
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
-            self.stdout.write(f"👍 {job_title} – {len(all_jobs)} processed for simplyhired.com")
+            self.stdout.write(
+                f"👍 {job_title} – {len(all_jobs)} processed for simplyhired.com"
+            )
+            sleep(60)
         self.stdout.write(f"💃🕺 simplyhired.com successfully parsed!")
