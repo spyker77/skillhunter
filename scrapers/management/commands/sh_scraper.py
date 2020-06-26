@@ -41,7 +41,7 @@ async def scan_single_search_page(query, page_num, session):
             all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
             # Extract valid links to vacancy pages and clean the tail.
             links = set(
-                ("https://www.simplyhired.com" + vacancy["href"]).split("?tk=")[0]
+                ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0]
                 for vacancy in all_vacancies
             )
             return links
