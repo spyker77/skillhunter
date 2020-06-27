@@ -1,5 +1,4 @@
 import asyncio
-from time import sleep
 from django.core.management.base import BaseCommand
 
 from .sh_scraper import main
@@ -31,5 +30,4 @@ class Command(BaseCommand):
             self.stdout.write(
                 f"👍 {job_title} – {len(list(all_jobs))} processed for simplyhired.com"
             )
-            sleep(60)
         self.stdout.write(f"💃🕺 simplyhired.com successfully parsed!")

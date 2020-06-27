@@ -19,6 +19,14 @@ headers = {
 RANDOM_AGENT = random.choice(headers["user-agent"])
 
 
+COOKIES = {
+    "arq": "HmiBFTwn4zqeZbgu384YVqo7N173nTBcelju8yC8qXQRjlyQ2-K6hYZiB7zQdka1eCddsP_jhp4-pA",
+    "cpt": "ql0ekn9ok7lGsMBfvIJMCsJ3NvuuQIIy-8B4YKUU8NpeKuivhphb",
+    "shk": "1ebr3nabg3249000",
+    "st": "M4_xIf1P93xLd73LXYVCDD4jR3KQPIwWbf2ByQIGnTqeZ_LxkijGgLnNEumHJHI4",
+}
+
+
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
     query = job_title.strip('"')
@@ -117,7 +125,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 async def main(job_title, SKILLS):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
-        headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
+        cookies=COOKIES, headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
     ) as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
