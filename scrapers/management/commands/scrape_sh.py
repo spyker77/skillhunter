@@ -29,7 +29,7 @@ class Command(BaseCommand):
             )
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
             self.stdout.write(
-                f"👍 {job_title} – {len(all_jobs)} processed for simplyhired.com"
+                f"👍 {job_title} – {len(list(all_jobs))} processed for simplyhired.com"
             )
             sleep(60)
         self.stdout.write(f"💃🕺 simplyhired.com successfully parsed!")

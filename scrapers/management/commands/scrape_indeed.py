@@ -27,5 +27,7 @@ class Command(BaseCommand):
                 if job is not None
             )
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
-            self.stdout.write(f"👍 {job_title} – {len(all_jobs)} processed for indeed.com")
+            self.stdout.write(
+                f"👍 {job_title} – {len(list(all_jobs))} processed for indeed.com"
+            )
         self.stdout.write(f"💃🕺 indeed.com successfully parsed!")
