@@ -1,6 +1,7 @@
 import re
 import random
 import asyncio
+from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -132,6 +133,7 @@ async def main(job_title, SKILLS):
         attempt = 1
         while attempt < 10:
             try:
+                sleep(60)
                 vacancies_without_skills = await fetch_all_vacancy_pages(
                     all_links, session
                 )
@@ -146,4 +148,5 @@ async def main(job_title, SKILLS):
             for vacancy_without_skills in vacancies_without_skills
             if vacancy_without_skills is not None
         )
+    sleep(60)
     return collected_jobs
