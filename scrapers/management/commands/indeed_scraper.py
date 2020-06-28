@@ -40,8 +40,7 @@ async def scan_single_search_page(query, page_num, session):
             all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
             # Extract valid links to vacancy pages.
             links = set(
-                "https://www.indeed.com/viewjob?jk=" + vacancy["href"]
-                for vacancy in all_vacancies
+                "https://www.indeed.com" + vacancy["href"] for vacancy in all_vacancies
             )
             return links
         except AttributeError:
