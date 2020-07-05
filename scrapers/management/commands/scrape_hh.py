@@ -14,6 +14,7 @@ class Command(BaseCommand):
     }
 
     def handle(self, *args, **options):
+        self.stdout.write(f"🚀 hh.ru launched to parse!")
         for job_title in self.JOBS:
             collected_jobs = asyncio.run(main(job_title, self.SKILLS))
             all_jobs = (
