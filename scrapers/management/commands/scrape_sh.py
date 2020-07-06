@@ -1,3 +1,4 @@
+import copy
 import asyncio
 from django.core.management.base import BaseCommand
 
@@ -27,8 +28,9 @@ class Command(BaseCommand):
                 for job in collected_jobs
                 if job is not None
             )
-            self.stdout.write(
-                f"👍 {job_title} – {len(list(all_jobs))} processed for simplyhired.com"
-            )
+            copied_all_jobs = copy.copy(list(all_jobs))
             Vacancy.objects.bulk_create(all_jobs, ignore_conflicts=True)
-        self.stdout.write(f"💃🕺 simplyhired.com successfully parsed!")
+            self.stdout.write(
+                f"👍 {job_title} – {len(copied_all_jobs)} vacancies parsed from simplyhired.com"
+            )
+        self.stdout.write(f"💃🕺 simplyhired.com finished to parse!")
