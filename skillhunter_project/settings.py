@@ -202,7 +202,6 @@ password = os.environ.get("MEMCACHIER_PASSWORD")
 
 CACHES = {
     "default": {
-        # Use django-bmemcached
         "BACKEND": "django_bmemcached.memcached.BMemcached",
         # TIMEOUT is not the connection timeout! It's the default expiration
         # timeout that should be applied to keys! Setting it to `None`
