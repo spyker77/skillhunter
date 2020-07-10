@@ -7,8 +7,8 @@ from django.contrib.postgres.search import SearchVectorField
 
 class Vacancy(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    url = models.URLField(max_length=200, unique=True)
-    title = models.CharField(max_length=200)
+    url = models.URLField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
     content = models.TextField()
     rated_skills = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -36,9 +36,9 @@ class Job(models.Model):
 
 
 class Search(models.Model):
-    query = models.CharField(max_length=200)
+    query = models.CharField(max_length=255)
     ip_address = models.GenericIPAddressField(default="0.0.0.0")
-    user_agent = models.CharField(max_length=200, blank=True)
+    user_agent = models.CharField(max_length=255, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
