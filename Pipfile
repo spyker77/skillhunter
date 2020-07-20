@@ -25,6 +25,7 @@ flashtext = "*"
 django-bmemcached = "*"
 python-binary-memcached = "*"
 jinja2 = "*"
+pytest-xdist = "*"
 
 [requires]
 python_version = "3.8.3"
