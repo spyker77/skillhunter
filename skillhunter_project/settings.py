@@ -217,5 +217,6 @@ CACHE_MIDDLEWARE_ALIAS = "default"
 CACHE_MIDDLEWARE_SECONDS = 12 * 60 * 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ""
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 django_heroku.settings(locals())
