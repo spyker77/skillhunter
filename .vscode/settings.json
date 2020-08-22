@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "/Users/user/.local/share/virtualenvs/skillhunter-cDEokVwF/bin/python"
+    "python.pythonPath": "/Users/user/.local/share/virtualenvs/skillhunter-cDEokVwF/bin/python",
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true
 }
