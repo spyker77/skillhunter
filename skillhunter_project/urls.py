@@ -3,14 +3,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include, re_path
 from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
 
+from scrapers.models import Job
 from pages.sitemaps import StaticViewSitemap
 
 admin.site.site_header = "SkillHunter admin panel"
 admin.site.site_title = "SkillHunter"
 
-sitemaps = {
-    "static": StaticViewSitemap,
+job_title_links = {
+    "queryset": Job.objects.all(),
 }
 
 urlpatterns = [
@@ -20,7 +22,12 @@ urlpatterns = [
     path(
         "sitemap.xml",
         sitemap,
-        {"sitemaps": sitemaps},
+        {
+            "sitemaps": {
+                "static": StaticViewSitemap,
+                "dynamic": GenericSitemap(job_title_links),
+            }
+        },
         name="django.contrib.sitemaps.views.sitemap",
     ),
     re_path(r"^robots\.txt", include("robots.urls")),

@@ -1,5 +1,8 @@
+from urllib.parse import urlencode
+
 import uuid
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
@@ -30,6 +33,12 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        job_title = self.title.lower()
+        query = {"q": job_title}
+        link_for_sitemap = reverse("search_results") + "?" + urlencode(query)
+        return link_for_sitemap
 
     class Meta:
         ordering = ["title"]
