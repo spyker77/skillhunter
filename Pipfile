@@ -17,7 +17,7 @@ django-debug-toolbar = "*"
 django-crispy-forms = "*"
 pytest-django = "*"
 django-csp = "*"
-whitenoise = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
 dj-database-url = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
