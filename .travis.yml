@@ -12,7 +12,7 @@ before_script:
   - sudo mv docker-compose /usr/local/bin
   - docker-compose up -d --build
   - docker ps -a
-  - docker-compose restart
-  - docker-compose exec -T web python manage.py collectstatic --noinput
+  - docker-compose exec web python manage.py migrate
+  - docker-compose exec web python manage.py collectstatic --noinput
 script:
   - docker-compose exec web pytest -n 2
