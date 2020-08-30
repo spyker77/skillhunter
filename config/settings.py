@@ -202,7 +202,7 @@ if ENVIRONMENT == "production":
 
 # # Memcachier for Heroku
 servers = env.str("MEMCACHIER_SERVERS")
-username = env.int("MEMCACHIER_USERNAME")
+username = env.str("MEMCACHIER_USERNAME")
 password = env.str("MEMCACHIER_PASSWORD")
 
 CACHES = {
