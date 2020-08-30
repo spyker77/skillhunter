@@ -10,7 +10,8 @@ before_script:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker-compose up -d --build
-  - docker ps -a
+  - docker-compose down
+  - docker-compose up -d
   - docker ps -a
   - docker-compose exec web python manage.py collectstatic --noinput
 script:
