@@ -1,2 +1,2 @@
-web: gunicorn skillhunter_project.wsgi
+web: gunicorn config.wsgi
 release: python manage.py migrate

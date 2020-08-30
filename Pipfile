@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-mypy = "*"
 
 [packages]
 django = "*"
@@ -14,7 +13,6 @@ uvicorn = "*"
 aiohttp = "*"
 lxml = "*"
 django-debug-toolbar = "*"
-django-crispy-forms = "*"
 pytest-django = "*"
 django-csp = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
@@ -27,6 +25,7 @@ django-bmemcached = "*"
 python-binary-memcached = "*"
 jinja2 = "*"
 pytest-xdist = "*"
+environs = {extras = ["django"], version = "*"}
 
 [requires]
 python_version = "3.8.5"

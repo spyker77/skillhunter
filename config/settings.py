@@ -1,22 +1,27 @@
 import os
 import socket
+from pathlib import Path
 
 import django_heroku
 import dj_database_url
+from environs import Env
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env = Env()
+env.read_env()
 
-ENVIRONMENT = os.environ.get("ENVIRONMENT", default="production")
+# Build paths inside the project like this: BASE_DIR / 'subdir'
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+
+ENVIRONMENT = env.str("ENVIRONMENT", default="production")
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = [
     "skillhunter.app",
@@ -42,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "scrapers",
     "pages",
-    "crispy_forms",
     "debug_toolbar",
     "robots",
 ]
@@ -61,18 +65,18 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-ROOT_URLCONF = "skillhunter_project.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.jinja2.Jinja2",
-        "DIRS": [os.path.join(BASE_DIR, "templates/jinja2")],
+        "DIRS": [BASE_DIR / "templates/jinja2"],
         "APP_DIRS": True,
-        "OPTIONS": {"environment": "skillhunter_project.jinja2.environment",},
+        "OPTIONS": {"environment": "config.jinja2.environment",},
     },
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,26 +89,32 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "skillhunter_project.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Default settings for database
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.environ.get("DATABASE_NAME"),
+#         "USER": os.environ.get("DATABASE_USER"),
+#         "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
+
+# Docker settings for database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DATABASE_NAME"),
-        "USER": os.environ.get("DATABASE_USER"),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": "",
-    }
+    "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -117,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -131,23 +141,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    BASE_DIR / "static",
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # Content-Security-Policy settings for django-csp
@@ -171,12 +176,12 @@ CSP_IMG_SRC = [
 # django-debug-toolbar
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
-# if DEBUG:
-#     DEBUG_TOOLBAR_CONFIG = {
-#         "SHOW_TOOLBAR_CALLBACK": lambda request: not request.is_ajax()
-#     }
-#     CSP_SCRIPT_SRC.append("'unsafe-inline'")
-#     CSP_STYLE_SRC.append("'unsafe-inline'")
+if DEBUG:
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": lambda request: not request.is_ajax()
+    }
+    CSP_SCRIPT_SRC.append("'unsafe-inline'")
+    CSP_STYLE_SRC.append("'unsafe-inline'")
 
 
 # Production settings
@@ -196,9 +201,9 @@ if ENVIRONMENT == "production":
 
 
 # # Memcachier for Heroku
-servers = os.environ.get("MEMCACHIER_SERVERS")
-username = os.environ.get("MEMCACHIER_USERNAME")
-password = os.environ.get("MEMCACHIER_PASSWORD")
+servers = env.str("MEMCACHIER_SERVERS")
+username = env.int("MEMCACHIER_USERNAME")
+password = env.str("MEMCACHIER_PASSWORD")
 
 CACHES = {
     "default": {
