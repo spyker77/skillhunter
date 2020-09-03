@@ -1,0 +1,2 @@
+# skillhunter
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/561706baeb8649f798430f38b6ae4327)](https://app.codacy.com/manual/spyker77/skillhunter?utm_source=github.com&utm_medium=referral&utm_content=spyker77/skillhunter&utm_campaign=Badge_Grade_Dashboard)
