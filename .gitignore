@@ -3,6 +3,7 @@
 *.pyc
 .env
 .vscode
+.coverage
 .DS_Store
 .mypy_cache
 .pytest_cache

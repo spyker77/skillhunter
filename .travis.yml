@@ -6,6 +6,7 @@ dist: focal
 services:
   - docker
 before_script:
+  - bash <(curl -s https://codecov.io/bash)
   - docker-compose --version
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -17,3 +18,5 @@ before_script:
   - docker-compose exec web python manage.py collectstatic --noinput
 script:
   - docker-compose exec web pytest -n 2
+# after_success:
+#   - bash <(curl -s https://codecov.io/bash)

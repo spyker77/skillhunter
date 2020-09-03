@@ -26,6 +26,7 @@ python-binary-memcached = "*"
 jinja2 = "*"
 pytest-xdist = "*"
 environs = {extras = ["django"], version = "*"}
+pytest-cov = "*"
 
 [requires]
 python_version = "3.8.5"
