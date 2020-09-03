@@ -95,19 +95,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# Default settings for database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.environ.get("DATABASE_NAME"),
-#         "USER": os.environ.get("DATABASE_USER"),
-#         "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
-
-# Docker settings for database
 DATABASES = {
     "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
@@ -200,7 +187,7 @@ if ENVIRONMENT == "production":
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
-# # Memcachier for Heroku
+# Memcachier for Heroku
 servers = env.str("MEMCACHIER_SERVERS")
 username = env.str("MEMCACHIER_USERNAME")
 password = env.str("MEMCACHIER_PASSWORD")
