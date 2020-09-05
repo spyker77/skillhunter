@@ -5,8 +5,6 @@ os: linux
 dist: focal
 services:
   - docker
-env:
-  - secure: "2azc/jEparIei6EyruBcG+wFyObZaIxNyixn6vaL2c+nyn5WkJRrleDey4RxjXT5ZeZapos+MD+gvTLy90TeQpwOTjNj9AFfzaE+m9YHeER8CSRMrcZ4F6SaKGSb0x1sROsGLMtkwSQGipRdMBG77DbwMIhgIwVj3GqOUskq5t/B8sIS6xBNaK7SU+Wcwj81a9tgUk2WL7XgUbbOxyHKlBnyYB9STeyZEjP/SQx6lxrBR9tet/LTVTtT7Tnl73uWJ4gaGwDds/kGa7ruMw2vnE7cIGGNf1XE9IvuMu0L1Vbw9wnKHkjeaRxzrsnkILBR4nuk2MStdUN7tr5W1GRsv11P4QSylxvBzFalTmQKRFAhB7/ndTMxP7pqTS58bR6pDmqSHjBFMaC7d2cz1XxhXAOp7jQ80hNzalpCd6RCqSuewNZaKicazfRZjb2NuikfV6/bg+8qXUytf0gCuxvelg0JKwO9l7mbYbXFb+n0IeyALHKI1moBNdYKkYjEiuzp0oHKkJBhjBaRQCVvdroWh33wgL03Uth2nAH6jInMUpvNCKKH68pkLPOTqQkDLbvAZkTxU63SmEyx3Cr5RS9EnTKzUo0YNvc08ycPMl7yGCo4xvUpCECvs2pljDycCjcTd5WgMJBiPnf+JjSGfFSHdACmfbyRAxs8iSIsNy0sdU4="
 before_install:
   # Remove this bash and uncomment after_success after making pytest working
   - bash <(curl -s https://codecov.io/bash)
