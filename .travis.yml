@@ -16,11 +16,12 @@ install:
   - sudo mv docker-compose /usr/local/bin
   - docker-compose --version
 before_script:
-  - docker-compose up -d --build
+  - docker-compose build
+  - docker-compose up
   # - docker-compose exec web python manage.py migrate --noinput
   # - docker-compose exec web python manage.py collectstatic --noinput
 script:
-  - docker-compose logs
+  # - docker-compose logs
   - docker-compose exec web pytest -n 2
 # after_success:
 #   - bash <(curl -s https://codecov.io/bash)
