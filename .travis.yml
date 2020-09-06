@@ -2,7 +2,7 @@ language: python
 python:
   - "3.8.5"
 os: linux
-dist: focal
+dist: bionic
 services:
   - docker
 before_install:
