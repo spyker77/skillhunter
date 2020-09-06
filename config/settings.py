@@ -185,24 +185,21 @@ if ENVIRONMENT == "production":
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
-
-# Memcachier for Heroku
-servers = env.str("MEMCACHIER_SERVERS")
-username = env.str("MEMCACHIER_USERNAME")
-password = env.str("MEMCACHIER_PASSWORD")
-
-CACHES = {
-    "default": {
-        "BACKEND": "django_bmemcached.memcached.BMemcached",
-        # TIMEOUT is not the connection timeout! It's the default expiration
-        # timeout that should be applied to keys! Setting it to `None`
-        # disables expiration.
-        "TIMEOUT": 12 * 60 * 60,
-        "LOCATION": servers,
-        "OPTIONS": {"username": username, "password": password,},
+    # Memcachier for Heroku
+    servers = env.str("MEMCACHIER_SERVERS")
+    username = env.str("MEMCACHIER_USERNAME")
+    password = env.str("MEMCACHIER_PASSWORD")
+    CACHES = {
+        "default": {
+            "BACKEND": "django_bmemcached.memcached.BMemcached",
+            # TIMEOUT is not the connection timeout! It's the default expiration
+            # timeout that should be applied to keys! Setting it to `None`
+            # disables expiration.
+            "TIMEOUT": 12 * 60 * 60,
+            "LOCATION": servers,
+            "OPTIONS": {"username": username, "password": password,},
+        }
     }
-}
 
 # Cashing
 CACHE_MIDDLEWARE_ALIAS = "default"
