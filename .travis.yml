@@ -5,22 +5,19 @@ os: linux
 dist: focal
 services:
   - docker
-# Remove it and uncomment after_success after making pytest working
 before_install:
-  - bash <(curl -s https://codecov.io/bash)
-install:
   - docker-compose --version
+install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose --version
 before_script:
+  - docker-compose --version
   - docker-compose up -d
-  - docker-compose exec web python manage.py migrate --noinput
-  - docker-compose exec web python manage.py collectstatic --noinput
+  # - docker-compose exec web python manage.py migrate --noinput
+  # - docker-compose exec web python manage.py collectstatic --noinput
 script:
-  # - docker-compose logs
   - docker-compose exec web pytest -n 2
-# after_success:
-#   - bash <(curl -s https://codecov.io/bash)
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
