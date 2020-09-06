@@ -18,8 +18,8 @@ install:
 before_script:
   - docker-compose build
   - docker-compose up
-  # - docker-compose exec web python manage.py migrate --noinput
-  # - docker-compose exec web python manage.py collectstatic --noinput
+  - docker-compose exec web python manage.py migrate --noinput
+  - docker-compose exec web python manage.py collectstatic --noinput
 script:
   # - docker-compose logs
   - docker-compose exec web pytest -n 2
