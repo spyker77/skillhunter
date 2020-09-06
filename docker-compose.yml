@@ -5,7 +5,7 @@ services:
     build: .
     command: gunicorn config.wsgi -b 0.0.0.0:8000
     environment:
-      # - "DJANGO_SECRET_KEY=<replace_it_with_your_secret_key>"
+      - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
       - "DEBUG=False"
       # - "ENVIRONMENT=production"
       # - "DATABASE_URL=<replace_it_with_your_dburl>"
