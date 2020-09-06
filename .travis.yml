@@ -16,7 +16,7 @@ before_script:
   - docker-compose --version
   - docker-compose up -d
   # - docker-compose exec web python manage.py migrate --noinput
-  # - docker-compose exec web python manage.py collectstatic --noinput
+  - docker-compose exec web python manage.py collectstatic --noinput
 script:
   - docker-compose exec web pytest -n 2
 after_success:
