@@ -7,9 +7,10 @@ import pytest
 
 class TestHomePage:
     @pytest.fixture
-    def response(self, client):
-        self.url = reverse("home")
-        return client.get(self.url)
+    def response(self, rf):
+        url = reverse("home")
+        request = rf.get(url)
+        return HomePageView.as_view()(request)
 
     def test_homepage_status_code(self, response):
         assert response.status_code == 200
@@ -24,15 +25,16 @@ class TestHomePage:
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_homepage_url_resolves_homepageview(self):
-        self.view = resolve("/")
-        assert self.view.func.__name__ == HomePageView.as_view().__name__
+        view = resolve("/")
+        assert view.func.__name__ == HomePageView.as_view().__name__
 
 
 class TestAboutPage:
     @pytest.fixture
-    def response(self, client):
-        self.url = reverse("about")
-        return client.get(self.url)
+    def response(self, rf):
+        url = reverse("about")
+        request = rf.get(url)
+        return AboutPageView.as_view()(request)
 
     def test_aboutpage_status_code(self, response):
         assert response.status_code == 200
@@ -47,5 +49,5 @@ class TestAboutPage:
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_aboutpage_url_resolves_aboutpageview(self):
-        self.view = resolve("/about/")
-        assert self.view.func.__name__ == AboutPageView.as_view().__name__
+        view = resolve("/about/")
+        assert view.func.__name__ == AboutPageView.as_view().__name__
