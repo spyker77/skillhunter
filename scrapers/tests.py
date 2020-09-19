@@ -51,3 +51,16 @@ class TestSearchResultsListView:
         assert new_search_object[0].query == self.query
         assert new_search_object[0].ip_address == self.ip_address
         assert new_search_object[0].user_agent == self.user_agent
+
+    def test_searchresultslistview_combines_rated_skills(self):
+        rated_skills_to_merge = (
+            {"Python": 1, "JS": 2},
+            {"Python": 3, "AWS": 1},
+            None,
+        )
+        super_dict = SearchResultsListView._combine_rated_skills(
+            self, rated_skills_to_merge
+        )
+        merged_skills = {k: sum(v) for k, v in super_dict.items()}
+        assert merged_skills["Python"] == 4
+        assert None not in merged_skills
