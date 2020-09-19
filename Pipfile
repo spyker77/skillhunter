@@ -9,7 +9,6 @@ verify_ssl = true
 django = "*"
 django-heroku = "*"
 bs4 = "*"
-uvicorn = "*"
 aiohttp = "*"
 lxml = "*"
 django-debug-toolbar = "*"
