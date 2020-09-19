@@ -18,6 +18,7 @@ django-csp = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 dj-database-url = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 django-robots = "*"
 flashtext = "*"
 jinja2 = "*"
