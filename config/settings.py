@@ -72,7 +72,9 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.jinja2.Jinja2",
         "DIRS": [BASE_DIR / "templates/jinja2"],
         "APP_DIRS": True,
-        "OPTIONS": {"environment": "config.jinja2.environment",},
+        "OPTIONS": {
+            "environment": "config.jinja2.environment",
+        },
     },
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -107,9 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -185,19 +193,11 @@ if ENVIRONMENT == "production":
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    # Memcachier for Heroku
-    servers = env.str("MEMCACHIER_SERVERS")
-    username = env.str("MEMCACHIER_USERNAME")
-    password = env.str("MEMCACHIER_PASSWORD")
+    # Redis for Heroku
     CACHES = {
         "default": {
-            "BACKEND": "django_bmemcached.memcached.BMemcached",
-            # TIMEOUT is not the connection timeout! It's the default expiration
-            # timeout that should be applied to keys! Setting it to `None`
-            # disables expiration.
-            "TIMEOUT": 12 * 60 * 60,
-            "LOCATION": servers,
-            "OPTIONS": {"username": username, "password": password,},
+            "BACKEND": "redis_cache.RedisCache",
+            "LOCATION": env.str("REDIS_URL"),
         }
     }
 

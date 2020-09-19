@@ -8,10 +8,8 @@ services:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
       - "DEBUG=False"
       - "ENVIRONMENT=development"
-      # - "DATABASE_URL=<replace_it_with_your_dburl>"
-      # - "MEMCACHIER_SERVERS=<replace_it_with_your_server_ips>"
-      # - "MEMCACHIER_USERNAME=<replace_it_with_your_username>"
-      # - "MEMCACHIER_PASSWORD=<replace_it_with_your_password>"
+      # - "DATABASE_URL=<replace_it_with_your_db_url>"
+      # - "REDIS_URL=<replace_it_with_your_redis_url>"
     volumes:
       - .:/code
     ports:

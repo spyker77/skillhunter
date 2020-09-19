@@ -21,12 +21,11 @@ psycopg2-binary = "*"
 gunicorn = "*"
 django-robots = "*"
 flashtext = "*"
-django-bmemcached = "*"
-python-binary-memcached = "*"
 jinja2 = "*"
 pytest-xdist = "*"
 environs = {extras = ["django"], version = "*"}
 pytest-cov = "*"
+django-redis-cache = "*"
 
 [requires]
 python_version = "3.8.5"
