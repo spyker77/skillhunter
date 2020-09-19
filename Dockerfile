@@ -16,6 +16,7 @@ RUN apt-get update \
     # psycopg2 dependencies
     && apt-get install -y libpq-dev \
     # Project dependencies
+    && pip install --upgrade pip \
     && pip install pipenv \
     && pipenv install --system
 
