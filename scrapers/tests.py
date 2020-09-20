@@ -118,8 +118,9 @@ class TestSearchModel:
 @pytest.mark.django_db
 class TestSkillModel:
     def test_skillmodel_str_method(self):
+        test_name = "Test"
         Skill.objects.create(
-            clean_name="Python", unclean_names='["python", "python3", "phyton"]'
+            clean_name=test_name, unclean_names='["python", "python3", "phyton"]'
         )
-        skill_object = Skill.objects.get(clean_name="Python")
+        skill_object = Skill.objects.get(clean_name=test_name)
         assert str(skill_object) == skill_object.clean_name
