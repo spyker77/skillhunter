@@ -1,7 +1,9 @@
+from urllib.parse import urlparse, urlencode
+
 from django.urls import reverse, resolve
 
 from .views import SearchResultsListView
-from .models import Search
+from .models import Vacancy, Job, Search, Skill
 
 import pytest
 
@@ -64,3 +66,60 @@ class TestSearchResultsListView:
         merged_skills = {k: sum(v) for k, v in super_dict.items()}
         assert merged_skills["Python"] == 4
         assert None not in merged_skills
+
+
+@pytest.mark.django_db
+class TestVacancyModel:
+    def test_vacancymodel_str_method(self):
+        Vacancy.objects.create(
+            url="http://test_url.app",
+            title="Test vacancy",
+            content="Test content",
+            rated_skills={"Python": 1, "JS": 2},
+        )
+        vacancy_object = Vacancy.objects.get(url="http://test_url.app")
+        assert str(vacancy_object) == vacancy_object.title
+
+
+@pytest.mark.django_db
+class TestJobModel:
+    title = "Test job"
+
+    def test_jobmodel_str_method(self):
+        Job.objects.create(
+            title=self.title,
+        )
+        job_object = Job.objects.get(title=self.title)
+        assert str(job_object) == job_object.title
+
+    def test_jobmodel_get_absolute_url(self):
+        url = Job.get_absolute_url(self)
+        parsed_url = urlparse(url)
+        query = urlencode({"q": self.title.lower()})
+        assert isinstance(url, str)
+        assert parsed_url.scheme == ""
+        assert parsed_url.netloc == ""
+        assert parsed_url.path == reverse("search_results")
+        assert query in parsed_url.query
+
+
+@pytest.mark.django_db
+class TestSearchModel:
+    def test_searchmodel_str_method(self):
+        Search.objects.create(
+            query="test search query",
+            ip_address="0.0.0.0",
+            user_agent="Test User-Agent",
+        )
+        search_object = Search.objects.get(ip_address="0.0.0.0")
+        assert str(search_object) == search_object.query
+
+
+@pytest.mark.django_db
+class TestSkillModel:
+    def test_skillmodel_str_method(self):
+        Skill.objects.create(
+            clean_name="Python", unclean_names='["python", "python3", "phyton"]'
+        )
+        skill_object = Skill.objects.get(clean_name="Python")
+        assert str(skill_object) == skill_object.clean_name
