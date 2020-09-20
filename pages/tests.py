@@ -1,6 +1,11 @@
+from collections.abc import Sequence
+from urllib.parse import urlparse
+
 from django.urls import reverse, resolve
+from django.db.models.query import QuerySet
 
 from .views import HomePageView, AboutPageView
+from .sitemaps import StaticViewSitemap
 
 import pytest
 
@@ -51,3 +56,18 @@ class TestAboutPage:
     def test_aboutpage_url_resolves_aboutpageview(self):
         view = resolve("/about/")
         assert view.func.__name__ == AboutPageView.as_view().__name__
+
+
+class TestStaticViewSitemap:
+    def test_staticviewsitemap_items_type(self):
+        items = StaticViewSitemap.items(self)
+        assert isinstance(items, Sequence) or isinstance(items, QuerySet)
+
+    def test_staticviewsitemap_items_location(self):
+        items = StaticViewSitemap.items(self)
+        for item in items:
+            location = StaticViewSitemap.location(self, item)
+            parsed_location = urlparse(location)
+            assert isinstance(parsed_location.path, str)
+            assert parsed_location.scheme == ""
+            assert parsed_location.netloc == ""
