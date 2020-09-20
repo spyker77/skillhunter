@@ -1,8 +1,8 @@
-from django.contrib import sitemaps
+from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
 
-class StaticViewSitemap(sitemaps.Sitemap):
+class StaticViewSitemap(Sitemap):
     def items(self):
         return ["home", "about"]
 
