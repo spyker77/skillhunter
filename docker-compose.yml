@@ -7,7 +7,7 @@ services:
     environment:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
       - "DEBUG=False"
-      - "ENVIRONMENT=development"
+      - "ENVIRONMENT=production"
       # - "DATABASE_URL=<replace_it_with_your_db_url>"
       # - "REDIS_URL=<replace_it_with_your_redis_url>"
     volumes:
