@@ -1,11 +1,13 @@
-from collections.abc import Sequence
+from pathlib import Path
 from urllib.parse import urlparse
+from collections.abc import Sequence
 
 from django.urls import reverse, resolve
 from django.db.models.query import QuerySet
 
 from .views import HomePageView, AboutPageView
 from .sitemaps import StaticViewSitemap
+from .apps import PagesConfig
 
 import pytest
 
@@ -71,3 +73,10 @@ class TestStaticViewSitemap:
             assert isinstance(parsed_location.path, str)
             assert parsed_location.scheme == ""
             assert parsed_location.netloc == ""
+
+
+class TestPagesConfig:
+    def test_pagesconfig_name(self):
+        app_path = Path(__file__).resolve().parent
+        app_name = str(app_path).split("/")[-1]
+        assert PagesConfig.name == app_name
