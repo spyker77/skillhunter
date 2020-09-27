@@ -1,7 +1,9 @@
+from pathlib import Path
 from urllib.parse import urlparse, urlencode
 
 from django.urls import reverse, resolve
 
+from .apps import ScrapersConfig
 from .views import SearchResultsListView
 from .models import Vacancy, Job, Search, Skill
 
@@ -124,3 +126,10 @@ class TestSkillModel:
         )
         skill_object = Skill.objects.get(clean_name=test_name)
         assert str(skill_object) == skill_object.clean_name
+
+
+class TestScrapersConfig:
+    def test_scrapersconfig_name(self):
+        app_path = Path(__file__).resolve().parent
+        app_name = str(app_path).split("/")[-1]
+        assert ScrapersConfig.name == app_name
