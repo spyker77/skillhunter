@@ -1,5 +1,3 @@
-import os
-
 from django.conf import settings
 
 import pytest
@@ -7,7 +5,7 @@ import pytest
 
 class TestSettings:
     def test_settings_production_variables(self):
-        if os.environ["ENVIRONMENT"] == "production":
+        if settings.ENVIRONMENT == "production":
             assert settings.X_FRAME_OPTIONS
             assert settings.SECURE_BROWSER_XSS_FILTER
             assert settings.SECURE_REFERRER_POLICY
@@ -21,9 +19,3 @@ class TestSettings:
             assert settings.CSRF_COOKIE_SECURE
             assert settings.DATABASES
             assert settings.CACHES
-
-    def test_settings_debug_variables(self):
-        if os.environ["DEBUG"] == "True":
-            assert settings.DEBUG_TOOLBAR_CONFIG
-            assert len(settings.CSP_SCRIPT_SRC) == 2
-            assert len(settings.CSP_STYLE_SRC) == 2
