@@ -10,4 +10,5 @@
 __pycache__
 db.sqlite3s
 coverage.xml
+cobertura.xml
 docker-compose-prod.yml
