@@ -19,18 +19,15 @@ class TestSearchResultsListView:
     user_agent = "Test User-Agent"
 
     @pytest.fixture
-    def mock_environment_production(self, monkeypatch):
-        monkeypatch.setenv("ENVIRONMENT", "production")
-
-    @pytest.fixture
-    def response(self, monkeypatch, rf):
-        request = rf.get(
+    def response(self, client):
+        response = client.get(
             self.url,
             self.data,
+            follow=True,
             REMOTE_ADDR=self.ip_address,
             HTTP_USER_AGENT=self.user_agent,
         )
-        return SearchResultsListView.as_view()(request)
+        return response
 
     def test_searchresultslistview_status_code(self, response):
         assert response.status_code == 200
@@ -48,9 +45,7 @@ class TestSearchResultsListView:
         view = resolve("/search/")
         assert view.func.__name__ == SearchResultsListView.as_view().__name__
 
-    def test_searchresultslistview_creates_new_search_object(
-        self, mock_environment_production, response
-    ):
+    def test_searchresultslistview_creates_new_search_object(self, response):
         new_search_object = Search.objects.filter(user_agent=self.user_agent)
         assert new_search_object[0].query == self.query
         assert new_search_object[0].ip_address == self.ip_address
