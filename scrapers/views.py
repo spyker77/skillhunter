@@ -1,7 +1,7 @@
-import os
 from collections import defaultdict
 
 from django.views.generic import ListView
+from django.conf import settings
 
 from .models import Vacancy, Search
 
@@ -25,8 +25,7 @@ class SearchResultsListView(ListView):
         user_agent = self.request.META.get("HTTP_USER_AGENT")
 
         # Save the search query for future analysis.
-        ENVIRONMENT = os.environ.get("ENVIRONMENT")
-        if ENVIRONMENT == "production":
+        if settings.ENVIRONMENT == "production":
             Search.objects.create(
                 query=query, ip_address=ip_address, user_agent=user_agent
             )
