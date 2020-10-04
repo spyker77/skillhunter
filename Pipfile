@@ -24,7 +24,7 @@ jinja2 = "*"
 pytest-xdist = "*"
 environs = {extras = ["django"], version = "*"}
 pytest-cov = "*"
-django-redis-cache = "*"
+django-redis = "*"
 
 [requires]
 python_version = "3.8.5"

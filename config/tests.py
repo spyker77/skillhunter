@@ -18,4 +18,3 @@ class TestSettings:
             assert settings.SESSION_COOKIE_SECURE
             assert settings.CSRF_COOKIE_SECURE
             assert settings.DATABASES
-            assert settings.CACHES
