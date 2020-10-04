@@ -28,7 +28,7 @@ class TestHomePage:
     def test_homepage_contains_correct_html(self, response):
         assert "SkillHunter" in response.rendered_content
 
-    def test_homepage_does_not_contains_incorrect_html(self, response):
+    def test_homepage_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_homepage_url_resolves_homepageview(self):
@@ -52,7 +52,7 @@ class TestAboutPage:
     def test_aboutpage_contains_correct_html(self, response):
         assert "About" in response.rendered_content
 
-    def test_aboutpage_does_not_contains_incorrect_html(self, response):
+    def test_aboutpage_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
     def test_aboutpage_url_resolves_aboutpageview(self):
