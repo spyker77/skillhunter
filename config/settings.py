@@ -194,13 +194,14 @@ if ENVIRONMENT == "production":
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-# Redis for Heroku
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": env.str("REDIS_URL"),
+if "REDIS_URL" in os.environ:
+    # Redis for Heroku
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": env.str("REDIS_URL"),
+        }
     }
-}
 
 # Cashing
 CACHE_MIDDLEWARE_ALIAS = "default"
