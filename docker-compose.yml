@@ -6,8 +6,8 @@ services:
     command: gunicorn config.wsgi -b 0.0.0.0:8000
     environment:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
-      - "DEBUG=False"
-      - "ENVIRONMENT=production"
+      # - "DEBUG=False_or_True"
+      # - "ENVIRONMENT=production_or_development"
       # - "DATABASE_URL=<replace_it_with_your_db_url>"
       # - "REDIS_URL=<replace_it_with_your_redis_url>"
     volumes:
