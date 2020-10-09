@@ -27,4 +27,4 @@ pytest-cov = "*"
 django-redis = "*"
 
 [requires]
-python_version = "3.8.5"
+python_version = "3.9.0"

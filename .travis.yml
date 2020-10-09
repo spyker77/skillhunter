@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.8.5"
+  - "3.9-dev"
 os: linux
 dist: focal
 services:
