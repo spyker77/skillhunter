@@ -21,9 +21,9 @@ django-robots = "*"
 flashtext = "*"
 jinja2 = "*"
 pytest-xdist = "*"
-environs = {extras = ["django"], version = "*"}
 pytest-cov = "*"
 django-redis = "*"
+environs = "*"
 
 [requires]
 python_version = "3.9.0"
