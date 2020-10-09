@@ -36,7 +36,7 @@ async def scan_single_search_page(query, page_num, session):
     async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
         try:
             html = await resp.text()
-            soup = BeautifulSoup(html, "lxml")
+            soup = BeautifulSoup(html, "html.parser")
             all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
             # Extract valid links to vacancy pages.
             links = set(
@@ -76,7 +76,7 @@ async def fetch_vacancy_page(link, session):
     async with session.get(link) as resp:
         try:
             html = await resp.text()
-            soup = BeautifulSoup(html, "lxml")
+            soup = BeautifulSoup(html, "html.parser")
             title = soup.find(
                 attrs={"class": "jobsearch-JobInfoHeader-title-container"}
             ).text

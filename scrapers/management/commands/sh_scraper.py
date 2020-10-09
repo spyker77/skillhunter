@@ -38,7 +38,7 @@ async def scan_single_search_page(query, page_num, session):
     ) as resp:
         try:
             html = await resp.text()
-            soup = BeautifulSoup(html, "lxml")
+            soup = BeautifulSoup(html, "html.parser")
             all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
             # Extract valid links to vacancy pages and clean the tail.
             links = set(
@@ -77,7 +77,7 @@ async def fetch_vacancy_page(link, session):
     async with session.get(link) as resp:
         try:
             html = await resp.text()
-            soup = BeautifulSoup(html, "lxml")
+            soup = BeautifulSoup(html, "html.parser")
             title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
             content = soup.find(attrs={"class": "p"}).text
             vacancy_page = {"url": link, "title": title, "content": content}
