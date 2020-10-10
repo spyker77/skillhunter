@@ -105,10 +105,10 @@ class TestSearchModel:
     def test_searchmodel_str_method(self):
         Search.objects.create(
             query="test search query",
-            ip_address="0.0.0.0",
+            ip_address="9.9.9.9",
             user_agent="Test User-Agent",
         )
-        search_object = Search.objects.get(ip_address="0.0.0.0")
+        search_object = Search.objects.get(ip_address="9.9.9.9")
         assert str(search_object) == search_object.query
 
 

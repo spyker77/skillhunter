@@ -53,17 +53,17 @@ docker-compose exec web python manage.py purge_db
 ```
 
 ## Tech Stack
-  - Docker
-  - Python
-  - Django
-  - PostgreSQL
-  - Redis
-  - Tailwind CSS
-  - Jinja
-  - Beautiful Soup
-  - aiohttp
-  - Pytest
-  - Travis CI
+-  Docker
+-  Python
+-  Django
+-  PostgreSQL
+-  Redis
+-  Tailwind CSS
+-  Jinja
+-  Beautiful Soup
+-  aiohttp
+-  Pytest
+-  Travis CI
 
 ## Contributing
 Pull requests are really welcome. For major changes, please open an issue first to discuss what you would like to change.

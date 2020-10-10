@@ -18,15 +18,11 @@ class Vacancy(models.Model):
     search_vector = SearchVectorField(null=True)
 
     def __str__(self):
-        """
-        Returns human-readable vacancy title for the model record in the admin.
-        """
+        """Returns human-readable vacancy title for the record in the admin."""
         return self.title
 
     class Meta:
-        """
-        Custom plural name of the model and the index for a full text search.
-        """
+        """Custom plural name of the model and the index for a full text search."""
 
         verbose_name_plural = "Vacancies"
         indexes = [

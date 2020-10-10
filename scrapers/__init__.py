@@ -1,8 +1,9 @@
-"""
-This is the app responsible for:
-- keeping the skills to identify,
-- keeping the job titles to parse,
-- collecting the data about vacancies,
-- saving user's queries from the search,
-- producing search result for the requested job.
+"""This is the app responsible for the functionality of the scrapers.
+
+The main functionality includes:
+- keeping the list of skills to identify,
+- keeping the job titles to parse on schedule,
+- collecting the data about vacancies from job sites,
+- saving user's queries from the search field,
+- producing the search result for the requested job.
 """
