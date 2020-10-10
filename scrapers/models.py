@@ -18,9 +18,16 @@ class Vacancy(models.Model):
     search_vector = SearchVectorField(null=True)
 
     def __str__(self):
+        """
+        Returns human-readable vacancy title for the model record in the admin.
+        """
         return self.title
 
     class Meta:
+        """
+        Custom plural name of the model and the index for a full text search.
+        """
+
         verbose_name_plural = "Vacancies"
         indexes = [
             GinIndex(fields=["search_vector"], name="search_vector_idx"),
@@ -46,7 +53,7 @@ class Job(models.Model):
 
 class Search(models.Model):
     query = models.CharField(max_length=255)
-    ip_address = models.GenericIPAddressField(default="0.0.0.0")
+    ip_address = models.GenericIPAddressField(default="1.1.1.1")
     user_agent = models.CharField(max_length=255, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
 

@@ -3,7 +3,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/dd29d17237e14749a0c502e6820bdb75)](https://www.codacy.com/manual/spyker77/skillhunter)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-
 # SkillHunter
 
 SkillHunter is all about helping you and your mates identify the most in-demand skills in the job market in order to find a new position as soon as possible. Cut the bullshit and prepare yourself in the most efficient way, no need to learn everything!
@@ -54,17 +53,17 @@ docker-compose exec web python manage.py purge_db
 ```
 
 ## Tech Stack
-- Docker
-- Python
-- Django
-- PostgreSQL
-- Redis
-- Tailwind CSS
-- Jinja
-- Beautiful Soup
-- aiohttp
-- Pytest
-- Travis CI
+  - Docker
+  - Python
+  - Django
+  - PostgreSQL
+  - Redis
+  - Tailwind CSS
+  - Jinja
+  - Beautiful Soup
+  - aiohttp
+  - Pytest
+  - Travis CI
 
 ## Contributing
 Pull requests are really welcome. For major changes, please open an issue first to discuss what you would like to change.

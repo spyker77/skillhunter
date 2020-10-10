@@ -1,3 +1,4 @@
+import ast
 import asyncio
 from django.core.management.base import BaseCommand
 
@@ -10,11 +11,12 @@ class Command(BaseCommand):
 
     JOBS = [job.title for job in Job.objects.all()]
     SKILLS = {
-        skill.clean_name: eval(skill.unclean_names) for skill in Skill.objects.all()
+        skill.clean_name: ast.literal_eval(skill.unclean_names)
+        for skill in Skill.objects.all()
     }
 
     def handle(self, *args, **options):
-        self.stdout.write(f"🚀 indeed.com launched to parse!")
+        self.stdout.write("🚀 indeed.com launched to parse!")
         for job_title in self.JOBS:
             collected_jobs = asyncio.run(main(job_title, self.SKILLS))
             all_jobs = (
@@ -31,4 +33,4 @@ class Command(BaseCommand):
             self.stdout.write(
                 f"👍 {job_title} – {len(new_vacancies)} vacancies parsed from indeed.com"
             )
-        self.stdout.write(f"💃🕺 indeed.com finished to parse!")
+        self.stdout.write("💃🕺 indeed.com finished to parse!")

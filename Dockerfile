@@ -18,7 +18,10 @@ RUN apt-get update \
     # Project dependencies
     && pip install --upgrade pip \
     && pip install pipenv \
-    && pipenv install --system
+    && pipenv install --system \
+    # Final clean up to keep the image size down
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy project
 COPY . /code/

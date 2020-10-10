@@ -1,3 +1,4 @@
+import ast
 from collections import defaultdict
 
 from django.views.generic import ListView
@@ -34,7 +35,7 @@ class SearchResultsListView(ListView):
         suitable_vacancies = Vacancy.objects.filter(search_vector=query)
         # Get skills for each vacancy and convert it from str to dict.
         rated_skills_to_merge = (
-            eval(vacancy.rated_skills) for vacancy in suitable_vacancies
+            ast.literal_eval(vacancy.rated_skills) for vacancy in suitable_vacancies
         )
         # Combine skills from all suitable vacancies into one dict.
         super_dict = self._combine_rated_skills(rated_skills_to_merge)

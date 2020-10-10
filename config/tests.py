@@ -1,7 +1,5 @@
 from django.conf import settings
 
-import pytest
-
 
 class TestSettings:
     def test_settings_production_variables(self):

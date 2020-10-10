@@ -15,7 +15,7 @@ class TestSearchResultsListView:
     url = reverse("search_results")
     data = {"q": "test search query"}
     query = data.get("q")
-    ip_address = "0.0.0.0"
+    ip_address = "9.9.9.9"
     user_agent = "Test User-Agent"
 
     @pytest.fixture

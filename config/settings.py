@@ -74,6 +74,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "environment": "config.jinja2.environment",
+            "autoescape": True,
         },
     },
     {

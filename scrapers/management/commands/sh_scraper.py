@@ -1,5 +1,5 @@
 import re
-import random
+import secrets
 import asyncio
 from time import sleep
 from collections import Counter
@@ -17,7 +17,7 @@ headers = {
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36",
     ]
 }
-RANDOM_AGENT = random.choice(headers["user-agent"])
+RANDOM_AGENT = secrets.choice(headers["user-agent"])
 
 
 def prepare_query(job_title):
