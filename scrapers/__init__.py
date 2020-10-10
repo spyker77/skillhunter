@@ -1,4 +1,5 @@
-"""Scrapers app is responsible for the functionality of the scrapers.
+"""
+Scrapers app is responsible for the functionality of the scrapers.
 
 The main functionality includes:
 - keeping the list of skills to identify,

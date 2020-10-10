@@ -22,9 +22,7 @@ class Vacancy(models.Model):
         return self.title
 
     class Meta:
-        """
-        Custom plural name of the model and the index for a full text search.
-        """
+        """Custom plural name of the model and the index for a full text search."""
 
         verbose_name_plural = "Vacancies"
         indexes = [
@@ -47,9 +45,7 @@ class Job(models.Model):
         return link_for_sitemap
 
     class Meta:
-        """
-        Default ordering by title in the Job section of the admin.
-        """
+        """Default ordering by title in the Job section of the admin."""
 
         ordering = ["title"]
 
@@ -61,9 +57,12 @@ class Search(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
+        """Return human-readable user's query for the record in the admin."""
         return self.query
 
     class Meta:
+        """Custom plural name of the model."""
+
         verbose_name_plural = "Searches"
 
 
@@ -73,7 +72,10 @@ class Skill(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
+        """Return human-readable clean name of the skill for the record in the admin."""
         return self.clean_name
 
     class Meta:
+        """Default ordering by clean name in the Skill section of the admin."""
+
         ordering = ["clean_name"]
