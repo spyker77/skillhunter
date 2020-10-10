@@ -1,7 +1,10 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
-        <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/skillshare_logo.webp') }}"
-            alt="Skillshare">
+        <picture>
+            <source srcset="{{ static ('images/courses/skillshare_logo.webp') }}" type="image/webp">
+            <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/skillshare_logo.png') }}"
+                alt="Skillshare">
+        </picture>
         <div>
             <p class="text-gray-600 py-5">
                 Skillshare is a learning platform with online classes taught by the world's best practitioners.
@@ -15,8 +18,11 @@
     </div>
 
     <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
-        <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/udemy_logo.webp') }}"
-            alt="Udemy">
+        <picture>
+            <source srcset="{{ static ('images/courses/udemy_logo.webp') }}" type="image/webp">
+            <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/udemy_logo.png') }}"
+                alt="Udemy">
+        </picture>
         <div>
             <p class="text-gray-600 py-5">
                 Udemy is an online learning and teaching marketplace with over 100000 courses and 24 million students.
@@ -30,7 +36,10 @@
     </div>
 
     <div class="rounded-lg text-center overflow-hidden shadow-lg hover:shadow-2xl p-10 transition ease-in duration-200">
-        <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/edx_logo.webp') }}" alt="edX">
+        <picture>
+            <source srcset="{{ static ('images/courses/edx_logo.webp') }}" type="image/webp">
+            <img class="m-auto w-24 text-lg font-semibold" src="{{ static ('images/courses/edx_logo.png') }}" alt="edX">
+        </picture>
         <div>
             <p class="text-gray-600 py-5">edX is a massive open online course provider created by founding partners
                 Harvard
