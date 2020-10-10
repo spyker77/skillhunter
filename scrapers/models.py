@@ -22,7 +22,9 @@ class Vacancy(models.Model):
         return self.title
 
     class Meta:
-        """Custom plural name of the model and the index for a full text search."""
+        """
+        Custom plural name of the model and the index for a full text search.
+        """
 
         verbose_name_plural = "Vacancies"
         indexes = [
@@ -45,7 +47,9 @@ class Job(models.Model):
         return link_for_sitemap
 
     class Meta:
-        """Default ordering by title in the Job section of the admin."""
+        """
+        Default ordering by title in the Job section of the admin.
+        """
 
         ordering = ["title"]
 
@@ -61,7 +65,9 @@ class Search(models.Model):
         return self.query
 
     class Meta:
-        """Custom plural name of the model."""
+        """
+        Custom plural name of the model.
+        """
 
         verbose_name_plural = "Searches"
 
@@ -76,6 +82,8 @@ class Skill(models.Model):
         return self.clean_name
 
     class Meta:
-        """Default ordering by clean name in the Skill section of the admin."""
+        """
+        Default ordering by clean name in the Skill section of the admin.
+        """
 
         ordering = ["clean_name"]
