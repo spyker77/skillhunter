@@ -18,11 +18,13 @@ class Vacancy(models.Model):
     search_vector = SearchVectorField(null=True)
 
     def __str__(self):
-        """Returns human-readable vacancy title for the record in the admin."""
+        """Return human-readable vacancy title for the record in the admin."""
         return self.title
 
     class Meta:
-        """Custom plural name of the model and the index for a full text search."""
+        """
+        Custom plural name of the model and the index for a full text search.
+        """
 
         verbose_name_plural = "Vacancies"
         indexes = [
@@ -35,6 +37,7 @@ class Job(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
+        """Return human-readable job title for the record in the admin."""
         return self.title
 
     def get_absolute_url(self):
@@ -44,6 +47,10 @@ class Job(models.Model):
         return link_for_sitemap
 
     class Meta:
+        """
+        Default ordering by title in the Job section of the admin.
+        """
+
         ordering = ["title"]
 
 

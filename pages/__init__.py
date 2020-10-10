@@ -1,1 +1,1 @@
-"""This is the app responsible for generating pages."""
+"""Pages app is responsible for generating pages."""
