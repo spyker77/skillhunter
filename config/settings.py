@@ -14,6 +14,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 ENVIRONMENT = env.str("ENVIRONMENT", default="production")
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -47,8 +48,10 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "scrapers",
     "pages",
+    "api",
     "debug_toolbar",
     "robots",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -179,6 +182,27 @@ if DEBUG:
     CSP_STYLE_SRC.append("'unsafe-inline'")
 
 
+# Django REST framework
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+    ],
+    "DEFAULT_PARSER_CLASSES": (
+        "rest_framework_xml.parsers.XMLParser",
+        "rest_framework_yaml.parsers.YAMLParser",
+    ),
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+        "rest_framework_xml.renderers.XMLRenderer",
+        "rest_framework_yaml.renderers.YAMLRenderer",
+    ),
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+
 # Production settings
 if ENVIRONMENT == "production":
     X_FRAME_OPTIONS = "DENY"
@@ -194,6 +218,8 @@ if ENVIRONMENT == "production":
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
+
+# Cashing
 if "REDIS_URL" in os.environ:
     # Redis for Heroku
     CACHES = {
@@ -202,12 +228,10 @@ if "REDIS_URL" in os.environ:
             "LOCATION": env.str("REDIS_URL"),
         }
     }
-
-# Cashing
 CACHE_MIDDLEWARE_ALIAS = "default"
 CACHE_MIDDLEWARE_SECONDS = 12 * 60 * 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ""
-
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 
 django_heroku.settings(locals())

@@ -24,6 +24,11 @@ pytest-xdist = "*"
 pytest-cov = "*"
 django-redis = "*"
 environs = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+djangorestframework-yaml = "*"
+djangorestframework-xml = "*"
 
 [requires]
 python_version = "3.9.0"

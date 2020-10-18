@@ -14,8 +14,7 @@
     <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}" />
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}"> -->
-    <link rel="stylesheet" href="{{ static ('css/critical.css') }}">
+    <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}">
     <!-- JavaScript -->
     <!-- <script defer src="{{ static ('js/base.js') }}"></script> -->
 </head>
@@ -28,10 +27,18 @@
                 <a href="{{ url ('home') }}" class="text-xl">SkillHunter</a><a href="{{ url ('home') }}"
                     class="text-black text-xs align-top"><abbr class="cursor-pointer" title="Beta version">β</abbr></a>
             </div>
-            <div class="flex-grow w-full lg:w-auto mt-2 lg:m-1">
+            <div class="flex-grow w-full lg:w-9/12 mt-2 lg:m-1">
                 <div class="text-center lg:text-right">
                     <a href="{{ url ('about') }}" class="hover:text-purple-600 transition ease-in duration-200">
                         About
+                    </a>
+                </div>
+            </div>
+            <div class="flex-grow w-auto mt-2 lg:m-1">
+                <div class="text-center lg:text-right">
+                    <a href="{{ url ('api:skill-list') }}"
+                        class="hover:text-purple-600 transition ease-in duration-200">
+                        API
                     </a>
                 </div>
             </div>

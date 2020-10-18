@@ -18,6 +18,8 @@ urlpatterns = [
     path("administration/", admin.site.urls),
     path("", include("pages.urls")),
     path("search/", include("scrapers.urls")),
+    re_path(r"^api/v1/", include(("api.v1.urls", "api"), namespace="v1")),
+    re_path(r"^robots\.txt", include("robots.urls")),
     path(
         "sitemap.xml",
         sitemap,
@@ -29,11 +31,12 @@ urlpatterns = [
         },
         name="django.contrib.sitemaps.views.sitemap",
     ),
-    re_path(r"^robots\.txt", include("robots.urls")),
 ]
 
 
 if settings.DEBUG:
     import debug_toolbar
 
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls)),] + urlpatterns
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ] + urlpatterns
