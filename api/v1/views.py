@@ -1,5 +1,6 @@
 import ast
 from collections import defaultdict, OrderedDict
+
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -58,7 +59,7 @@ class SkillViewSet(viewsets.ViewSet):
         ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.META.get("HTTP_USER_AGENT")
         # Additionally, save the search query for future analysis.
-        if settings.ENVIRONMENT == "production":
+        if query and settings.ENVIRONMENT == "production":
             Search.objects.create(
                 query=query, ip_address=ip_address, user_agent=user_agent
             )
