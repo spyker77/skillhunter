@@ -72,7 +72,7 @@ class SkillViewSet(viewsets.ViewSet):
         serialized_data = serializer.data
         sorted_skills = self._sort_skills(serialized_data)
         if limit:
-            sorted_skills[: int(limit)]
+            sorted_skills = sorted_skills[: int(limit)]
         data = OrderedDict(
             {
                 "vacancy_name": query,
