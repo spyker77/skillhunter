@@ -1,7 +1,6 @@
 import re
 import secrets
 import asyncio
-from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -41,7 +40,9 @@ async def scan_single_search_page(query, page_num, session):
             all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
             # Extract valid links to vacancy pages.
             links = set(
-                "https://www.indeed.com" + vacancy["href"] for vacancy in all_vacancies
+                "https://www.indeed.com/viewjob?jk="
+                + vacancy["href"].split("&")[0].split("jk=")[-1]
+                for vacancy in all_vacancies
             )
             return links
         except AttributeError:
@@ -127,7 +128,6 @@ async def main(job_title, SKILLS):
         attempt = 1
         while attempt < 10:
             try:
-                sleep(60)
                 vacancies_without_skills = await fetch_all_vacancy_pages(
                     all_links, session
                 )
@@ -142,5 +142,4 @@ async def main(job_title, SKILLS):
             for vacancy_without_skills in vacancies_without_skills
             if vacancy_without_skills is not None
         )
-    sleep(60)
     return collected_jobs
