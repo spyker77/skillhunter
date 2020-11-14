@@ -6,7 +6,6 @@ Learn this and you will be hired quickly!{% endblock description %}
 
 {% block content %}
 <div id="swagger-ui"></div>
-<script src="{{ static ('js/swagger-ui-bundle.js') }}"></script>
 <script>
     const ui = SwaggerUIBundle({
         url: "{{ url ('schema') }}",
