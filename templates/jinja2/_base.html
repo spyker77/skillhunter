@@ -11,10 +11,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ static ('images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" sizes="32x32" href="{{ static ('images/favicon/favicon-32x32.png') }}">
     <link rel="icon" sizes="16x16" href="{{ static ('images/favicon/favicon-16x16.png') }}">
-    <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}">
+    <link rel="stylesheet" href="{{ static ('css/swagger-ui.css') }}">
     <!-- JavaScript -->
     <!-- <script defer src="{{ static ('js/base.js') }}"></script> -->
 </head>
@@ -36,8 +37,7 @@
             </div>
             <div class="flex-grow w-auto mt-2 lg:m-1">
                 <div class="text-center lg:text-right">
-                    <a href="{{ url ('api:skill-list') }}"
-                        class="hover:text-purple-600 transition ease-in duration-200">
+                    <a href="{{ url ('swagger-ui') }}" class="hover:text-purple-600 transition ease-in duration-200">
                         API
                     </a>
                 </div>

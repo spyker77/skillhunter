@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "robots",
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -168,6 +169,7 @@ CSP_FONT_SRC = [
 ]
 CSP_IMG_SRC = [
     "'self'",
+    "data:",
 ]
 
 
@@ -199,7 +201,15 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "PAGE_SIZE": 10,
+}
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "SkillHunter API",
+    "DESCRIPTION": "Returns a list of rated skills ordered by number of occurrences in vacancies description, including the job title and number of vacancies analyzed.",
+    "VERSION": "1.0.0",
 }
 
 
@@ -219,19 +229,23 @@ if ENVIRONMENT == "production":
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
-# Cashing
+# Cashing with Redis
 if "REDIS_URL" in os.environ:
-    # Redis for Heroku
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": env.str("REDIS_URL"),
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "PASSWORD": env.str("REDIS_PASSWORD"),
+            },
         }
     }
 CACHE_MIDDLEWARE_ALIAS = "default"
 CACHE_MIDDLEWARE_SECONDS = 12 * 60 * 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ""
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 
 django_heroku.settings(locals())

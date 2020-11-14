@@ -63,6 +63,7 @@ docker-compose exec web python manage.py purge_db
 -   Python
 -   Django
 -   Django REST framework
+-   Swagger UI
 -   PostgreSQL
 -   Redis
 -   Tailwind CSS

@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+
+{% block title %}API docs for working with skills • SkillHunter{% endblock title %}
+{% block description %}Here is a list of the skills you need to have in order to get a new job as soon as possible.
+Learn this and you will be hired quickly!{% endblock description %}
+
+{% block content %}
+<div id="swagger-ui"></div>
+<script src="{{ static ('js/swagger-ui-bundle.js') }}"></script>
+<script>
+    const ui = SwaggerUIBundle({
+        url: "{{ url ('schema') }}",
+        dom_id: "#swagger-ui",
+        presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+        layout: "BaseLayout",
+        requestInterceptor: (request) => {
+            request.headers["X-CSRFToken"] = "{{ csrf_token }}"
+            return request;
+        }
+    })
+</script>
+{% endblock content %}

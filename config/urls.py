@@ -3,9 +3,12 @@ from django.conf import settings
 from django.urls import path, include, re_path
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.sitemaps import GenericSitemap
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from scrapers.models import Job
 from pages.sitemaps import StaticViewSitemap
+
+API_VERSION_V1 = "v1"
 
 admin.site.site_header = "SkillHunter admin panel"
 admin.site.site_title = "SkillHunter"
@@ -18,8 +21,20 @@ urlpatterns = [
     path("administration/", admin.site.urls),
     path("", include("pages.urls")),
     path("search/", include("scrapers.urls")),
-    re_path(r"^api/v1/", include(("api.v1.urls", "api"), namespace="v1")),
     re_path(r"^robots\.txt", include("robots.urls")),
+    re_path(r"^api/v1/", include(("api.v1.urls", "api"), namespace=API_VERSION_V1)),
+    # Create docs for API
+    path(
+        "schema/", SpectacularAPIView.as_view(api_version=API_VERSION_V1), name="schema"
+    ),
+    path(
+        "docs/",
+        SpectacularSwaggerView.as_view(
+            template_name="swagger-ui.html", url_name="schema"
+        ),
+        name="swagger-ui",
+    ),
+    # Create sitemap.xml
     path(
         "sitemap.xml",
         sitemap,

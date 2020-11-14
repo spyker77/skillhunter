@@ -4,34 +4,14 @@ from collections import defaultdict, OrderedDict
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.response import Response
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 from scrapers.models import Vacancy, Search
 from .serializers import SkillSerializer
 
 
 class SkillViewSet(viewsets.ViewSet):
-    """
-    Returns a list of skills ordered by number of occurrences in vacancies description,
-    including the job title and number of vacancies analyzed.
-
-    Possible parameters:
-
-    -   **q** - stands for job title (required)
-
-    -   **limit** - stands for the number of most wanted skills (optional)
-
-    -   **format** - stands for a specific data format, among which
-    json/xml/yaml (optional)
-
-    Example URI:
-
-    -   https://skillhunter.app/api/v1/skills/?q=python+developer
-
-    -   https://skillhunter.app/api/v1/skills/?q=python+developer&limit=20
-
-    -   https://skillhunter.app/api/v1/skills/?q=python+developer&limit=20&format=xml
-    """
-
     def _combine_rated_skills(self, rated_skills_to_merge):
         super_dict = defaultdict(list)
         for rated_skills in rated_skills_to_merge:
@@ -65,6 +45,31 @@ class SkillViewSet(viewsets.ViewSet):
             )
         return query, limit
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="format",
+                description="The data format of the result (json/xml/yaml).",
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="limit",
+                description="The number of most wanted skills to display.",
+                required=False,
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="q",
+                description="The job title to be processed.",
+                required=True,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+        ],
+    )
     def list(self, request):
         query, limit = self._get_meta_data(request)
         queryset = Vacancy.objects.filter(search_vector=query)
