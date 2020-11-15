@@ -1,8 +1,5 @@
 import pytest
 from django.urls import reverse
-from django.conf import settings
-
-from .views import SkillViewSet
 
 
 @pytest.mark.django_db
