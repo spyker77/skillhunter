@@ -14,9 +14,10 @@ import pytest
 
 class TestHomePage:
     @pytest.fixture
-    def response(self, client):
+    def response(self, rf):
         url = reverse("home")
-        response = client.get(url, follow=True)
+        request = rf.get(url, follow=True)
+        response = HomePageView.as_view()(request)
         return response
 
     def test_homepage_status_code(self, response):
@@ -38,9 +39,10 @@ class TestHomePage:
 
 class TestAboutPage:
     @pytest.fixture
-    def response(self, client):
+    def response(self, rf):
         url = reverse("about")
-        response = client.get(url, follow=True)
+        request = rf.get(url, follow=True)
+        response = AboutPageView.as_view()(request)
         return response
 
     def test_aboutpage_status_code(self, response):

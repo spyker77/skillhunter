@@ -10,6 +10,7 @@ services:
       # - "ENVIRONMENT=production_or_development"
       # - "DATABASE_URL=<replace_it_with_your_db_url>"
       # - "REDIS_URL=<replace_it_with_your_redis_url>"
+      # - "REDIS_PASSWORD=<replace_it_with_your_redis_password>"
     volumes:
       - .:/code
     ports:

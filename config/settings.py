@@ -229,23 +229,17 @@ if ENVIRONMENT == "production":
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
-# Cashing with Redis
+# Caching with Redis
 if "REDIS_URL" in os.environ:
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": env.str("REDIS_URL"),
             "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
                 "PASSWORD": env.str("REDIS_PASSWORD"),
             },
         }
     }
-CACHE_MIDDLEWARE_ALIAS = "default"
-CACHE_MIDDLEWARE_SECONDS = 12 * 60 * 60
-CACHE_MIDDLEWARE_KEY_PREFIX = ""
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
 
 
 django_heroku.settings(locals())

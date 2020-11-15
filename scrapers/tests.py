@@ -19,14 +19,15 @@ class TestSearchResultsListView:
     user_agent = "Test User-Agent"
 
     @pytest.fixture
-    def response(self, client):
-        response = client.get(
+    def response(self, rf):
+        request = rf.get(
             self.url,
             self.data,
             follow=True,
             REMOTE_ADDR=self.ip_address,
             HTTP_USER_AGENT=self.user_agent,
         )
+        response = SearchResultsListView.as_view()(request)
         return response
 
     def test_searchresultslistview_status_code(self, response):

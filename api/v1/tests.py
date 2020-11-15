@@ -1,5 +1,8 @@
 import pytest
 from django.urls import reverse
+from django.conf import settings
+
+from .views import SkillViewSet
 
 
 @pytest.mark.django_db
@@ -9,6 +12,14 @@ class TestSkillViewSet:
     query = data.get("q")
     ip_address = "9.9.9.9"
     user_agent = "Test User-Agent"
+
+    @pytest.fixture(autouse=True)
+    def override_redis_cache(self, settings):
+        settings.CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+            }
+        }
 
     @pytest.fixture
     def response(self, client):

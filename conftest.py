@@ -7,6 +7,6 @@ import pytest
 def django_db_setup():
     settings.DATABASES["default"] = {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": "db.example.com",
-        "NAME": "external_db",
+        "HOST": "db.skillhunter.app",
+        "NAME": "test_db",
     }
