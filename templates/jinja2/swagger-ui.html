@@ -6,7 +6,7 @@ Learn this and you will be hired quickly!{% endblock description %}
 
 {% block content %}
 <div id="swagger-ui"></div>
-<script>
+<script nonce="{{ request.csp_nonce }}">
     const ui = SwaggerUIBundle({
         url: "{{ url ('schema') }}",
         dom_id: "#swagger-ui",

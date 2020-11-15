@@ -171,6 +171,9 @@ CSP_IMG_SRC = [
     "'self'",
     "data:",
 ]
+CSP_INCLUDE_NONCE_IN = [
+    "script-src",
+]
 
 
 # django-debug-toolbar
@@ -180,8 +183,6 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TOOLBAR_CALLBACK": lambda request: not request.is_ajax()
     }
-    CSP_SCRIPT_SRC.append("'unsafe-inline'")
-    CSP_STYLE_SRC.append("'unsafe-inline'")
 
 
 # Django REST framework
