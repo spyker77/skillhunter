@@ -13,15 +13,14 @@
     <link rel="icon" sizes="16x16" href="{{ static ('images/favicon/favicon-16x16.png') }}">
     <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}">
-    <!-- JavaScript -->
-    <script src="{{ static ('js/base.js') }}"></script>
-    <!-- API documentation -->
     {% if url ('swagger-ui') in request.path %}
+    <!-- API documentation -->
     <link rel="stylesheet" href="{{ static ('css/swagger-ui.css') }}">
     <script src="{{ static ('js/swagger-ui-bundle.js') }}"></script>
     {% endif %}
+    <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}">
+    <link rel="stylesheet" href="{{ static ('css/base.css') }}">
+    <!-- <script src="{{ static ('js/base.js') }}"></script> -->
 </head>
 
 <body>
@@ -50,13 +49,13 @@
     </header>
 
     <main class="z-10 relative shadow-lg">
-        <div class="flex justify-center pt-32 pb-20 bg-white min-h-screen">
-            <div class="w-1/6"></div>
-            <div class="w-4/6">
+        <div class="flex justify-center pt-48 lg:pt-32 pb-20 bg-white min-h-screen">
+            <div class="w-1/12 sm:w-2/12 lg:w-3/12"></div>
+            <div class="w-full">
                 {% block content %}
                 {% endblock content %}
             </div>
-            <div class="w-1/6"></div>
+            <div class="w-1/12 sm:w-2/12 lg:w-3/12"></div>
         </div>
     </main>
 
