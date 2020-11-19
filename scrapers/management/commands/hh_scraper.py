@@ -47,10 +47,10 @@ async def scan_single_search_page(query, page_num, session):
             links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
             return links
         except AttributeError:
-            print(f"🚨 AttributeError occurred while scanning the URL: {resp.url}")
+            print(f"🚨 AttributeError occurred while scanning: {resp.url}")
             return None
         except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while scanning the URL: {resp.url}")
+            print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
             return None
 
 
@@ -83,10 +83,10 @@ async def fetch_vacancy_page(link, session):
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
         except AttributeError:
-            print(f"🚨 AttributeError occurred while fetching the URL: {link}")
+            print(f"🚨 AttributeError occurred while fetching: {link}")
             return None
         except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while fetching the URL: {link}")
+            print(f"🚨 ClientPayloadError occurred while fetching: {link}")
             return None
 
 
