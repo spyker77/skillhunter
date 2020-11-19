@@ -1,6 +1,8 @@
 import re
+import sys
 import secrets
 import asyncio
+from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -18,6 +20,10 @@ headers = {
 }
 RANDOM_AGENT = secrets.choice(headers["user-agent"])
 
+# Usually, single search page with results is larger if
+# it contains links to vacancy pages.
+THRESHOLD_SIZE_BYTES = 800000
+
 
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
@@ -33,24 +39,36 @@ async def scan_single_search_page(query, page_num, session):
         "limit": 50,
         "start": page_num,
     }
-    async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
-        try:
-            html = await resp.text()
-            soup = BeautifulSoup(html, "html.parser")
-            all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
-            # Extract valid links to vacancy pages.
-            links = set(
-                "https://www.indeed.com/viewjob?jk="
-                + vacancy["href"].split("&")[0].split("jk=")[-1]
-                for vacancy in all_vacancies
-            )
-            return links
-        except AttributeError:
-            print(f"🚨 AttributeError occurred while scanning the URL: {resp.url}")
-            return None
-        except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while scanning the URL: {resp.url}")
-            return None
+    attempt = 1
+    while attempt <= 5:
+        async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
+            try:
+                html = await resp.text()
+                page_size_bytes = sys.getsizeof(html)
+                # Check if the search page doesn't have the results, for example
+                # due to a server timeout, then wait and try again.
+                if page_size_bytes > THRESHOLD_SIZE_BYTES:
+                    soup = BeautifulSoup(html, "html.parser")
+                    all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
+                    # Extract valid links to vacancy pages.
+                    links = set(
+                        "https://www.indeed.com/viewjob?jk="
+                        + vacancy["href"].split("&")[0].split("jk=")[-1]
+                        for vacancy in all_vacancies
+                    )
+                    return links
+                else:
+                    sleep(attempt * 60 * 5)
+                    attempt += 1
+                    print(f"⌛ Attempt #{attempt} for {resp.url}")
+            except AttributeError:
+                print(f"🚨 AttributeError occurred while scanning: {resp.url}")
+                return None
+            except ClientPayloadError:
+                print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
+                return None
+    else:
+        return None
 
 
 async def scan_all_search_results(query, session):
@@ -86,10 +104,10 @@ async def fetch_vacancy_page(link, session):
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
         except AttributeError:
-            print(f"🚨 AttributeError occurred while fetching the URL: {link}")
+            print(f"🚨 AttributeError occurred while fetching: {link}")
             return None
         except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while fetching the URL: {link}")
+            print(f"🚨 ClientPayloadError occurred while fetching: {link}")
             return None
 
 
