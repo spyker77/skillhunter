@@ -2,7 +2,6 @@ import re
 import sys
 import secrets
 import asyncio
-from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -20,10 +19,6 @@ headers = {
 }
 RANDOM_AGENT = secrets.choice(headers["user-agent"])
 
-# Usually, single search page with results is larger if
-# it contains links to vacancy pages.
-THRESHOLD_SIZE_BYTES = 800000
-
 
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
@@ -39,15 +34,18 @@ async def scan_single_search_page(query, page_num, session):
         "limit": 50,
         "start": page_num,
     }
-    attempt = 1
-    while attempt <= 5:
+    for attempt in range(1, 6):
         async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
             try:
-                html = await resp.text()
-                page_size_bytes = sys.getsizeof(html)
-                # Check if the search page doesn't have the results, for example
-                # due to a server timeout, then wait and try again.
-                if page_size_bytes > THRESHOLD_SIZE_BYTES:
+                html = await asyncio.shield(resp.text())
+                current_page_size = sys.getsizeof(html)
+                # Usually, a single search page with results is larger if
+                # it contains links to a vacancy pages (bytes).
+                page_with_results_size = 800 * 1000
+                # This is an empirically found threshold for a recaptcha page (bytes).
+                recaptcha_page_size = 500 * 1000
+                # Check if the search page has the results then parse it.
+                if current_page_size > page_with_results_size:
                     soup = BeautifulSoup(html, "html.parser")
                     all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
                     # Extract valid links to vacancy pages.
@@ -57,18 +55,21 @@ async def scan_single_search_page(query, page_num, session):
                         for vacancy in all_vacancies
                     )
                     return links
+                # If there are no results on the search page or
+                # the number of attempts has expired, then exit.
+                elif (
+                    recaptcha_page_size < current_page_size < page_with_results_size
+                ) or attempt == 5:
+                    return None
+                # If none of the above and reCAPTCHA appears, then wait and try again.
                 else:
-                    sleep(attempt * 60 * 5)
-                    attempt += 1
-                    print(f"⌛ Attempt #{attempt} for {resp.url}")
+                    await asyncio.sleep(60 * 10)
             except AttributeError:
                 print(f"🚨 AttributeError occurred while scanning: {resp.url}")
                 return None
             except ClientPayloadError:
                 print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
                 return None
-    else:
-        return None
 
 
 async def scan_all_search_results(query, session):
@@ -104,19 +105,23 @@ async def fetch_vacancy_page(link, session):
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
         except AttributeError:
-            print(f"🚨 AttributeError occurred while fetching: {link}")
+            # Commented to avoid mess in the logs (not an important error).
+            # print(f"🚨 AttributeError occurred while fetching: {link}")
             return None
         except ClientPayloadError:
             print(f"🚨 ClientPayloadError occurred while fetching: {link}")
             return None
 
 
-async def fetch_all_vacancy_pages(all_links, session):
+async def fetch_all_vacancy_pages(all_links, session, INDEED_LINKS_WE_ALREADY_HAVE):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
     for link in all_links:
-        task = asyncio.create_task(fetch_vacancy_page(link, session))
-        tasks.append(task)
+        # Reduce the pressure on indeed.com by checking
+        # if we already have this link.
+        if link not in INDEED_LINKS_WE_ALREADY_HAVE:
+            task = asyncio.create_task(fetch_vacancy_page(link, session))
+            tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
     return vacancies_without_skills
 
@@ -136,7 +141,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, SKILLS):
+async def main(job_title, SKILLS, INDEED_LINKS_WE_ALREADY_HAVE):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
         headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
@@ -147,7 +152,7 @@ async def main(job_title, SKILLS):
         while attempt < 10:
             try:
                 vacancies_without_skills = await fetch_all_vacancy_pages(
-                    all_links, session
+                    all_links, session, INDEED_LINKS_WE_ALREADY_HAVE
                 )
                 break
             except OSError:

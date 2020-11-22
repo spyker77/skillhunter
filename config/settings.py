@@ -105,6 +105,10 @@ DATABASES = {
     "default": env.str("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
 
+# Keep connection to the database opened for 12 hours in order
+# to prevent associated errors due to its early close when scraping.
+CONN_MAX_AGE = 60 * 60 * 12
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
