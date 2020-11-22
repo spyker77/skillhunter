@@ -37,7 +37,7 @@ async def scan_single_search_page(query, page_num, session):
         "https://www.simplyhired.com/search", params=payload
     ) as resp:
         try:
-            html = await resp.text()
+            html = await asyncio.shield(resp.text())
             soup = BeautifulSoup(html, "html.parser")
             all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
             # Extract valid links to vacancy pages and clean the tail.
@@ -91,12 +91,15 @@ async def fetch_vacancy_page(link, session):
             return None
 
 
-async def fetch_all_vacancy_pages(all_links, session):
+async def fetch_all_vacancy_pages(all_links, session, SH_LINKS_WE_ALREADY_HAVE):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
     for link in all_links:
-        task = asyncio.create_task(fetch_vacancy_page(link, session))
-        tasks.append(task)
+        # Reduce the pressure on simplyhired.com by checking
+        # if we already have this link.
+        if link not in SH_LINKS_WE_ALREADY_HAVE:
+            task = asyncio.create_task(fetch_vacancy_page(link, session))
+            tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
     return vacancies_without_skills
 
@@ -116,7 +119,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, SKILLS):
+async def main(job_title, SKILLS, SH_LINKS_WE_ALREADY_HAVE):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
         headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
@@ -128,7 +131,7 @@ async def main(job_title, SKILLS):
             try:
                 sleep(60)
                 vacancies_without_skills = await fetch_all_vacancy_pages(
-                    all_links, session
+                    all_links, session, SH_LINKS_WE_ALREADY_HAVE
                 )
                 break
             except OSError:
