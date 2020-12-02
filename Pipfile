@@ -22,8 +22,9 @@ pytest-xdist = "*"
 pytest-cov = "*"
 psycopg2-binary = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
-aiohttp = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 gunicorn = "*"
+aiohttp = "*"
 flashtext = "*"
 environs = "*"
 jinja2 = "*"

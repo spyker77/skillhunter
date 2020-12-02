@@ -6,4 +6,4 @@ release:
   command:
     - python manage.py collectstatic --noinput
 run:
-  web: gunicorn config.wsgi
+  web: gunicorn config.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
