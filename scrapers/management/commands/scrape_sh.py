@@ -28,6 +28,7 @@ class Command(BaseCommand):
         # Shuffle the list of jobs each time to prevent timeout errors for
         # the same jobs and subsequent constant data loss.
         random.shuffle(self.JOBS)
+        vacancies_parsed = 0
         for job_title in self.JOBS:
             try:
                 collected_jobs = asyncio.run(
@@ -46,9 +47,13 @@ class Command(BaseCommand):
                 new_vacancies = Vacancy.objects.bulk_create(
                     all_jobs, ignore_conflicts=True
                 )
+                number_of_new_vacancies = len(new_vacancies)
+                vacancies_parsed += number_of_new_vacancies
                 self.stdout.write(
-                    f"👍 {job_title} – {len(new_vacancies)} vacancies parsed from simplyhired.com"
+                    f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from simplyhired.com"
                 )
             except OperationalError:
                 self.stdout.write(f"🚨 Got an OperationalError for {job_title}.")
-        self.stdout.write("💃🕺 simplyhired.com finished to parse!")
+        self.stdout.write(
+            f"💃🕺 simplyhired.com finished to parse: {vacancies_parsed} in total!"
+        )
