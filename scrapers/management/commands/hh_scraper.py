@@ -6,7 +6,7 @@ from collections import Counter
 import aiohttp
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
-from aiohttp.client_exceptions import ClientPayloadError
+from aiohttp.client_exceptions import ClientPayloadError, ServerDisconnectedError
 
 
 headers = {
@@ -74,20 +74,26 @@ async def scan_all_search_results(query, session):
 
 async def fetch_vacancy_page(link, session):
     # Put the link, title and content in a dict – so far without skills.
-    async with session.get(link) as resp:
-        try:
+    try:
+        async with session.get(link) as resp:
             html = await resp.text()
             soup = BeautifulSoup(html, "html.parser")
             title = soup.find(attrs={"data-qa": "vacancy-title"}).text
             content = soup.find(attrs={"data-qa": "vacancy-description"}).text
             vacancy_page = {"url": link, "title": title, "content": content}
             return vacancy_page
-        except AttributeError:
-            print(f"🚨 AttributeError occurred while fetching: {link}")
-            return None
-        except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while fetching: {link}")
-            return None
+    except AttributeError:
+        print(f"🚨 AttributeError occurred while fetching: {link}")
+        return None
+    except ClientPayloadError:
+        print(f"🚨 ClientPayloadError occurred while fetching: {link}")
+        return None
+    except ServerDisconnectedError:
+        print(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
+        return None
+    except asyncio.TimeoutError:
+        print(f"🚨 TimeoutError occurred while fetching: {link}")
+        return None
 
 
 async def fetch_all_vacancy_pages(all_links, session, HH_LINKS_WE_ALREADY_HAVE):
