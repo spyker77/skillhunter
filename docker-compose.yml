@@ -3,7 +3,7 @@ version: "3.8"
 services:
   web:
     build: .
-    command: gunicorn config.asgi:application -b 0.0.0.0:8000 -w 4 -k uvicorn.workers.UvicornWorker
+    command: gunicorn config.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
     environment:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
       # - "DEBUG=False_or_True"
