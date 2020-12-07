@@ -46,21 +46,6 @@
 }, {
     "model": "scrapers.job",
     "fields": {
-        "title": ""
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Application developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": ""
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
         "title": "Applications support analyst"
     }
 }, {
