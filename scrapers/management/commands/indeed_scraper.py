@@ -138,6 +138,9 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
         counts = dict(Counter(keywords_found))
+        # Only return vacancies with relevant skills, otherwise it is useless.
+        if len(counts) == 0:
+            return None
         skills = {"rated_skills": counts}
         vacancy_plus_skills = vacancy_without_skills.copy()
         vacancy_plus_skills.update(skills)
