@@ -1,6 +1,7 @@
 import re
 import secrets
 import asyncio
+from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -67,8 +68,6 @@ async def scan_all_search_results(query, session):
     for s in all_sets:
         if s is not None:
             all_links.update(s)
-        else:
-            pass
     return all_links
 
 
@@ -151,4 +150,5 @@ async def main(job_title, SKILLS, HH_LINKS_WE_ALREADY_HAVE):
             for vacancy_without_skills in vacancies_without_skills
             if vacancy_without_skills is not None
         )
+    sleep(60)
     return collected_jobs

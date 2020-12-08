@@ -67,8 +67,6 @@ async def scan_all_search_results(query, session):
     for s in all_sets:
         if s is not None:
             all_links.update(s)
-        else:
-            pass
     return all_links
 
 
