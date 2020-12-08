@@ -41,9 +41,7 @@ async def scan_single_search_page(query, page_num, session):
         try:
             html = await asyncio.shield(resp.text())
             soup = BeautifulSoup(html, "html.parser")
-            all_vacancies = soup.find_all(
-                "a", href=re.compile(r"https://hh.ru/vacancy/")
-            )
+            all_vacancies = soup.find_all("a", href=re.compile(r"hh.ru/vacancy"))
             # Extract valid links to vacancy pages and clean their tails.
             links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
             return links
@@ -95,15 +93,16 @@ async def fetch_vacancy_page(link, session):
         return None
 
 
-async def fetch_all_vacancy_pages(all_links, session, HH_LINKS_WE_ALREADY_HAVE):
+async def fetch_all_vacancy_pages(all_links, hh_links_we_already_have, session):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
-    for link in all_links:
-        # Reduce the pressure on hh.ru by checking
-        # if we already have this link.
-        if link not in HH_LINKS_WE_ALREADY_HAVE:
-            task = asyncio.create_task(fetch_vacancy_page(link, session))
-            tasks.append(task)
+    # Reduce pressure on hh.ru by checking if we already have the link.
+    only_new_links = [
+        link for link in all_links if link not in hh_links_we_already_have
+    ]
+    for link in only_new_links:
+        task = asyncio.create_task(fetch_vacancy_page(link, session))
+        tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
     return vacancies_without_skills
 
@@ -126,7 +125,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, SKILLS, HH_LINKS_WE_ALREADY_HAVE):
+async def main(job_title, hh_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
         headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
@@ -137,7 +136,7 @@ async def main(job_title, SKILLS, HH_LINKS_WE_ALREADY_HAVE):
         while attempt < 10:
             try:
                 vacancies_without_skills = await fetch_all_vacancy_pages(
-                    all_links, session, HH_LINKS_WE_ALREADY_HAVE
+                    all_links, hh_links_we_already_have, session
                 )
                 break
             except OSError:

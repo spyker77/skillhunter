@@ -16,12 +16,6 @@ class Command(BaseCommand):
         skill.clean_name: ast.literal_eval(skill.unclean_names)
         for skill in Skill.objects.all()
     }
-    HH_LINKS_WE_ALREADY_HAVE = (
-        url
-        for url in Vacancy.objects.filter(
-            url__contains="https://hh.ru/vacancy/"
-        ).values_list("url", flat=True)
-    )
 
     def handle(self, *args, **options):
         self.stdout.write("🚀 hh.ru launched to parse!")
@@ -31,8 +25,14 @@ class Command(BaseCommand):
         vacancies_parsed = 0
         for job_title in self.JOBS:
             try:
+                hh_links_we_already_have = [
+                    url
+                    for url in Vacancy.objects.filter(
+                        url__contains="hh.ru"
+                    ).values_list("url", flat=True)
+                ]
                 collected_jobs = asyncio.run(
-                    main(job_title, self.SKILLS, self.HH_LINKS_WE_ALREADY_HAVE)
+                    main(job_title, hh_links_we_already_have, self.SKILLS)
                 )
                 all_jobs = (
                     Vacancy(
@@ -44,9 +44,10 @@ class Command(BaseCommand):
                     for job in collected_jobs
                     if job is not None
                 )
-                new_vacancies = Vacancy.objects.bulk_create(
-                    all_jobs, ignore_conflicts=True
-                )
+                new_vacancies = Vacancy.objects.bulk_create(all_jobs)
+                # new_vacancies = Vacancy.objects.bulk_create(
+                #     all_jobs, ignore_conflicts=True
+                # )
                 number_of_new_vacancies = len(new_vacancies)
                 vacancies_parsed += number_of_new_vacancies
                 self.stdout.write(

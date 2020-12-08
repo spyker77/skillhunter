@@ -16,12 +16,6 @@ class Command(BaseCommand):
         skill.clean_name: ast.literal_eval(skill.unclean_names)
         for skill in Skill.objects.all()
     }
-    INDEED_LINKS_WE_ALREADY_HAVE = (
-        url
-        for url in Vacancy.objects.filter(
-            url__contains="https://www.indeed.com/"
-        ).values_list("url", flat=True)
-    )
 
     def handle(self, *args, **options):
         self.stdout.write("🚀 indeed.com launched to parse!")
@@ -31,8 +25,14 @@ class Command(BaseCommand):
         vacancies_parsed = 0
         for job_title in self.JOBS:
             try:
+                indeed_links_we_already_have = [
+                    url
+                    for url in Vacancy.objects.filter(
+                        url__contains="indeed.com"
+                    ).values_list("url", flat=True)
+                ]
                 collected_jobs = asyncio.run(
-                    main(job_title, self.SKILLS, self.INDEED_LINKS_WE_ALREADY_HAVE)
+                    main(job_title, indeed_links_we_already_have, self.SKILLS,)
                 )
                 all_jobs = (
                     Vacancy(

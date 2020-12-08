@@ -118,15 +118,16 @@ async def fetch_vacancy_page(link, session):
         return None
 
 
-async def fetch_all_vacancy_pages(all_links, session, INDEED_LINKS_WE_ALREADY_HAVE):
+async def fetch_all_vacancy_pages(all_links, indeed_links_we_already_have, session):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
-    for link in all_links:
-        # Reduce the pressure on indeed.com by checking
-        # if we already have this link.
-        if link not in INDEED_LINKS_WE_ALREADY_HAVE:
-            task = asyncio.create_task(fetch_vacancy_page(link, session))
-            tasks.append(task)
+    # Reduce pressure on indeed.com by checking if we already have the link.
+    only_new_links = [
+        link for link in all_links if link not in indeed_links_we_already_have
+    ]
+    for link in only_new_links:
+        task = asyncio.create_task(fetch_vacancy_page(link, session))
+        tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
     return vacancies_without_skills
 
@@ -149,7 +150,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, SKILLS, INDEED_LINKS_WE_ALREADY_HAVE):
+async def main(job_title, indeed_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession(
         headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
@@ -160,7 +161,7 @@ async def main(job_title, SKILLS, INDEED_LINKS_WE_ALREADY_HAVE):
         while attempt < 10:
             try:
                 vacancies_without_skills = await fetch_all_vacancy_pages(
-                    all_links, session, INDEED_LINKS_WE_ALREADY_HAVE
+                    all_links, indeed_links_we_already_have, session
                 )
                 break
             except OSError:
