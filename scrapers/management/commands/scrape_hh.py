@@ -45,9 +45,6 @@ class Command(BaseCommand):
                     if job is not None
                 )
                 new_vacancies = Vacancy.objects.bulk_create(all_jobs)
-                # new_vacancies = Vacancy.objects.bulk_create(
-                #     all_jobs, ignore_conflicts=True
-                # )
                 number_of_new_vacancies = len(new_vacancies)
                 vacancies_parsed += number_of_new_vacancies
                 self.stdout.write(
