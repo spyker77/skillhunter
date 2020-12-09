@@ -71,26 +71,28 @@ async def scan_all_search_results(query, session):
 
 async def fetch_vacancy_page(link, session):
     # Put the link, title and content in a dict – so far without skills.
-    try:
-        async with session.get(link) as resp:
-            html = await resp.text()
-            soup = BeautifulSoup(html, "html.parser")
-            title = soup.find(attrs={"data-qa": "vacancy-title"}).text
-            content = soup.find(attrs={"data-qa": "vacancy-description"}).text
-            vacancy_page = {"url": link, "title": title, "content": content}
-            return vacancy_page
-    except AttributeError:
-        print(f"🚨 AttributeError occurred while fetching: {link}")
-        return None
-    except ClientPayloadError:
-        print(f"🚨 ClientPayloadError occurred while fetching: {link}")
-        return None
-    except ServerDisconnectedError:
-        print(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
-        return None
-    except asyncio.TimeoutError:
-        print(f"🚨 TimeoutError occurred while fetching: {link}")
-        return None
+    for attempt in range(1, 6):
+        try:
+            async with session.get(link) as resp:
+                html = await resp.text()
+                soup = BeautifulSoup(html, "html.parser")
+                title = soup.find(attrs={"data-qa": "vacancy-title"}).text
+                content = soup.find(attrs={"data-qa": "vacancy-description"}).text
+                vacancy_page = {"url": link, "title": title, "content": content}
+                return vacancy_page
+        except AttributeError:
+            print(f"🚨 AttributeError occurred while fetching: {link}")
+            return None
+        except ClientPayloadError:
+            print(f"🚨 ClientPayloadError occurred while fetching: {link}")
+            return None
+        except ServerDisconnectedError:
+            print(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
+            await asyncio.sleep(60)
+        except asyncio.TimeoutError:
+            print(f"🚨 TimeoutError occurred while fetching: {link}")
+            await asyncio.sleep(60)
+    return None
 
 
 async def fetch_all_vacancy_pages(all_links, hh_links_we_already_have, session):
