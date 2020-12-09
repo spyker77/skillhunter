@@ -43,7 +43,14 @@ docker-compose exec web pytest --cov --cov-report=term-missing
 
 **Tada** 🎉
 
-By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. Note that in order to see the work in full color, you need to fill the database once...
+By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. Note that in order to see the work in full color, you need to fill the database once by loading the list of job titles to parse and skills to identify...
+
+```bash
+docker-compose exec web python loaddata jobs.json
+docker-compose exec web python loaddata skills.json
+```
+
+...and run scrapers to collect initial data on available vacancies...
 
 ```bash
 docker-compose exec web python manage.py scrape_hh
@@ -51,7 +58,7 @@ docker-compose exec web python manage.py scrape_indeed
 docker-compose exec web python manage.py scrape_sh
 ```
 
-... or periodically using **cron** and additionally cleaning the database from outdated records:
+... or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
 
 ```bash
 docker-compose exec web python manage.py purge_db
