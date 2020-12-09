@@ -82,7 +82,7 @@ async def scan_all_search_results(query, session):
 
 async def fetch_vacancy_page(link, session):
     # Put the link, title and content in a dict – so far without skills.
-    for attempt in range(1, 6):
+    for _ in range(1, 6):
         try:
             async with session.get(link) as resp:
                 html = await resp.text()
