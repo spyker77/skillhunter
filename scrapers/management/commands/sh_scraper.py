@@ -1,5 +1,4 @@
 import re
-import secrets
 import asyncio
 from time import sleep
 from collections import Counter
@@ -8,16 +7,6 @@ import aiohttp
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
 from aiohttp.client_exceptions import ClientPayloadError, ServerDisconnectedError
-
-
-headers = {
-    "user-agent": [
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:71.0) Gecko/20100101 Firefox/71.0",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36",
-    ]
-}
-RANDOM_AGENT = secrets.choice(headers["user-agent"])
 
 
 def prepare_query(job_title):
@@ -131,9 +120,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, sh_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(
-        headers={"user-agent": RANDOM_AGENT, "Connection": "close"}
-    ) as session:
+    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         attempt = 1
