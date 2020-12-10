@@ -23,7 +23,7 @@ async def scan_single_search_page(query, page_num, session):
         "limit": 50,
         "start": page_num,
     }
-    for attempt in range(1, 6):
+    for attempt in range(5):
         async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
             try:
                 html = await asyncio.shield(resp.text())
@@ -143,7 +143,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, indeed_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
+    async with aiohttp.ClientSession() as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         attempt = 1

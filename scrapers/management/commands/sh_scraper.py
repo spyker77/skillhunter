@@ -60,7 +60,7 @@ async def scan_all_search_results(query, session):
 
 async def fetch_vacancy_page(link, session):
     # Put the link, title and content in a dict – so far without skills.
-    for _ in range(1, 6):
+    for _ in range(5):
         try:
             async with session.get(link) as resp:
                 html = await resp.text()
@@ -118,13 +118,13 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, sh_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
+    async with aiohttp.ClientSession() as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         attempt = 1
         while attempt < 10:
             try:
-                sleep(60)
+                await asyncio.sleep(60)
                 vacancies_without_skills = await fetch_all_vacancy_pages(
                     all_links, sh_links_we_already_have, session
                 )

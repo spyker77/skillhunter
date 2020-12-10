@@ -8,7 +8,6 @@ from flashtext import KeywordProcessor
 from aiohttp.client_exceptions import ClientPayloadError, ServerDisconnectedError
 
 
-
 def prepare_query(job_title):
     # Prepare job title for use in the phrase search.
     query = job_title.strip('"')
@@ -60,7 +59,7 @@ async def scan_all_search_results(query, session):
 
 async def fetch_vacancy_page(link, session):
     # Put the link, title and content in a dict – so far without skills.
-    for _ in range(1, 6):
+    for _ in range(5):
         try:
             async with session.get(link) as resp:
                 html = await resp.text()
@@ -118,7 +117,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, hh_links_we_already_have, SKILLS):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
+    async with aiohttp.ClientSession() as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         attempt = 1
