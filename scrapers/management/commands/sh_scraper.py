@@ -70,8 +70,7 @@ async def fetch_vacancy_page(link, session):
                 vacancy_page = {"url": link, "title": title, "content": content}
                 return vacancy_page
         except AttributeError:
-            # Commented to avoid mess in the logs (not an important error).
-            # print(f"🚨 AttributeError occurred while fetching: {link}")
+            print(f"🚨 AttributeError occurred while fetching: {link}")
             return None
         except ClientPayloadError:
             print(f"🚨 ClientPayloadError occurred while fetching: {link}")
