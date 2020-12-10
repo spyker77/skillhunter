@@ -1,7 +1,6 @@
 import re
 import sys
 import asyncio
-from time import sleep
 from collections import Counter
 
 import aiohttp
@@ -165,5 +164,5 @@ async def main(job_title, indeed_links_we_already_have, SKILLS):
             for vacancy_without_skills in vacancies_without_skills
             if vacancy_without_skills is not None
         )
-    sleep(60)
+    await asyncio.sleep(60)
     return collected_jobs
