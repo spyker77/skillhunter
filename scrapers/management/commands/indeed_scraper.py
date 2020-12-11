@@ -23,7 +23,7 @@ async def scan_single_search_page(query, page_num, session):
         "limit": 50,
         "start": page_num,
     }
-    for attempt in range(5):
+    for attempt in range(60):
         async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
             try:
                 html = await asyncio.shield(resp.text())
@@ -31,7 +31,7 @@ async def scan_single_search_page(query, page_num, session):
                 # Usually, a single search page with results is larger if
                 # it contains links to a vacancy pages (bytes).
                 page_with_results_size = 800 * 1000
-                # This is an empirically found threshold for a recaptcha page (bytes).
+                # This is an empirically found threshold for a reCAPTCHA page (bytes).
                 recaptcha_page_size = 500 * 1000
                 # Check if the search page has the results then parse it.
                 if current_page_size > page_with_results_size:
@@ -44,21 +44,19 @@ async def scan_single_search_page(query, page_num, session):
                         for vacancy in all_vacancies
                     )
                     return links
-                # If there are no results on the search page or
-                # the number of attempts has expired, then exit.
-                elif (
-                    recaptcha_page_size < current_page_size < page_with_results_size
-                ) or attempt == 5:
+                # If there are no results on the search page then exit.
+                elif recaptcha_page_size < current_page_size < page_with_results_size:
                     return None
                 # If none of the above and reCAPTCHA appears, then wait and try again.
                 else:
-                    await asyncio.sleep(60 * 10)
+                    await asyncio.sleep(60)
             except AttributeError:
                 print(f"🚨 AttributeError occurred while scanning: {resp.url}")
                 return None
             except ClientPayloadError:
                 print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
                 return None
+    return None
 
 
 async def scan_all_search_results(query, session):
