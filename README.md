@@ -58,7 +58,7 @@ docker-compose exec web python manage.py scrape_indeed
 docker-compose exec web python manage.py scrape_sh
 ```
 
-... or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
+...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
 
 ```bash
 docker-compose exec web python manage.py purge_db

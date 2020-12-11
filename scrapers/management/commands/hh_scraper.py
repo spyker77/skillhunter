@@ -125,7 +125,7 @@ async def main(job_title, hh_links_we_already_have, skills):
                 )
                 break
             except OSError:
-                print(f"🚨 OSError occured.")
+                print("🚨 OSError occured.")
         keyword_processor = KeywordProcessor()
         keyword_processor.add_keywords_from_dict(skills)
         collected_jobs = (
