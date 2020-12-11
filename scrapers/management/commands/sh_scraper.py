@@ -16,11 +16,7 @@ def prepare_query(job_title):
 
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
-    payload = {
-        "q": f'"{query}"',
-        "fdb": 7,
-        "pn": page_num,
-    }
+    payload = {"q": f'"{query}"', "fdb": 7, "pn": page_num}
     async with session.get(
         "https://www.simplyhired.com/search", params=payload
     ) as resp:
@@ -88,10 +84,8 @@ async def fetch_all_vacancy_pages(all_links, sh_links_we_already_have, session):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
     # Reduce pressure on simplyhired.com by checking if we already have the link.
-    only_new_links = [
-        link for link in all_links if link not in sh_links_we_already_have
-    ]
-    for link in only_new_links:
+    new_links = [link for link in all_links if link not in sh_links_we_already_have]
+    for link in new_links:
         task = asyncio.create_task(fetch_vacancy_page(link, session))
         tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
@@ -116,24 +110,21 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, sh_links_we_already_have, SKILLS):
+async def main(job_title, sh_links_we_already_have, skills):
     # Import this function to collect vacancies for a given job title.
     async with aiohttp.ClientSession() as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
-        attempt = 1
-        while attempt < 10:
+        for _ in range(10):
             try:
-                await asyncio.sleep(60)
                 vacancies_without_skills = await fetch_all_vacancy_pages(
                     all_links, sh_links_we_already_have, session
                 )
                 break
             except OSError:
-                print(f"🚨 OSError occured on attempt {attempt}")
-                attempt += 1
+                print(f"🚨 OSError occured.")
         keyword_processor = KeywordProcessor()
-        keyword_processor.add_keywords_from_dict(SKILLS)
+        keyword_processor.add_keywords_from_dict(skills)
         collected_jobs = (
             process_vacancy_content(vacancy_without_skills, keyword_processor)
             for vacancy_without_skills in vacancies_without_skills

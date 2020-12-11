@@ -4,15 +4,15 @@ import asyncio
 from django.db import OperationalError
 from django.core.management.base import BaseCommand
 
-from .sh_scraper import main
+from scrapers.management.commands.sh_scraper import main
 from scrapers.models import Vacancy, Job, Skill
 
 
 class Command(BaseCommand):
     help = "Scan simplyhired.com and analyze available IT vacancies."
 
-    JOBS = [job.title for job in Job.objects.all()]
-    SKILLS = {
+    jobs = [job.title for job in Job.objects.all()]
+    skills = {
         skill.clean_name: ast.literal_eval(skill.unclean_names)
         for skill in Skill.objects.all()
     }
@@ -21,9 +21,9 @@ class Command(BaseCommand):
         self.stdout.write("🚀 simplyhired.com launched to parse!")
         # Shuffle the list of jobs each time to prevent timeout errors for
         # the same jobs and subsequent constant data loss.
-        random.shuffle(self.JOBS)
+        random.shuffle(self.jobs)
         vacancies_parsed = 0
-        for job_title in self.JOBS:
+        for job_title in self.jobs:
             try:
                 sh_links_we_already_have = [
                     url
@@ -32,7 +32,7 @@ class Command(BaseCommand):
                     ).values_list("url", flat=True)
                 ]
                 collected_jobs = asyncio.run(
-                    main(job_title, sh_links_we_already_have, self.SKILLS)
+                    main(job_title, sh_links_we_already_have, self.skills)
                 )
                 all_jobs = (
                     Vacancy(
