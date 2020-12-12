@@ -115,7 +115,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, hh_links_we_already_have, skills):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         for _ in range(10):
@@ -125,7 +125,7 @@ async def main(job_title, hh_links_we_already_have, skills):
                 )
                 break
             except OSError:
-                print("🚨 OSError occured.")
+                print(f"🚨 OSError occured for {job_title}.")
         keyword_processor = KeywordProcessor()
         keyword_processor.add_keywords_from_dict(skills)
         collected_jobs = (
