@@ -4,6 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+mypy = "*"
+pylint = "*"
+pylint-django = "*"
+black = "*"
 
 [packages]
 django = "*"
@@ -32,3 +36,6 @@ bs4 = "*"
 
 [requires]
 python_version = "3.9.0"
+
+[pipenv]
+allow_prereleases = true
