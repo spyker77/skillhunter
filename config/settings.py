@@ -105,9 +105,9 @@ DATABASES = {
     "default": env.str("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
 
-# Keep connection to the database opened for 12 hours in order
+# Keep connection to the database opened for 6 hours in order
 # to prevent associated errors due to its early close when scraping.
-CONN_MAX_AGE = 60 * 60 * 12
+CONN_MAX_AGE = 60 * 60 * 6
 
 
 # Password validation
@@ -133,13 +133,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -159,25 +155,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Content-Security-Policy settings for django-csp
-CSP_DEFAULT_SRC = [
-    "'self'",
-]
-CSP_STYLE_SRC = [
-    "'self'",
-]
-CSP_SCRIPT_SRC = [
-    "'self'",
-]
-CSP_FONT_SRC = [
-    "'self'",
-]
-CSP_IMG_SRC = [
-    "'self'",
-    "data:",
-]
-CSP_INCLUDE_NONCE_IN = [
-    "script-src",
-]
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_STYLE_SRC = ["'self'"]
+CSP_SCRIPT_SRC = ["'self'"]
+CSP_FONT_SRC = ["'self'"]
+CSP_IMG_SRC = ["'self'", "data:"]
+CSP_INCLUDE_NONCE_IN = ["script-src"]
 
 
 # django-debug-toolbar
