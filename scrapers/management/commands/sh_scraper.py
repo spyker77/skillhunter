@@ -125,15 +125,18 @@ async def main(job_title, sh_links_we_already_have, skills):
                 vacancies_without_skills = await fetch_all_vacancy_pages(
                     all_links, sh_links_we_already_have, session
                 )
-                break
+                keyword_processor = KeywordProcessor()
+                keyword_processor.add_keywords_from_dict(skills)
+                collected_jobs = (
+                    process_vacancy_content(vacancy_without_skills, keyword_processor)
+                    for vacancy_without_skills in vacancies_without_skills
+                    if vacancy_without_skills is not None
+                )
+                await asyncio.sleep(60)
+                return collected_jobs
             except OSError:
                 print(f"🚨 OSError occured for {job_title}.")
-        keyword_processor = KeywordProcessor()
-        keyword_processor.add_keywords_from_dict(skills)
-        collected_jobs = (
-            process_vacancy_content(vacancy_without_skills, keyword_processor)
-            for vacancy_without_skills in vacancies_without_skills
-            if vacancy_without_skills is not None
-        )
-    await asyncio.sleep(60)
-    return collected_jobs
+        else:
+            await asyncio.sleep(60)
+            # If couldn't recover after errors, then return an empty list.
+            return []
