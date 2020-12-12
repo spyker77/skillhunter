@@ -25,20 +25,25 @@ async def scan_single_search_page(query, page_num, session):
         "text": query,
         "page": page_num,
     }
-    async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
-        try:
-            html = await asyncio.shield(resp.text())
-            soup = BeautifulSoup(html, "html.parser")
-            all_vacancies = soup.find_all("a", href=re.compile(r"hh.ru/vacancy"))
-            # Extract valid links to vacancy pages and clean their tails.
-            links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
-            return links
-        except AttributeError:
-            print(f"🚨 AttributeError occurred while scanning: {resp.url}")
-            return None
-        except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
-            return None
+    for _ in range(5):
+        async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
+            try:
+                html = await asyncio.shield(resp.text())
+                soup = BeautifulSoup(html, "html.parser")
+                all_vacancies = soup.find_all("a", href=re.compile(r"hh.ru/vacancy"))
+                # Extract valid links to vacancy pages and clean their tails.
+                links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
+                return links
+            except AttributeError:
+                print(f"🚨 AttributeError occurred while scanning: {resp.url}")
+                return None
+            except ClientPayloadError:
+                print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
+                return None
+            except asyncio.TimeoutError:
+                print(f"🚨 TimeoutError occurred while scanning: {resp.url}")
+                await asyncio.sleep(60)
+    return None
 
 
 async def scan_all_search_results(query, session):
