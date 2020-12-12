@@ -66,9 +66,9 @@ async def scan_all_search_results(query, session):
     all_sets = await asyncio.gather(*tasks)
     # Unpack the list of sets into a single set of all links.
     all_links = set()
-    for s in all_sets:
-        if s is not None:
-            all_links.update(s)
+    for one_set in all_sets:
+        if one_set is not None:
+            all_links.update(one_set)
     return all_links
 
 
@@ -153,7 +153,6 @@ async def main(job_title, indeed_links_we_already_have, skills):
                 return collected_jobs
             except OSError:
                 print(f"🚨 OSError occured for {job_title}.")
-        else:
-            await asyncio.sleep(60)
-            # If couldn't recover after errors, then return an empty list.
-            return []
+        # If couldn't recover after errors, then return an empty list.
+        await asyncio.sleep(60)
+        return []
