@@ -1,5 +1,4 @@
 import re
-import sys
 import asyncio
 from collections import Counter
 
@@ -18,39 +17,28 @@ def prepare_query(job_title):
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {"q": f"title:({query})", "fromage": 7, "limit": 50, "start": page_num}
-    for _ in range(60):
+    for _ in range(5):
         async with session.get("https://www.indeed.com/jobs", params=payload) as resp:
             try:
                 html = await asyncio.shield(resp.text())
-                current_page_size = sys.getsizeof(html)
-                # Usually, a single search page with results is larger if
-                # it contains links to a vacancy pages (bytes).
-                page_with_results_size = 800 * 1000
-                # This is an empirically found threshold for a reCAPTCHA page (bytes).
-                recaptcha_page_size = 500 * 1000
-                # Check if the search page has the results then parse it.
-                if current_page_size > page_with_results_size:
-                    soup = BeautifulSoup(html, "html.parser")
-                    all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
-                    # Extract valid links to vacancy pages.
-                    links = set(
-                        "https://www.indeed.com/viewjob?jk="
-                        + vacancy["href"].split("&")[0].split("jk=")[-1]
-                        for vacancy in all_vacancies
-                    )
-                    return links
-                # If there are no results on the search page then exit.
-                elif recaptcha_page_size < current_page_size < page_with_results_size:
-                    return None
-                # If none of the above and reCAPTCHA appears, then wait and try again.
-                else:
-                    await asyncio.sleep(60)
+                soup = BeautifulSoup(html, "html.parser")
+                all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
+                # Extract valid links to vacancy pages.
+                links = set(
+                    "https://www.indeed.com/viewjob?jk="
+                    + vacancy["href"].split("&")[0].split("jk=")[-1]
+                    for vacancy in all_vacancies
+                )
+                return links
             except AttributeError:
                 print(f"🚨 AttributeError occurred while scanning: {resp.url}")
                 return None
             except ClientPayloadError:
                 print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
                 return None
+            except asyncio.TimeoutError:
+                print(f"🚨 TimeoutError occurred while scanning: {resp.url}")
+                await asyncio.sleep(60)
     return None
 
 
