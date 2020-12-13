@@ -8,6 +8,6 @@
 .mypy_cache
 .pytest_cache
 __pycache__
-db.sqlite3s
+db.sqlite3
 coverage.xml
 docker-compose-prod.yml
