@@ -1,10 +1,10 @@
 import ast
 from collections import defaultdict
 
-from django.views.generic import ListView
 from django.conf import settings
+from django.views.generic import ListView
 
-from .models import Vacancy, Search
+from .models import Search, Vacancy
 
 
 class SearchResultsListView(ListView):
@@ -15,7 +15,7 @@ class SearchResultsListView(ListView):
     def _combine_rated_skills(self, rated_skills_to_merge):
         super_dict = defaultdict(list)
         for rated_skills in rated_skills_to_merge:
-            if rated_skills != None:
+            if rated_skills is not None:
                 for k, v in rated_skills.items():
                     super_dict[k].append(v)
         return super_dict

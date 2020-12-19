@@ -8,6 +8,8 @@ mypy = "*"
 pylint = "*"
 pylint-django = "*"
 black = "*"
+flake8 = "*"
+isort = "*"
 
 [packages]
 django = "*"
@@ -35,7 +37,7 @@ jinja2 = "*"
 bs4 = "*"
 
 [requires]
-python_version = "3.9.0"
+python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true

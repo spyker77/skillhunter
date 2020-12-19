@@ -2,8 +2,8 @@ import os
 import socket
 from pathlib import Path
 
-import django_heroku
 import dj_database_url
+import django_heroku
 from environs import Env
 
 env = Env()
@@ -196,7 +196,9 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "SkillHunter API",
-    "DESCRIPTION": "Returns a list of rated skills ordered by number of occurrences in vacancies description, including the job title and number of vacancies analyzed.",
+    "DESCRIPTION": """Returns a list of rated skills ordered by number of
+    occurrences in vacancies description, including the job title and number of
+    vacancies analyzed.""",
     "VERSION": "1.0.0",
 }
 

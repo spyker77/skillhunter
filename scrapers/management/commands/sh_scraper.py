@@ -1,11 +1,14 @@
-import re
 import asyncio
+import re
 from collections import Counter
 
 import aiohttp
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerDisconnectedError,
+)
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
-from aiohttp.client_exceptions import ClientPayloadError, ServerDisconnectedError
 
 
 def prepare_query(job_title):
@@ -68,7 +71,11 @@ async def fetch_vacancy_page(link, session):
                 soup = BeautifulSoup(html, "html.parser")
                 title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
                 content = soup.find(attrs={"class": "p"}).text
-                vacancy_page = {"url": link, "title": title, "content": content}
+                vacancy_page = {
+                    "url": link,
+                    "title": title,
+                    "content": content,
+                }
                 return vacancy_page
         except AttributeError:
             print(f"🚨 AttributeError occurred while fetching: {link}")
@@ -88,7 +95,7 @@ async def fetch_vacancy_page(link, session):
 async def fetch_all_vacancy_pages(all_links, sh_links_we_already_have, session):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
-    # Reduce pressure on simplyhired.com by checking if we already have the link.
+    # Reduce pressure on simplyhired.com by checking if we have this link.
     new_links = [link for link in all_links if link not in sh_links_we_already_have]
     for link in new_links:
         task = asyncio.create_task(fetch_vacancy_page(link, session))

@@ -1,15 +1,14 @@
+from collections.abc import Sequence
 from pathlib import Path
 from urllib.parse import urlparse
-from collections.abc import Sequence
-
-from django.urls import reverse, resolve
-from django.db.models.query import QuerySet
-
-from .views import HomePageView, AboutPageView
-from .sitemaps import StaticViewSitemap
-from .apps import PagesConfig
 
 import pytest
+from django.db.models.query import QuerySet
+from django.urls import resolve, reverse
+
+from .apps import PagesConfig
+from .sitemaps import StaticViewSitemap
+from .views import AboutPageView, HomePageView
 
 
 class TestHomePage:

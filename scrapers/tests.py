@@ -1,13 +1,12 @@
 from pathlib import Path
-from urllib.parse import urlparse, urlencode
-
-from django.urls import reverse, resolve
-
-from .apps import ScrapersConfig
-from .views import SearchResultsListView
-from .models import Vacancy, Job, Search, Skill
+from urllib.parse import urlencode, urlparse
 
 import pytest
+from django.urls import resolve, reverse
+
+from .apps import ScrapersConfig
+from .models import Job, Search, Skill, Vacancy
+from .views import SearchResultsListView
 
 
 @pytest.mark.django_db

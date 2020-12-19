@@ -1,12 +1,11 @@
-from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include, re_path
-from django.contrib.sitemaps.views import sitemap
+from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sitemaps.views import sitemap
+from django.urls import include, path, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-
-from scrapers.models import Job
 from pages.sitemaps import StaticViewSitemap
+from scrapers.models import Job
 
 API_VERSION_V1 = "v1"
 

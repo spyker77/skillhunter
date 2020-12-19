@@ -1,13 +1,13 @@
 import ast
-from collections import defaultdict, OrderedDict
+from collections import OrderedDict, defaultdict
 
 from django.conf import settings
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
 from rest_framework.response import Response
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema, OpenApiParameter
+from scrapers.models import Search, Vacancy
 
-from scrapers.models import Vacancy, Search
 from .serializers import SkillSerializer
 
 
@@ -15,7 +15,7 @@ class SkillViewSet(viewsets.ViewSet):
     def _combine_rated_skills(self, rated_skills_to_merge):
         super_dict = defaultdict(list)
         for rated_skills in rated_skills_to_merge:
-            if rated_skills != None:
+            if rated_skills is not None:
                 for k, v in rated_skills.items():
                     super_dict[k].append(v)
         return super_dict

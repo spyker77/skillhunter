@@ -1,11 +1,11 @@
 import ast
-import random
 import asyncio
-from django.db import OperationalError
-from django.core.management.base import BaseCommand
+import random
 
+from django.core.management.base import BaseCommand
+from django.db import OperationalError
 from scrapers.management.commands.indeed_scraper import main
-from scrapers.models import Vacancy, Job, Skill
+from scrapers.models import Job, Skill, Vacancy
 
 
 class Command(BaseCommand):
