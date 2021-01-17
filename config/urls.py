@@ -4,6 +4,7 @@ from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
 from pages.sitemaps import StaticViewSitemap
 from scrapers.models import Job
 

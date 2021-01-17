@@ -6,6 +6,8 @@
 .DS_Store
 .mypy_cache
 .pytest_cache
+.dockerignore
 __pycache__
 coverage.xml
 docker-compose-prod.yml
+Dockerfile

@@ -4,6 +4,7 @@ import random
 
 from django.core.management.base import BaseCommand
 from django.db import OperationalError
+
 from scrapers.management.commands.indeed_scraper import main
 from scrapers.models import Job, Skill, Vacancy
 

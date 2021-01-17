@@ -1,0 +1,10 @@
+[tool.black]
+exclude = '''
+(
+  /(
+      \.mypy_cache
+    | \.pytest_cache
+    | migrations
+  )/
+)
+'''

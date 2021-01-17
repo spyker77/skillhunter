@@ -1,26 +1,66 @@
-# Pull base image.
-FROM python:3.9-slim-buster
+###########
+# BUILDER #
+###########
 
-# Set environment variables.
+# Pull base image
+FROM python:3.9-slim-buster as builder
+
+# Set working directory
+WORKDIR /code
+
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set work directory.
-WORKDIR /code
-
-# Install dependencies.
-COPY Pipfile .
-COPY Pipfile.lock .
+# Install system dependencies
 RUN apt-get update \
-    # Dependencies for building Python packages and psycopg2.
+    # Dependencies for building Python packages and psycopg2
     && apt-get install -y --no-install-recommends build-essential libpq-dev \
-    # Project dependencies.
-    && pip install --upgrade pip \
-    && pip install pipenv \
-    && pipenv install --system \
-    # Final clean up to keep the image size down.
-    && apt-get clean \
+    # Final clean up to keep the image size down
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the project.
+# Install project dependencies
+COPY Pipfile .
+COPY Pipfile.lock .
+RUN pip install --upgrade pip \
+    && pip install pipenv \
+    && pipenv lock -r > requirements.txt \
+    && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
+
+# Copy the project and lint
+COPY . .
+RUN pip install flake8 black isort \
+    && flake8 . \
+    && black . \
+    && isort .
+
+
+#########
+# FINAL #
+#########
+
+# Pull base image
+FROM python:3.9-slim-buster
+
+# Set working directory
+WORKDIR /code
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies
+RUN apt-get update \
+    # Dependencies for building Python packages and psycopg2
+    && apt-get install -y --no-install-recommends build-essential libpq-dev \
+    # Final clean up to keep the image size down
+    && rm -rf /var/lib/apt/lists/*
+
+# Install project dependencies
+COPY --from=builder /code/wheels /wheels
+COPY --from=builder /code/requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install --no-cache /wheels/*
+
+# Copy the project
 COPY . .
