@@ -9,11 +9,12 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
 # Install dependencies.
-COPY Pipfile Pipfile.lock /code/
+COPY Pipfile .
+COPY Pipfile.lock .
 RUN apt-get update \
     # Dependencies for building Python packages and psycopg2.
     && apt-get install -y --no-install-recommends build-essential libpq-dev \
-    # Project dependencies
+    # Project dependencies.
     && pip install --upgrade pip \
     && pip install pipenv \
     && pipenv install --system \
@@ -22,4 +23,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the project.
-COPY . /code/
+COPY . .
