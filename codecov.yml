@@ -3,3 +3,6 @@ ignore:
   - "asgi.py"
   - "wsgi.py"
   - "migrations/**/*"
+coverage:
+  status:
+    patch: off
