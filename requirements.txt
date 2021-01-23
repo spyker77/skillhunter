@@ -31,6 +31,7 @@ djangorestframework==3.12.2
 drf-spectacular==0.13.1
 environs==9.3.0
 execnet==1.7.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+fake-useragent==0.1.11
 flashtext==2.7
 gunicorn==20.0.4
 h11==0.12.0; python_version >= '3.6'

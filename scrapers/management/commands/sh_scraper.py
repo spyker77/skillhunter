@@ -4,11 +4,19 @@ from collections import Counter
 
 import aiohttp
 from aiohttp.client_exceptions import (
+    ClientConnectorError,
     ClientPayloadError,
     ServerDisconnectedError,
 )
 from bs4 import BeautifulSoup
+from fake_useragent import FakeUserAgentError, UserAgent
 from flashtext import KeywordProcessor
+
+try:
+    FAKE_AGENT = UserAgent(cache=False)
+except FakeUserAgentError:
+    print("🚨 Failed to get fake user agent.")
+    FAKE_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11.1; rv:84.0) Gecko/20100101 Firefox/84.0"
 
 
 def prepare_query(job_title):
@@ -20,29 +28,33 @@ def prepare_query(job_title):
 async def scan_single_search_page(query, page_num, session):
     # Scan search page for vacancy links.
     payload = {"q": f'"{query}"', "fdb": 7, "pn": page_num}
-    for _ in range(5):
-        async with session.get(
-            "https://www.simplyhired.com/search", params=payload
-        ) as resp:
-            try:
-                html = await asyncio.shield(resp.text())
-                soup = BeautifulSoup(html, "html.parser")
-                all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
-                # Extract valid links to vacancy pages and clean the tail.
-                links = set(
-                    ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0]
-                    for vacancy in all_vacancies
-                )
-                return links
-            except AttributeError:
-                print(f"🚨 AttributeError occurred while scanning: {resp.url}")
-                return None
-            except ClientPayloadError:
-                print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
-                return None
-            except asyncio.TimeoutError:
-                print(f"🚨 TimeoutError occurred while scanning: {resp.url}")
-                await asyncio.sleep(60)
+    for _ in range(10):
+        try:
+            async with session.get(
+                "https://www.simplyhired.com/search", params=payload
+            ) as resp:
+                try:
+                    html = await asyncio.shield(resp.text())
+                    soup = BeautifulSoup(html, "html.parser")
+                    all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
+                    # Extract valid links to vacancy pages and clean the tail.
+                    links = set(
+                        ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0]
+                        for vacancy in all_vacancies
+                    )
+                    return links
+                except AttributeError:
+                    print(f"🚨 AttributeError occurred while scanning: {resp.url}")
+                    return None
+                except ClientPayloadError:
+                    print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
+                    return None
+                except asyncio.TimeoutError:
+                    print(f"🚨 TimeoutError occurred while scanning: {resp.url}")
+                    await asyncio.sleep(60)
+        except ClientConnectorError:
+            print("🚨 ClientConnectorError occurred while scanning indeed.com.")
+            await asyncio.sleep(60)
     return None
 
 
@@ -124,7 +136,9 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, sh_links_we_already_have, skills):
     # Import this function to collect vacancies for a given job title.
-    async with aiohttp.ClientSession(headers={"Connection": "close"}) as session:
+    async with aiohttp.ClientSession(
+        headers={"user-agent": FAKE_AGENT.random, "Connection": "close"}
+    ) as session:
         query = prepare_query(job_title)
         all_links = await scan_all_search_results(query, session)
         for _ in range(10):

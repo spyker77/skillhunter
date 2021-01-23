@@ -35,6 +35,7 @@ pytest-django = "*"
 pytest-xdist = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 whitenoise = {extras = ["brotli"], version = "*"}
+fake-useragent = "*"
 
 [requires]
 python_version = "3.9"
