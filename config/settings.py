@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     "robots",
     "rest_framework",
     "drf_spectacular",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "csp.middleware.CSPMiddleware",
@@ -155,6 +158,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Content-Security-Policy settings for django-csp
+# https://django-csp.readthedocs.io/en/latest/
 CSP_DEFAULT_SRC = ["'self'"]
 CSP_STYLE_SRC = ["'self'"]
 CSP_SCRIPT_SRC = ["'self'"]
@@ -164,6 +168,7 @@ CSP_INCLUDE_NONCE_IN = ["script-src"]
 
 
 # django-debug-toolbar
+# https://django-debug-toolbar.readthedocs.io/en/latest/
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 if DEBUG:
@@ -173,6 +178,7 @@ if DEBUG:
 
 
 # Django REST framework
+# https://www.django-rest-framework.org/#installation
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"

@@ -36,6 +36,8 @@ pytest-xdist = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 whitenoise = {extras = ["brotli"], version = "*"}
 fake-useragent = "*"
+django-otp = "*"
+qrcode = "*"
 
 [requires]
 python_version = "3.9"
