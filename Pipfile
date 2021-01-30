@@ -38,6 +38,7 @@ whitenoise = {extras = ["brotli"], version = "*"}
 fake-useragent = "*"
 django-otp = "*"
 qrcode = "*"
+sqreen = "*"
 
 [requires]
 python_version = "3.9"

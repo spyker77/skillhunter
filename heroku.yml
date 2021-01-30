@@ -6,4 +6,4 @@ release:
   command:
     - python manage.py collectstatic --noinput
 run:
-  web: gunicorn config.asgi:application -b 0.0.0.0:$PORT -k uvicorn.workers.UvicornWorker
+  web: sqreen-start gunicorn config.asgi:application -b 0.0.0.0:$PORT -k uvicorn.workers.UvicornWorker
