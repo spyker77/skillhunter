@@ -19,6 +19,7 @@ django = "*"
 django-csp = "*"
 django-debug-toolbar = "*"
 django-heroku = "*"
+django-otp = "*"
 django-redis = "*"
 django-robots = "*"
 djangorestframework = "*"
@@ -26,6 +27,7 @@ djangorestframework-xml = "*"
 djangorestframework-yaml = "*"
 drf-spectacular = "==0.13.1"
 environs = "*"
+fake-useragent = "*"
 flashtext = "*"
 gunicorn = "*"
 jinja2 = "*"
@@ -33,15 +35,12 @@ psycopg2-binary = "*"
 pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
-uvicorn = {extras = ["standard"], version = "*"}
-whitenoise = {extras = ["brotli"], version = "*"}
-fake-useragent = "*"
-django-otp = "*"
 qrcode = "*"
 sqreen = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+whitenoise = {extras = ["brotli"], version = "*"}
 
 [requires]
-python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true

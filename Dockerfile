@@ -3,7 +3,7 @@
 ###########
 
 # Pull base image
-FROM python:3.9-slim-buster as builder
+FROM python:3.8-slim-buster as builder
 
 # Set working directory
 WORKDIR /code
@@ -40,7 +40,7 @@ RUN pip install flake8 black isort \
 #########
 
 # Pull base image
-FROM python:3.9-slim-buster
+FROM python:3.8-slim-buster
 
 # Set working directory
 WORKDIR /code
