@@ -8,3 +8,11 @@ exclude = '''
   )/
 )
 '''
+
+[tool.flake8]
+exclude = [".mypy_cache", ".pytest_cache", "migrations"]
+max-line-length = 119
+
+[tool.isort]
+profile = "black"
+skip_glob = [".mypy_cache", ".pytest_cache", "migrations"]

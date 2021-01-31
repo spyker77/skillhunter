@@ -5,7 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
-flake8 = "*"
+flake9 = "*"
 isort = "*"
 mypy = "*"
 pylint = "*"
