@@ -36,6 +36,7 @@ pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
 qrcode = "*"
+sentry-sdk = "*"
 sqreen = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 whitenoise = {extras = ["brotli"], version = "*"}

@@ -4,7 +4,9 @@ from pathlib import Path
 
 import dj_database_url
 import django_heroku
+import sentry_sdk
 from environs import Env
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = Env()
 env.read_env()
@@ -223,6 +225,14 @@ if ENVIRONMENT == "production":
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    # Django error and performance monitoring with Sentry
+    if "SENTRY_DSN" in os.environ:
+        sentry_sdk.init(
+            dsn=env.str("SENTRY_DSN"),
+            integrations=[DjangoIntegration()],
+            traces_sample_rate=1.0,
+            send_default_pii=True,
+        )
 
 
 # Caching with Redis
