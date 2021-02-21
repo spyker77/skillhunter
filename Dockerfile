@@ -49,7 +49,7 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential libpq-dev \
-    wget tar firefox-esr chromium chromium-driver \
+    firefox-esr wget tar \
     && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz \
     && tar -x geckodriver -zf geckodriver-v0.29.0-linux64.tar.gz -O > /usr/bin/geckodriver \
     && chmod +x /usr/bin/geckodriver \

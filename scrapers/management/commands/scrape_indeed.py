@@ -1,5 +1,4 @@
 import ast
-import asyncio
 import random
 
 from django.core.management.base import BaseCommand
@@ -32,12 +31,10 @@ class Command(BaseCommand):
                         url__contains="indeed.com"
                     ).values_list("url", flat=True)
                 ]
-                collected_jobs = asyncio.run(
-                    main(
-                        job_title,
-                        indeed_links_we_already_have,
-                        self.skills,
-                    )
+                collected_jobs = main(
+                    job_title,
+                    indeed_links_we_already_have,
+                    self.skills,
                 )
                 all_jobs = (
                     Vacancy(

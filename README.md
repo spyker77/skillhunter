@@ -76,7 +76,8 @@ docker-compose exec web python manage.py purge_db
 -   Tailwind CSS
 -   Jinja
 -   Beautiful Soup
--   aiohttp
+-   Selenium WebDriver
+-   AIOHTTP
 -   Pytest
 -   Travis CI
 
