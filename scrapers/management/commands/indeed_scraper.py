@@ -1,113 +1,142 @@
+import platform
+import random
 import re
 from collections import Counter
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
-from fake_useragent import FakeUserAgentError, UserAgent
+from faker import Faker
 from flashtext import KeywordProcessor
 from selenium import webdriver
+from selenium.common.exceptions import MoveTargetOutOfBoundsException, TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-try:
-    FAKE_AGENT = UserAgent(cache=False)
-except FakeUserAgentError:
-    print("🚨 Failed to get fake user agent.")
-    FAKE_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11.1; rv:84.0) Gecko/20100101 Firefox/84.0"
+
+def get_user_agent():
+    # Generate user-agent appropriate for the platform.
+    faker = Faker()
+    os_name = platform.system().lower()
+    if os_name == "darwin":
+        while True:
+            user_agent = faker.firefox()
+            if "Mac" in user_agent:
+                return user_agent
+    elif os_name == "windows":
+        while True:
+            user_agent = faker.firefox()
+            if "Windows" in user_agent:
+                return user_agent
+    else:
+        while True:
+            user_agent = faker.firefox()
+            if "Linux" in user_agent:
+                return user_agent
 
 
 def initialize_webdriver():
-    # Launch new webdriver on each request in order to generate new user-agent.
-    # Hint to hide selenium usage from browsers: https://stackoverflow.com/a/60252464/10748367
+    # Run webdriver with a new user agent each time it starts.
     firefox_options = FirefoxOptions()
     firefox_options.headless = True
-    firefox_profile = FirefoxProfile()
-    firefox_profile.set_preference("general.useragent.override", FAKE_AGENT.random)
-    firefox_profile.set_preference("dom.webdriver.enabled", False)
-    firefox_profile.set_preference("useAutomationExtension", False)
-    firefox_profile.update_preferences()
+    profile = FirefoxProfile()
+    profile.set_preference("general.useragent.override", get_user_agent())
+    profile.set_preference("dom.webdriver.enabled", False)
+    profile.set_preference("useAutomationExtension", False)
+    profile.update_preferences()
     driver = webdriver.Firefox(
-        firefox_profile=firefox_profile,
-        options=firefox_options,
-        service_log_path="/dev/null",
+        firefox_profile=profile, options=firefox_options, service_log_path="/dev/null"
     )
     driver.maximize_window()
     return driver
 
 
-def prepare_query(job_title):
-    # Prepare job title for use in the phrase search.
-    query = job_title.strip('"')
-    return query
-
-
-def scan_single_search_page(query, page_num):
-    # Scan search page for vacancy links.
+def check_subscription_popup(driver):
+    # Check if there is a subscription popup, then close it.
     try:
-        payload = {
-            "as_ttl": query,
-            "fromage": 7,
-            "limit": 50,
-            "start": page_num,
-        }
+        WebDriverWait(driver, random.uniform(1.0, 3.0)).until(
+            EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
+        )
+        close_alert = driver.find_element_by_xpath('//*[@id="popover-x"]')
+        webdriver.ActionChains(driver).move_to_element(close_alert).perform()
+        close_alert.click()
+    except TimeoutException:
+        # If there is no pop-up, do nothing and continue the flow.
+        pass
+
+
+def scan_all_search_results(job_title):
+    # Scan each search page for vacancy links and continue while the Next button is presented.
+    all_links = set()
+    try:
+        payload = {"q": f"title:({job_title})", "fromage": 7, "filter": 0}
         driver = initialize_webdriver()
         driver.get("https://www.indeed.com/jobs?" + urlencode(payload))
-        html = driver.page_source
-        soup = BeautifulSoup(html, "html.parser")
-        all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
-        # Extract valid links to vacancy pages.
-        links = set(
-            "https://www.indeed.com/viewjob?jk="
-            + vacancy["href"].split("&")[0].split("jk=")[-1]
-            for vacancy in all_vacancies
-        )
-        return links
+        while True:
+            check_subscription_popup(driver)
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            html = driver.page_source
+            soup = BeautifulSoup(html, "html.parser")
+            all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
+            links = set(
+                "https://www.indeed.com/viewjob?jk=" + vacancy["href"].split("jk=")[-1]
+                for vacancy in all_vacancies
+            )
+            # Exit if we started collecting the same links or vacancies are not displayed at all.
+            if links.issubset(all_links):
+                return all_links
+            all_links.update(links)
+            # Or if there is no the Next button.
+            if 'aria-label="Next"' not in html:
+                return all_links
+            # Otherwise, continue with normal flow.
+            else:
+                next_button = driver.find_element_by_css_selector('[aria-label="Next"]')
+                webdriver.ActionChains(driver).move_to_element(next_button).perform()
+                next_button.click()
+    except MoveTargetOutOfBoundsException:
+        print(f'🚨 MoveTargetOutOfBoundsException occurred while parsing "{job_title}"')
+        return all_links
     finally:
         driver.quit()
 
 
-def scan_all_search_results(query):
-    # Collect results from all search pages.
-    all_links = set()
-    indeed_max_pages = 20
-    for num in range(indeed_max_pages):
-        multiplier = 50
-        page_num = num * multiplier
-        links = scan_single_search_page(query, page_num)
-        all_links.update(links)
-    return all_links
-
-
-def fetch_vacancy_page(link):
+def fetch_vacancy_page(link, driver):
     # Put the link, title and content in a dict – so far without skills.
     try:
-        driver = initialize_webdriver()
         driver.get(link)
+        check_subscription_popup(driver)
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         html = driver.page_source
         soup = BeautifulSoup(html, "html.parser")
         title = soup.find(
             attrs={"class": "jobsearch-JobInfoHeader-title-container"}
         ).text
         content = soup.find(attrs={"class": "jobsearch-jobDescriptionText"}).text
-        vacancy_page = {
-            "url": link,
-            "title": title,
-            "content": content,
-        }
+        vacancy_page = {"url": link, "title": title, "content": content}
         return vacancy_page
-    finally:
-        driver.quit()
+    except AttributeError:
+        print(f"🚨 AttributeError occurred while fetching: {link}")
+        return None
 
 
 def fetch_all_vacancy_pages(all_links, indeed_links_we_already_have):
     # Parse all the vacancy pages one by one.
-    vacancies_without_skills = list()
-    # Reduce pressure on indeed.com by checking if we have this link.
-    new_links = [link for link in all_links if link not in indeed_links_we_already_have]
-    for link in new_links:
-        result = fetch_vacancy_page(link)
-        vacancies_without_skills.append(result)
-    return tuple(vacancies_without_skills)
+    try:
+        vacancies_without_skills = list()
+        driver = initialize_webdriver()
+        # Reduce pressure on indeed.com by checking if we have this link.
+        new_links = [
+            link for link in all_links if link not in indeed_links_we_already_have
+        ]
+        for link in new_links:
+            result = fetch_vacancy_page(link, driver)
+            vacancies_without_skills.append(result)
+        return tuple(vacancies_without_skills)
+    finally:
+        driver.quit()
 
 
 def process_vacancy_content(vacancy_without_skills, keyword_processor):
@@ -129,8 +158,8 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 
 def main(job_title, indeed_links_we_already_have, skills):
-    query = prepare_query(job_title)
-    all_links = scan_all_search_results(query)
+    # Main flow of parsing the vacancies and counting the relevant skills.
+    all_links = scan_all_search_results(job_title)
     vacancies_without_skills = fetch_all_vacancy_pages(
         all_links, indeed_links_we_already_have
     )
