@@ -1,4 +1,5 @@
 import asyncio
+import platform
 import re
 from collections import Counter
 
@@ -9,23 +10,32 @@ from aiohttp.client_exceptions import (
     ServerDisconnectedError,
 )
 from bs4 import BeautifulSoup
-from fake_useragent import FakeUserAgentError, UserAgent
+from faker import Faker
 from flashtext import KeywordProcessor
 
-try:
-    FAKE_AGENT = UserAgent(cache=False)
-except FakeUserAgentError:
-    print("🚨 Failed to get fake user agent.")
-    FAKE_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11.1; rv:84.0) Gecko/20100101 Firefox/84.0"
+
+def get_user_agent():
+    # Generate user-agent appropriate for the platform.
+    faker = Faker()
+    os_name = platform.system().lower()
+    if os_name == "darwin":
+        while True:
+            user_agent = faker.firefox()
+            if "Mac" in user_agent:
+                return user_agent
+    elif os_name == "windows":
+        while True:
+            user_agent = faker.firefox()
+            if "Windows" in user_agent:
+                return user_agent
+    else:
+        while True:
+            user_agent = faker.firefox()
+            if "Linux" in user_agent:
+                return user_agent
 
 
-def prepare_query(job_title):
-    # Prepare job title for use in the phrase search.
-    query = job_title.strip('"')
-    return query
-
-
-async def scan_single_search_page(query, page_num, session):
+async def scan_single_search_page(job_title, page_num, session):
     # Scan search page for vacancy links.
     payload = {
         "L_is_autosearch": "false",
@@ -33,7 +43,7 @@ async def scan_single_search_page(query, page_num, session):
         "enable_snippets": "true",
         "search_field": "name",
         "search_period": 7,
-        "text": query,
+        "text": job_title,
         "page": page_num,
     }
     for _ in range(10):
@@ -67,12 +77,14 @@ async def scan_single_search_page(query, page_num, session):
     return None
 
 
-async def scan_all_search_results(query, session):
+async def scan_all_search_results(job_title, session):
     # Schedule all search results for asynchronous processing.
     tasks = list()
     hh_max_pages = 40
     for page_num in range(hh_max_pages):
-        task = asyncio.create_task(scan_single_search_page(query, page_num, session))
+        task = asyncio.create_task(
+            scan_single_search_page(job_title, page_num, session)
+        )
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
     # Unpack the list of sets into a single set of all links.
@@ -145,11 +157,11 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 
 async def main(job_title, hh_links_we_already_have, skills):
     # Import this function to collect vacancies for a given job title.
+    fake_agent = get_user_agent()
     async with aiohttp.ClientSession(
-        headers={"user-agent": FAKE_AGENT.random, "Connection": "close"}
+        headers={"user-agent": fake_agent, "Connection": "close"}
     ) as session:
-        query = prepare_query(job_title)
-        all_links = await scan_all_search_results(query, session)
+        all_links = await scan_all_search_results(job_title, session)
         for _ in range(10):
             try:
                 vacancies_without_skills = await fetch_all_vacancy_pages(
