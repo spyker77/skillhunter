@@ -56,7 +56,7 @@ def initialize_webdriver():
 def check_subscription_popup(driver):
     # Check if there is a subscription popup, then close it.
     try:
-        WebDriverWait(driver, random.uniform(1.0, 3.0)).until(
+        WebDriverWait(driver, random.uniform(2.0, 5.0)).until(
             EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
         )
         close_alert = driver.find_element_by_xpath('//*[@id="popover-x"]')
@@ -71,7 +71,7 @@ def scan_all_search_results(job_title):
     # Scan each search page for vacancy links and continue while the Next button is presented.
     all_links = set()
     try:
-        payload = {"q": f"title:({job_title})", "fromage": 7, "filter": 0}
+        payload = {"q": f"title:({job_title})", "fromage": 1, "filter": 0}
         driver = initialize_webdriver()
         driver.get("https://www.indeed.com/jobs?" + urlencode(payload))
         while True:
