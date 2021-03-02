@@ -1,3 +1,4 @@
+import json
 import platform
 import random
 import re
@@ -144,7 +145,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
     try:
         content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
-        counts = dict(Counter(keywords_found))
+        counts = json.dumps(Counter(keywords_found))
         # Only return vacancies with relevant skills, otherwise it is useless.
         if len(counts) == 0:
             return None
