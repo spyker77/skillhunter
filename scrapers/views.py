@@ -4,7 +4,7 @@ from collections import defaultdict
 from django.conf import settings
 from django.views.generic import ListView
 
-from .models import Search, Vacancy
+from scrapers.models import Search, Vacancy
 
 
 class SearchResultsListView(ListView):
@@ -24,13 +24,11 @@ class SearchResultsListView(ListView):
         query = self.request.GET.get("q")
         ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.META.get("HTTP_USER_AGENT")
-
         # Save the search query for future analysis.
         if settings.ENVIRONMENT == "production":
             Search.objects.create(
                 query=query, ip_address=ip_address, user_agent=user_agent
             )
-
         # From here, the main skill collection process continues.
         suitable_vacancies = Vacancy.objects.filter(search_vector=query)
         # Get skills for each vacancy and convert it from str to dict.
@@ -45,11 +43,9 @@ class SearchResultsListView(ListView):
         sorted_skills = sorted(merged_skills.items(), key=lambda x: x[1], reverse=True)[
             :20
         ]
-        # Prepare the final result with extra fields for the vacancy name and
-        # the number of vacancies found.
+        # Prepare the final result with extra field for the vacancy name.
         skills_dict = {
             "vacancy_name": query,
-            "number_of_vacancies": len(suitable_vacancies),
             "rated_skills": sorted_skills,
         }
         return skills_dict

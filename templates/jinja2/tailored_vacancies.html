@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+
+{% block title %}Vacancies tailored to your resume • SkillHunter{% endblock title %}
+{% block description %}Browse suitable vacancies according to the skills in your resume. Or find out what else you could
+learn in order to get hired faster.{% endblock description %}
+
+{% block content %}
+
+{% if vacancies|length > 0 %}
+<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ vacancies|length }} tailored
+    {% if vacancies|length <= 1 %} vacancy{% else %} vacancies{% endif %} </h1>
+        <div class="text-center text-4xl font-medium pt-2 pb-5">👇</div>
+        {% for vacancy in vacancies %}
+        <p class="text-center text-lg font-semibold pb-2">
+            <a href="{{ vacancy.0 }}" class="hover:text-purple-600 transition ease-in duration-200" target="_blank"
+                rel="noopener">{{ vacancy.1.0 }}</a> –
+            <span
+                class="rounded-full bg-purple-600 text-white text-sm px-3 py-1 shadow-md hover:shadow-xl transition ease-in duration-200">
+                {{ vacancy.1.1 }}
+            </span>
+        </p>
+        {% endfor %}
+        {% else %}
+        <h1 class="text-center text-4xl pb-5">😩</h1>
+        <p class="text-center text-gray-600 pb-8">Oh no, it looks like we can’t tailor vacancies right now...</p>
+        <div class="text-center">
+            <a class="bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white py-2 px-4 border border-purple-600 hover:border-transparent rounded-full shadow-lg hover:shadow-2xl transition ease-in duration-200"
+                href="{{ url ('home') }}" role="button">Try again</a>
+        </div>
+        {% endif %}
+
+        {% endblock content %}

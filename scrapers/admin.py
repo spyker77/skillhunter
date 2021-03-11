@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Job, Search, Skill, Vacancy
+from scrapers.models import Job, Search, Skill, Vacancy
 
 
 class VacancyAdmin(admin.ModelAdmin):

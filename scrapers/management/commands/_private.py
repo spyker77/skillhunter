@@ -1,4 +1,4 @@
-"""The set of custom cron commands.
+"""The set of custom cron commands for scrapers to work.
 
 Provided commands include:
 - scrapers for parsing the data about vacancies,

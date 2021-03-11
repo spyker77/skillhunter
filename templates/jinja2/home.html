@@ -6,13 +6,46 @@
 most relevant IT vacancies from all over the world.{% endblock description %}
 
 {% block content %}
-<h1 class="text-center text-4xl font-medium pb-5">Find the <u><b>skills</b></u> you need to get a job in
+<h1 class="pb-5 text-center text-4xl font-medium">Find the <u><b>skills</b></u> you need to get a job in
     <u><b>IT</b></u>
 </h1>
-<form action="{{ url ('search_results') }}" method="GET" autocomplete="off">
-    <div class="text-center text-purple-600">
-        <input name="q" placeholder="Enter desired job title" aria-label="Search" maxlength="50" required autofocus
-            class="rounded-full text-center h-10 lg:w-4/6 outline-none shadow-lg focus:shadow-2xl transition ease-in duration-200">
+<form action="{{ url ('search_results') }}" autocomplete="off" method="GET">
+    <div class="flex justify-center text-center text-purple-600">
+        <input name="q" placeholder="Enter desired job title" aria-label="Search" maxlength="100" required autofocus
+            class="h-10 pl-6 pr-14 w-full lg:w-4/6 text-center outline-none shadow-lg focus:shadow-2xl rounded-full transition ease-in duration-200">
+        <button type="submit" class="-ml-10 mr-5 text-2xl">👉</button>
     </div>
+</form>
+
+<div class="text-center text-2xl font-medium py-20">OR</div>
+
+<h2 class="text-center text-2xl font-medium pb-5">Upload your resume in <u><b>PDF</b></u> and get
+    tailored vacancies
+</h2>
+<form action="{{ url ('tailored_vacancies') }}" enctype="multipart/form-data" method="POST">
+    {{ csrf_input }}
+    <div class=" flex justify-center">
+        <label
+            class="h-9 w-full lg:w-auto lg:px-10 lg:h-10 mx-2 inline-flex items-center justify-center cursor-pointer bg-transparent hover:bg-purple-600 text-purple-600 hover:text-white rounded-full shadow-lg hover:shadow-2xl border border-purple-600 hover:border-transparent transition ease-in duration-200">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path
+                    d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span>Upload resume</span>
+            {% if form %}
+            {{ form }}
+            <script nonce="{{ request.csp_nonce }}">
+                document.getElementById('resume').onchange = function () {
+                    this.form.submit();
+                };
+            </script>
+            {% endif %}
+        </label>
+    </div>
+    {% if error_uploading_resume %}
+    <div class="flex justify-center text-center text-gray-600 pt-5">
+        {{ error_uploading_resume }}
+    </div>
+    {% endif %}
 </form>
 {% endblock content %}

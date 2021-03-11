@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from .views import AboutPageView, HomePageView
+from pages.views import AboutPageView, HomePageView
 
 CACHE_SECONDS = 12 * 60 * 60
 

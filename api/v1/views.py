@@ -1,4 +1,4 @@
-import ast
+import json
 from collections import OrderedDict, defaultdict
 
 from django.conf import settings
@@ -7,9 +7,8 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
 from rest_framework.response import Response
 
+from api.v1.serializers import SkillSerializer
 from scrapers.models import Search, Vacancy
-
-from .serializers import SkillSerializer
 
 
 class SkillViewSet(viewsets.ViewSet):
@@ -24,7 +23,7 @@ class SkillViewSet(viewsets.ViewSet):
     def _sort_skills(self, serialized_data):
         # Get rated skills for each vacancy and convert it from str to dict.
         rated_skills_to_merge = (
-            ast.literal_eval(vacancy.get("rated_skills")) for vacancy in serialized_data
+            json.loads(vacancy.get("rated_skills")) for vacancy in serialized_data
         )
         # Combine skills from all suitable vacancies into one dict.
         super_dict = self._combine_rated_skills(rated_skills_to_merge)

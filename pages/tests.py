@@ -6,9 +6,9 @@ import pytest
 from django.db.models.query import QuerySet
 from django.urls import resolve, reverse
 
-from .apps import PagesConfig
-from .sitemaps import StaticViewSitemap
-from .views import AboutPageView, HomePageView
+from pages.apps import PagesConfig
+from pages.sitemaps import StaticViewSitemap
+from pages.views import AboutPageView, HomePageView
 
 
 class TestHomePage:

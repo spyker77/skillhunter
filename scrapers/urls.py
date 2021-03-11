@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from .views import SearchResultsListView
+from scrapers.views import SearchResultsListView
 
 CACHE_SECONDS = 12 * 60 * 60
 
