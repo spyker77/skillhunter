@@ -9,8 +9,6 @@ services:
       # - "DEBUG=False_or_True"
       # - "ENVIRONMENT=production_or_development"
       # - "DATABASE_URL=<replace_it_with_your_db_url>"
-      # - "REDIS_URL=<replace_it_with_your_redis_url>"
-      # - "REDIS_PASSWORD=<replace_it_with_your_redis_password>"
       # - "SENTRY_DSN=<replace_it_with_your_sentry_url>"
     volumes:
       - .:/code
@@ -24,6 +22,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+  redis:
+    image: redis:6-alpine
 
 volumes:
   postgres_data:
