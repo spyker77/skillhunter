@@ -239,12 +239,24 @@ if ENVIRONMENT == "production":
 
 
 # Caching with Redis
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379",
+if "REDIS_URL" in os.environ:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": env.str("REDIS_URL"),
+            "OPTIONS": {
+                "PASSWORD": env.str("REDIS_PASSWORD"),
+                "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            },
+        }
     }
-}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://redis:6379",
+        }
+    }
 
 
 django_heroku.settings(locals())
