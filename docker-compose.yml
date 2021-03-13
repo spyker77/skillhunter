@@ -3,7 +3,7 @@ version: "3.9"
 services:
   web:
     build: .
-    command: gunicorn config.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
+    command: gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker config.asgi:application
     environment:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
       # - "DEBUG=False_or_True"
@@ -26,6 +26,8 @@ services:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
   redis:
     image: redis:6-alpine
+    ports:
+      - 6379:6379
 
 volumes:
   postgres_data:

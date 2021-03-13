@@ -7,6 +7,7 @@ import django_heroku
 import sentry_sdk
 from environs import Env
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
 
 env = Env()
 env.read_env()
@@ -232,7 +233,7 @@ if ENVIRONMENT == "production":
     if "SENTRY_DSN" in os.environ:
         sentry_sdk.init(
             dsn=env.str("SENTRY_DSN"),
-            integrations=[DjangoIntegration()],
+            integrations=[DjangoIntegration(), RedisIntegration()],
             traces_sample_rate=1.0,
             send_default_pii=True,
         )

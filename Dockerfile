@@ -21,7 +21,7 @@ RUN apt-get update \
 COPY pyproject.toml .
 RUN pip install --upgrade pip \
     && pip install poetry \
-    && poetry add flashtext pdftotext \
+    && poetry add pdftotext \
     && poetry export -f requirements.txt --output requirements.txt \
     && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
 
