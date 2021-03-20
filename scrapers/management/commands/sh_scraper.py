@@ -7,6 +7,7 @@ from collections import Counter
 import aiohttp
 from aiohttp.client_exceptions import (
     ClientConnectorError,
+    ClientOSError,
     ClientPayloadError,
     ServerDisconnectedError,
 )
@@ -65,6 +66,12 @@ async def scan_single_search_page(job_title, page_num, session):
                     await asyncio.sleep(60)
         except ClientConnectorError:
             print("🚨 ClientConnectorError occurred while scanning indeed.com.")
+            await asyncio.sleep(60)
+        except ServerDisconnectedError:
+            print("🚨 ServerDisconnectedError occurred while scanning indeed.com.")
+            await asyncio.sleep(60)
+        except ClientOSError:
+            print("🚨 ClientOSError occurred while scanning hh.ru.")
             await asyncio.sleep(60)
     return None
 
