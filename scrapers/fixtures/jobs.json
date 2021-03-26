@@ -1,756 +1,908 @@
-[{
-    "model": "scrapers.job",
-    "fields": {
-        "title": ".net developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "1C developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Account manager digital"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Affiliate manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Agile coach"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "AI engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Android developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Angular developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Animator"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Applications support analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Applications support engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Applications support specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Audio engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Automation engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "AWS engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Azure engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Back end developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "BI analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Big data engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Bioinformatics"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Biostatistics"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Blockchain developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Business analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "C developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "C# developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "C++ developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "CAD designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Chatbot developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Cloud engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Computer vision engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Content creator"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Copywriter"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Customer service manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Customer service specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Customer support manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Customer support specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Cyber security"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data center technician"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data engineer junior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data engineer senior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data science"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Data warehouse architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Database engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "DBA"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Developer advocate"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "DevOps engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Digital marketer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Digital marketing manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Digital marketing specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Embedded software engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Engineering manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Enrollment specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "ERP analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "ERP manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "ETL developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Firmware engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Front end developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Full stack developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Game designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Game developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "GIS analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Go developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Golang developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Graphic designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Growth marketing"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Hadoop developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Hardware engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Help desk support"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Implementation specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Instructional designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "iOS developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "IoT engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "IT recruiter"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Java developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Javascript developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "JoinOCI-SDE developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Kotlin developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Linux engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Machine learning engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Manual tester"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Marketing analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Mobile developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Motion designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Netsuite administrator"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Network administrator"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Network engineer junior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Network engineer senior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "NLP engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Node.js developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Penetration testing"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Performance engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Performance testing"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "PHP developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Platform engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "PPC manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "PPC specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Product analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Product designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Product manager it"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Product owner"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Programmatic specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Project manager assistant"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Project manager it"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Project manager junior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Python developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "QA engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "React developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Release manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Research engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Retention specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Robotics engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Robotics technician"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Ruby developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Sales engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Salesforce administrator"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Salesforce developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "SAP analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "SAP manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Scala developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Scrum master"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Security architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Security consultant"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Security engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "SEO specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Service desk specialist"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Site reliability engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Social media manager"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Software architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Solution architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Solutions engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "SQL developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Swift developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System administrator junior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System administrator linux"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System administrator senior"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System administrator unix"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System administrator windows"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "System architect"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Systems analyst"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Talent acquisition"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Test automation engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Test engineer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "UI designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Unity developer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "User acquisition"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "User experience researcher"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "UX designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "UX UI designer"
-    }
-}, {
-    "model": "scrapers.job",
-    "fields": {
-        "title": "Vue developer"
-    }
-}]
+[
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": ".net developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "1C developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Account manager digital"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Affiliate manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Agile coach"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "AI engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Android developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Angular developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Animator"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Applications support analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Applications support engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Applications support specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Audio engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Automation engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "AWS engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Azure engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Back end developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "BI analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Big data engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Bioinformatics"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Biostatistics"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Blockchain developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Business analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "C developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "C# developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "C++ developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "CAD designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Chatbot developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Cloud engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Computer vision engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Content creator"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Copywriter"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Customer service manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Customer service specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Customer support manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Customer support specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Cyber security"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data center technician"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data engineer junior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data engineer senior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data science"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data warehouse architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Database engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "DBA"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Developer advocate"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "DevOps engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Digital marketer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Digital marketing manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Digital marketing specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Embedded software engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Engineering manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Enrollment specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "ERP analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "ERP manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "ETL developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Firmware engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Front end developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Full stack developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Game designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Game developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "GIS analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Go developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Golang developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Graphic designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Growth marketing"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Hadoop developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Hardware engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Help desk support"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Implementation specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Instructional designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "iOS developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "IoT engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "IT recruiter"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Java developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Javascript developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "JoinOCI-SDE developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Kotlin developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Linux engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Machine learning engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Manual tester"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Marketing analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Mobile developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Motion designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Netsuite administrator"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Network administrator"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Network engineer junior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Network engineer senior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "NLP engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Node.js developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Penetration testing"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Performance engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Performance testing"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "PHP developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Platform engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "PPC manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "PPC specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Product analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Product designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Product manager it"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Product owner"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Programmatic specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Project manager assistant"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Project manager it"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Project manager junior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Python developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "QA engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "React developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Release manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Research engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Retention specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Robotics engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Robotics technician"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Ruby developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Sales engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Salesforce administrator"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Salesforce developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "SAP analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "SAP manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Scala developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Scrum master"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Security architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Security consultant"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Security engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "SEO specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Service desk specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Site reliability engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Social media manager"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Software architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Solution architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Solutions engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "SQL developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Swift developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System administrator junior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System administrator linux"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System administrator senior"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System administrator unix"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System administrator windows"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "System architect"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Systems analyst"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Talent acquisition"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Test automation engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Test engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "UI designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Unity developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "User acquisition"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "User experience researcher"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "UX designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "UX UI designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Vue developer"
+        }
+    }
+]
