@@ -46,6 +46,7 @@ class SearchResultsListView(ListView):
         # Prepare the final result with extra field for the vacancy name.
         skills_dict = {
             "vacancy_name": query,
+            "number_of_vacancies": len(suitable_vacancies),
             "rated_skills": sorted_skills,
         }
         return skills_dict
