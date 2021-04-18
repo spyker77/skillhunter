@@ -28,19 +28,19 @@ Update environment variables inside docker-compose.yml and run the following bas
 Due to forced HTTPS in production, it might be a good idea to use "ENVIRONMENT=development" first – this will allow you to avoid SSL related errors in the local browser.
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 On the first run you may also need to apply migrations to the fresh database:
 
 ```bash
-docker-compose exec web python manage.py migrate
+docker compose exec web python manage.py migrate
 ```
 
 In order to run tests, try this:
 
 ```bash
-docker-compose exec web pytest --cov --cov-report=term-missing
+docker compose exec web pytest --cov --cov-report=term-missing
 ```
 
 **Tada** 🎉
@@ -48,28 +48,28 @@ docker-compose exec web pytest --cov --cov-report=term-missing
 By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. Note that in order to see the work in full color, you need to fill the database once by loading the list of job titles to parse and skills to identify...
 
 ```bash
-docker-compose exec web python loaddata jobs.json
-docker-compose exec web python loaddata skills.json
+docker compose exec web python loaddata jobs.json
+docker compose exec web python loaddata skills.json
 ```
 
 ...and run scrapers to collect initial data on available vacancies...
 
 ```bash
-docker-compose exec web python manage.py scrape_hh
-docker-compose exec web python manage.py scrape_indeed
-docker-compose exec web python manage.py scrape_sh
+docker compose exec web python manage.py scrape_hh
+docker compose exec web python manage.py scrape_indeed
+docker compose exec web python manage.py scrape_sh
 ```
 
 ...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
 
 ```bash
-docker-compose exec web python manage.py purge_db
+docker compose exec web python manage.py purge_db
 ```
 
 ## Tech Stack
 
--   Docker
 -   Python
+-   Docker
 -   Django
 -   Django REST framework
 -   Swagger UI
