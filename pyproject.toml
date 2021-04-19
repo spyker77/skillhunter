@@ -8,6 +8,7 @@ exclude = '''
   )/
 )
 '''
+line-length = 119
 
 [tool.flake8]
 exclude = [".mypy_cache", ".pytest_cache", "migrations"]
