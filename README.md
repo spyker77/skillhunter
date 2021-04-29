@@ -40,7 +40,7 @@ docker compose exec web python manage.py migrate
 In order to run tests, try this:
 
 ```bash
-docker compose exec web pytest --cov --cov-report=term-missing
+docker compose exec web pytest -n auto --cov="." --cov-report=term-missing
 ```
 
 **Tada** 🎉
