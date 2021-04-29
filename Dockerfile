@@ -18,11 +18,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install project dependencies
-COPY pyproject.toml .
+COPY ./pyproject.toml .
 RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry add pdftotext \
-    && poetry export -f requirements.txt --output requirements.txt \
+    && poetry export -f requirements.txt --output requirements.txt --dev \
     && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
 
 # Copy the project and lint
@@ -42,6 +42,10 @@ FROM python:3.9-slim-buster
 
 # Set working directory
 WORKDIR /code
+
+# Create the app user
+RUN addgroup --system app \
+    && adduser --system --group app
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -67,3 +71,9 @@ RUN pip install --upgrade pip \
 
 # Copy the project
 COPY . .
+
+# Chown all the files to the app user
+RUN chown -R app:app /code
+
+# Change to the app user
+USER app
