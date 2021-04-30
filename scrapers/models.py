@@ -33,6 +33,7 @@ class Vacancy(models.Model):
 
 
 class Job(models.Model):
+    id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50)
     created_date = models.DateTimeField(default=timezone.now)
 
@@ -55,6 +56,7 @@ class Job(models.Model):
 
 
 class Search(models.Model):
+    id = models.BigAutoField(primary_key=True)
     query = models.CharField(max_length=255)
     ip_address = models.GenericIPAddressField(default="1.1.1.1")
     user_agent = models.CharField(max_length=255, blank=True)
@@ -73,6 +75,7 @@ class Search(models.Model):
 
 
 class Skill(models.Model):
+    id = models.BigAutoField(primary_key=True)
     clean_name = models.CharField(max_length=50)
     unclean_names = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)

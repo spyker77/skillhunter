@@ -1,5 +1,4 @@
 import os
-import socket
 from pathlib import Path
 
 import dj_database_url
@@ -19,7 +18,7 @@ ENVIRONMENT = env.str("ENVIRONMENT", default="production")
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+# https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
@@ -106,19 +105,19 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": env.str("DATABASE_URL", default="postgres://postgres@db/postgres")
-}
+DATABASES = {"default": env.str("DATABASE_URL", default="postgres://postgres@db/postgres")}
 
 # Keep connection to the database opened for 6 hours in order
 # to prevent associated errors due to its early close when scraping.
 CONN_MAX_AGE = 60 * 60 * 6
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -147,7 +146,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
@@ -175,20 +174,13 @@ CSP_INCLUDE_NONCE_IN = ["script-src"]
 
 # django-debug-toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/
-hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
-if DEBUG:
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": lambda request: not request.is_ajax()
-    }
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG}
 
 
 # Django REST framework
 # https://www.django-rest-framework.org/#installation
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
-    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
     "DEFAULT_PARSER_CLASSES": (
         "rest_framework_xml.parsers.XMLParser",
         "rest_framework_yaml.parsers.YAMLParser",
