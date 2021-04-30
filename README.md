@@ -31,25 +31,18 @@ Due to forced HTTPS in production, it might be a good idea to use "ENVIRONMENT=d
 docker compose up -d
 ```
 
-On the first run you may also need to apply migrations to the fresh database:
+On the first run you need to make additional migrations and apply them to the fresh database:
 
 ```bash
-docker compose exec web python manage.py migrate
+docker compose exec -u root web python manage.py makemigrations
+docker compose exec -u root web python manage.py migrate
 ```
 
-In order to run tests, try this:
+Note that in order to see the work in full color, you also need to fill the database once by loading the list of job titles to parse and skills to identify...
 
 ```bash
-docker compose exec web pytest -n auto --cov="." --cov-report=term-missing
-```
-
-**Tada** 🎉
-
-By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. Note that in order to see the work in full color, you need to fill the database once by loading the list of job titles to parse and skills to identify...
-
-```bash
-docker compose exec web python loaddata jobs.json
-docker compose exec web python loaddata skills.json
+docker compose exec web python manage.py loaddata jobs.json
+docker compose exec web python manage.py loaddata skills.json
 ```
 
 ...and run scrapers to collect initial data on available vacancies...
@@ -64,6 +57,14 @@ docker compose exec web python manage.py scrape_sh
 
 ```bash
 docker compose exec web python manage.py purge_db
+```
+
+**Tada** 🎉
+
+By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. In order to run tests, try this:
+
+```bash
+docker compose exec web pytest -n auto --cov="." --cov-report=term-missing
 ```
 
 ## Tech Stack

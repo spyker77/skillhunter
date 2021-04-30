@@ -107,11 +107,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {"default": env.str("DATABASE_URL", default="postgres://postgres@db/postgres")}
-
 # Keep connection to the database opened for 6 hours in order
 # to prevent associated errors due to its early close when scraping.
 CONN_MAX_AGE = 60 * 60 * 6
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default="postgres://postgres@db/postgres",
+        conn_max_age=CONN_MAX_AGE,
+    )
+}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -220,7 +225,7 @@ if ENVIRONMENT == "production":
     SECURE_CONTENT_TYPE_NONSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE, ssl_require=True)
     # Django error and performance monitoring with Sentry
     if "SENTRY_DSN" in os.environ:
         sentry_sdk.init(

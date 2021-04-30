@@ -1,7 +1,6 @@
 import json
 from collections import OrderedDict, defaultdict
 
-from django.conf import settings
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
@@ -22,9 +21,7 @@ class SkillViewSet(viewsets.ViewSet):
 
     def _sort_skills(self, serialized_data):
         # Get rated skills for each vacancy and convert it from str to dict.
-        rated_skills_to_merge = (
-            json.loads(vacancy.get("rated_skills")) for vacancy in serialized_data
-        )
+        rated_skills_to_merge = (json.loads(vacancy.get("rated_skills")) for vacancy in serialized_data)
         # Combine skills from all suitable vacancies into one dict.
         super_dict = self._combine_rated_skills(rated_skills_to_merge)
         # Summ skills that are the same.
@@ -39,10 +36,7 @@ class SkillViewSet(viewsets.ViewSet):
         ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.META.get("HTTP_USER_AGENT")
         # Additionally, save the search query for future analysis.
-        if query and settings.ENVIRONMENT == "production":
-            Search.objects.create(
-                query=query, ip_address=ip_address, user_agent=user_agent
-            )
+        Search.objects.create(query=query, ip_address=ip_address, user_agent=user_agent)
         return query, limit
 
     @extend_schema(

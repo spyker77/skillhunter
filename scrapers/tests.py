@@ -57,9 +57,7 @@ class TestSearchResultsListView:
             {"Python": 3, "AWS": 1},
             None,
         )
-        super_dict = SearchResultsListView._combine_rated_skills(
-            self, rated_skills_to_merge
-        )
+        super_dict = SearchResultsListView._combine_rated_skills(self, rated_skills_to_merge)
         merged_skills = {k: sum(v) for k, v in super_dict.items()}
         assert merged_skills["Python"] == 4
         assert None not in merged_skills
@@ -116,9 +114,7 @@ class TestSearchModel:
 class TestSkillModel:
     def test_skillmodel_str_method(self):
         test_name = "Test"
-        Skill.objects.create(
-            clean_name=test_name, unclean_names='["python", "python3", "phyton"]'
-        )
+        Skill.objects.create(clean_name=test_name, unclean_names='["python", "python3", "phyton"]')
         skill_object = Skill.objects.get(clean_name=test_name)
         assert str(skill_object) == skill_object.clean_name
 

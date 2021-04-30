@@ -10,9 +10,7 @@ from resume_analyzer.views import upload_resume
 class TestUploadResumeCorrect:
     @pytest.fixture(autouse=True)
     def override_redis_cache(self, settings):
-        settings.CACHES = {
-            "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}
-        }
+        settings.CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 
     @pytest.fixture
     def rq(self, rf):
@@ -42,10 +40,7 @@ class TestUploadResumeCorrect:
         assert "Please, make sure" not in response.content.decode()
 
     def test_uploadresumecorrect_is_not_empty(self, response):
-        assert (
-            "Oh no, it looks like we can’t tailor vacancies right now..."
-            not in response.content.decode()
-        )
+        assert "Oh no, it looks like we can’t tailor vacancies right now..." not in response.content.decode()
 
     def test_uploadresumecorrect_returns_vacancies(self, response):
         assert "python developer" in response.content.decode().lower()
@@ -113,10 +108,7 @@ class TestUploadResumeEmpty:
         assert response.status_code == 200
 
     def test_uploadresumeempty_contains_correct_html(self, response):
-        assert (
-            "Oh no, it looks like we can’t tailor vacancies right now..."
-            in response.content.decode()
-        )
+        assert "Oh no, it looks like we can’t tailor vacancies right now..." in response.content.decode()
 
     def test_uploadresumeempty_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.content.decode()
