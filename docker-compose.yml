@@ -6,7 +6,7 @@ services:
     command: gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker config.asgi:application
     environment:
       - "DJANGO_SECRET_KEY=Sy2COSlhcSUSzw9bDpBCRDs7Pxew9BeVZ8JwrfkqhnWPyIZecx4"
-      - "ENVIRONMENT=development"
+      # - "ENVIRONMENT=production_or_development"
       # - "DEBUG=False_or_True"
       # - "DATABASE_URL=<replace_it_with_your_db_url>"
       # - "REDIS_URL=<replace_it_with_your_redis_url>"

@@ -7,14 +7,12 @@
     <meta name="author" content="Evgeni Sautin">
     <meta name="description" content="{% block description %}{% endblock description %}">
     <title>{% block title %}SkillHunter{% endblock title %}</title>
-    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ static ('images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" sizes="32x32" href="{{ static ('images/favicon/favicon-32x32.png') }}">
     <link rel="icon" sizes="16x16" href="{{ static ('images/favicon/favicon-16x16.png') }}">
     <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
     {% if url ('swagger-ui') in request.path %}
-    <!-- API documentation -->
     <link rel="stylesheet" href="{{ static ('css/swagger-ui.css') }}">
     <script src="{{ static ('js/swagger-ui-bundle.js') }}"></script>
     {% endif %}

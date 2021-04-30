@@ -1,8 +1,3 @@
-ignore:
-  - "manage.py"
-  - "asgi.py"
-  - "wsgi.py"
-  - "migrations/**/*"
 coverage:
   status:
     patch: off
