@@ -64,7 +64,7 @@ docker compose exec web python manage.py purge_db
 By now you should be up and running. Try to reach the <http://localhost:8000> in your browser. In order to run tests, try this:
 
 ```bash
-docker compose exec web pytest -n auto --cov="." --cov-report=term-missing
+docker compose exec web pytest -n auto --cov --cov-report=term-missing
 ```
 
 ## Tech Stack
