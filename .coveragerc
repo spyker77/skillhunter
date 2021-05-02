@@ -1,2 +1,6 @@
 [run]
-omit = *migrations*
+omit =
+    *migrations*,
+    manage.py,
+    asgi.py,
+    wsgi.py
