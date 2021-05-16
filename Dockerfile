@@ -54,13 +54,13 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential libpq-dev libpoppler-cpp-dev pkg-config \
+    firefox-esr wget tar \
     # Package required for converting uploaded resumes to pdf >>> resume_analyzer.analyzer.convert_to
     # libreoffice \
-    firefox-esr wget tar \
-    && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz \
-    && tar -x geckodriver -zf geckodriver-v0.29.0-linux64.tar.gz -O > /usr/bin/geckodriver \
+    && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz \
+    && tar -x geckodriver -zf geckodriver-v0.29.1-linux64.tar.gz -O > /usr/bin/geckodriver \
     && chmod +x /usr/bin/geckodriver \
-    && rm geckodriver-v0.29.0-linux64.tar.gz \
+    && rm geckodriver-v0.29.1-linux64.tar.gz \
     && rm -rf /var/lib/apt/lists/*
 
 # Install project dependencies from wheels
