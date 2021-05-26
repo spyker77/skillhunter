@@ -21,6 +21,9 @@ class SearchResultsListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
+        # Handler for crawlers that reach the path without the q parameter.
+        if query is None:
+            return {}
         ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.META.get("HTTP_USER_AGENT")
         # Save the search query for future analysis.

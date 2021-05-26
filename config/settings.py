@@ -208,7 +208,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": """Returns a list of rated skills ordered by number of
     occurrences in vacancies description, including the job title and number of
     vacancies analyzed.""",
-    "VERSION": "1.0.0",
+    "VERSION": "",
 }
 
 

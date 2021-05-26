@@ -33,6 +33,8 @@ class SkillViewSet(viewsets.ViewSet):
     def _get_meta_data(self, request):
         query = self.request.query_params.get("q")
         limit = self.request.query_params.get("limit")
+        if query is None:
+            return query, limit
         ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.META.get("HTTP_USER_AGENT")
         # Additionally, save the search query for future analysis.
@@ -66,6 +68,9 @@ class SkillViewSet(viewsets.ViewSet):
     )
     def list(self, request):
         query, limit = self._get_meta_data(request)
+        # Handler is primarily for crawlers that reach the path without the q parameter.
+        if query is None:
+            return Response({"Error": "A required q parameter was not specified for this request."}, 400)
         queryset = Vacancy.objects.filter(search_vector=query)
         serializer = SkillSerializer(queryset, many=True)
         serialized_data = serializer.data

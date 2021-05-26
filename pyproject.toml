@@ -62,6 +62,7 @@ websockets = "^9.0.2"
 whitenoise = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
+bandit = "^1.7.0"
 black = "^21.5b1"
 flake9 = "^3.8.3"
 isort = "^5.8.0"

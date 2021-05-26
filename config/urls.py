@@ -27,14 +27,10 @@ urlpatterns = [
     re_path(r"^robots\.txt", include("robots.urls")),
     re_path(r"^api/v1/", include(("api.v1.urls", "api"), namespace=API_VERSION_V1)),
     # Create docs for API.
-    path(
-        "schema/", SpectacularAPIView.as_view(api_version=API_VERSION_V1), name="schema"
-    ),
+    path("schema/", SpectacularAPIView.as_view(api_version=API_VERSION_V1), name="schema"),
     path(
         "docs/",
-        SpectacularSwaggerView.as_view(
-            template_name="swagger-ui.html", url_name="schema"
-        ),
+        SpectacularSwaggerView.as_view(template_name="swagger-ui.html", url_name="schema"),
         name="swagger-ui",
     ),
     # Create sitemap.xml.

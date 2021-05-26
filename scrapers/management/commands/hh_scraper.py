@@ -50,19 +50,13 @@ async def scan_single_search_page(job_title, page_num, session):
     }
     for _ in range(10):
         try:
-            async with session.get(
-                "https://hh.ru/search/vacancy", params=payload
-            ) as resp:
+            async with session.get("https://hh.ru/search/vacancy", params=payload) as resp:
                 try:
                     html = await asyncio.shield(resp.text())
                     soup = BeautifulSoup(html, "html.parser")
-                    all_vacancies = soup.find_all(
-                        "a", href=re.compile(r"hh.ru/vacancy")
-                    )
+                    all_vacancies = soup.find_all("a", href=re.compile(r"hh.ru/vacancy"))
                     # Extract valid links to vacancy pages and clean their tails.
-                    links = set(
-                        vacancy["href"].split("?")[0] for vacancy in all_vacancies
-                    )
+                    links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
                     return links
                 except AttributeError:
                     print(f"🚨 AttributeError occurred while scanning: {resp.url}")
@@ -90,9 +84,7 @@ async def scan_all_search_results(job_title, session):
     tasks = list()
     hh_max_pages = 40
     for page_num in range(hh_max_pages):
-        task = asyncio.create_task(
-            scan_single_search_page(job_title, page_num, session)
-        )
+        task = asyncio.create_task(scan_single_search_page(job_title, page_num, session))
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
     # Unpack the list of sets into a single set of all links.
@@ -166,15 +158,11 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 async def main(job_title, hh_links_we_already_have, skills):
     # Import this function to collect vacancies for a given job title.
     fake_agent = get_user_agent()
-    async with aiohttp.ClientSession(
-        headers={"user-agent": fake_agent, "Connection": "close"}
-    ) as session:
+    async with aiohttp.ClientSession(headers={"user-agent": fake_agent, "Connection": "close"}) as session:
         all_links = await scan_all_search_results(job_title, session)
         for _ in range(10):
             try:
-                vacancies_without_skills = await fetch_all_vacancy_pages(
-                    all_links, hh_links_we_already_have, session
-                )
+                vacancies_without_skills = await fetch_all_vacancy_pages(all_links, hh_links_we_already_have, session)
                 keyword_processor = KeywordProcessor()
                 keyword_processor.add_keywords_from_dict(skills)
                 collected_jobs = (

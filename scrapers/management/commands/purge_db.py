@@ -13,6 +13,4 @@ class Command(BaseCommand):
         outdated_vacancies = Vacancy.objects.filter(created_date__lte=past)
         amount = outdated_vacancies.count()
         outdated_vacancies.delete()
-        self.stdout.write(
-            f"🗂️ Database successfully cleaned from {amount} outdated vacancies."
-        )
+        self.stdout.write(f"🗂️ Database successfully cleaned from {amount} outdated vacancies.")

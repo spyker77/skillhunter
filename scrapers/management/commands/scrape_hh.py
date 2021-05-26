@@ -13,10 +13,7 @@ class Command(BaseCommand):
     help = "Scan hh.ru and analyze available IT vacancies."
 
     jobs = [job.title for job in Job.objects.all()]
-    skills = {
-        skill.clean_name: ast.literal_eval(skill.unclean_names)
-        for skill in Skill.objects.all()
-    }
+    skills = {skill.clean_name: ast.literal_eval(skill.unclean_names) for skill in Skill.objects.all()}
 
     def handle(self, *args, **options):
         self.stdout.write("🚀 hh.ru launched to parse!")
@@ -27,14 +24,9 @@ class Command(BaseCommand):
         for job_title in self.jobs:
             try:
                 hh_links_we_already_have = [
-                    url
-                    for url in Vacancy.objects.filter(
-                        url__contains="hh.ru"
-                    ).values_list("url", flat=True)
+                    url for url in Vacancy.objects.filter(url__contains="hh.ru").values_list("url", flat=True)
                 ]
-                collected_jobs = asyncio.run(
-                    main(job_title, hh_links_we_already_have, self.skills)
-                )
+                collected_jobs = asyncio.run(main(job_title, hh_links_we_already_have, self.skills))
                 all_jobs = (
                     Vacancy(
                         url=job["url"],
@@ -48,9 +40,7 @@ class Command(BaseCommand):
                 new_vacancies = Vacancy.objects.bulk_create(all_jobs)
                 number_of_new_vacancies = len(new_vacancies)
                 vacancies_parsed += number_of_new_vacancies
-                self.stdout.write(
-                    f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from hh.ru"
-                )
+                self.stdout.write(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from hh.ru")
             except OperationalError:
                 self.stdout.write(f"🚨 Got an OperationalError for {job_title}.")
         self.stdout.write(f"💃🕺 hh.ru finished to parse: {vacancies_parsed} in total!")

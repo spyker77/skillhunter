@@ -47,9 +47,7 @@ def initialize_webdriver():
     profile.set_preference("dom.webdriver.enabled", False)
     profile.set_preference("useAutomationExtension", False)
     profile.update_preferences()
-    driver = webdriver.Firefox(
-        firefox_profile=profile, options=firefox_options, service_log_path="/dev/null"
-    )
+    driver = webdriver.Firefox(firefox_profile=profile, options=firefox_options, service_log_path="/dev/null")
     driver.maximize_window()
     return driver
 
@@ -71,9 +69,9 @@ def check_subscription_popup(driver):
 def scan_all_search_results(job_title):
     # Scan each search page for vacancy links and continue while the Next button is presented.
     all_links = set()
+    driver = initialize_webdriver()
     try:
         payload = {"q": f"title:({job_title})", "fromage": 1, "filter": 0}
-        driver = initialize_webdriver()
         driver.get("https://www.indeed.com/jobs?" + urlencode(payload))
         while True:
             check_subscription_popup(driver)
@@ -82,8 +80,7 @@ def scan_all_search_results(job_title):
             soup = BeautifulSoup(html, "html.parser")
             all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
             links = set(
-                "https://www.indeed.com/viewjob?jk=" + vacancy["href"].split("jk=")[-1]
-                for vacancy in all_vacancies
+                "https://www.indeed.com/viewjob?jk=" + vacancy["href"].split("jk=")[-1] for vacancy in all_vacancies
             )
             # Exit if we started collecting the same links or vacancies are not displayed at all.
             if links.issubset(all_links):
@@ -112,9 +109,7 @@ def fetch_vacancy_page(link, driver):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         html = driver.page_source
         soup = BeautifulSoup(html, "html.parser")
-        title = soup.find(
-            attrs={"class": "jobsearch-JobInfoHeader-title-container"}
-        ).text
+        title = soup.find(attrs={"class": "jobsearch-JobInfoHeader-title-container"}).text
         content = soup.find(attrs={"class": "jobsearch-jobDescriptionText"}).text
         vacancy_page = {"url": link, "title": title, "content": content}
         return vacancy_page
@@ -125,13 +120,11 @@ def fetch_vacancy_page(link, driver):
 
 def fetch_all_vacancy_pages(all_links, indeed_links_we_already_have):
     # Parse all the vacancy pages one by one.
+    driver = initialize_webdriver()
     try:
         vacancies_without_skills = list()
-        driver = initialize_webdriver()
         # Reduce pressure on indeed.com by checking if we have this link.
-        new_links = [
-            link for link in all_links if link not in indeed_links_we_already_have
-        ]
+        new_links = [link for link in all_links if link not in indeed_links_we_already_have]
         for link in new_links:
             result = fetch_vacancy_page(link, driver)
             vacancies_without_skills.append(result)
@@ -161,9 +154,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
 def main(job_title, indeed_links_we_already_have, skills):
     # Main flow of parsing the vacancies and counting the relevant skills.
     all_links = scan_all_search_results(job_title)
-    vacancies_without_skills = fetch_all_vacancy_pages(
-        all_links, indeed_links_we_already_have
-    )
+    vacancies_without_skills = fetch_all_vacancy_pages(all_links, indeed_links_we_already_have)
     keyword_processor = KeywordProcessor()
     keyword_processor.add_keywords_from_dict(skills)
     collected_jobs = (

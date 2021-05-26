@@ -38,10 +38,7 @@ def find_skills_in_resume(text_from_resume):
     if skills_from_db is None:
         skills_from_db = list(Skill.objects.all())
         cache.set("skills_from_db", skills_from_db, 12 * 60 * 60)
-    skills = {
-        skill.clean_name: ast.literal_eval(skill.unclean_names)
-        for skill in skills_from_db
-    }
+    skills = {skill.clean_name: ast.literal_eval(skill.unclean_names) for skill in skills_from_db}
     keyword_processor = KeywordProcessor()
     keyword_processor.add_keywords_from_dict(skills)
     skills_from_resume = set(keyword_processor.extract_keywords(text_from_resume))
@@ -70,22 +67,16 @@ def sort_suitable_vacancies(skills_in_resume, suitable_vacancies):
     for vacancy in suitable_vacancies:
         rated_skills = json.loads(vacancy["rated_skills"])
         # Use 1 to avoid spam in vacancy description and count each unique skill just once.
-        intersected_skills = {
-            skill: 1 for skill in rated_skills.keys() if skill in skills_in_resume
-        }
+        intersected_skills = {skill: 1 for skill in rated_skills.keys() if skill in skills_in_resume}
         total_of_intersected_skills = sum(intersected_skills.values())
-        weighted_vacancies.update(
-            {vacancy["url"]: (vacancy["title"], total_of_intersected_skills)}
-        )
+        weighted_vacancies.update({vacancy["url"]: (vacancy["title"], total_of_intersected_skills)})
     # Additional validation to avoid duplicate vacancies – a tricky way due to optimization.
     reverted_dict = {}
     for key, value in weighted_vacancies.items():
         reverted_dict.setdefault(value, set()).add(key)
     unique_vacancies = {list(value)[0]: key for key, value in reverted_dict.items()}
     # Sort by the most relevant vacancies and return their titles with links.
-    tailored_vacancies = sorted(
-        unique_vacancies.items(), key=lambda x: x[1][1], reverse=True
-    )[:200]
+    tailored_vacancies = sorted(unique_vacancies.items(), key=lambda x: x[1][1], reverse=True)[:200]
     return tailored_vacancies
 
 
