@@ -2,7 +2,7 @@ from pathlib import Path
 from urllib.parse import urlencode, urlparse
 
 import pytest
-from django.urls import resolve, reverse
+from django.urls import reverse
 
 from scrapers.apps import ScrapersConfig
 from scrapers.models import Job, Search, Skill, Vacancy
@@ -29,6 +29,17 @@ class TestSearchResultsListView:
         response = SearchResultsListView.as_view()(request)
         return response
 
+    @pytest.fixture
+    def empty_response(self, rf):
+        request = rf.get(
+            self.url,
+            follow=True,
+            REMOTE_ADDR=self.ip_address,
+            HTTP_USER_AGENT=self.user_agent,
+        )
+        response = SearchResultsListView.as_view()(request)
+        return response
+
     def test_searchresultslistview_status_code(self, response):
         assert response.status_code == 200
 
@@ -40,10 +51,6 @@ class TestSearchResultsListView:
 
     def test_searchresultslistview_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
-
-    def test_searchresultslistview_url_resolves_searchresultslistview(self):
-        view = resolve("/search/")
-        assert view.func.__name__ == SearchResultsListView.as_view().__name__
 
     def test_searchresultslistview_creates_new_search_object(self, response):
         new_search_object = Search.objects.filter(user_agent=self.user_agent)
@@ -61,6 +68,15 @@ class TestSearchResultsListView:
         merged_skills = {k: sum(v) for k, v in super_dict.items()}
         assert merged_skills["Python"] == 4
         assert None not in merged_skills
+
+    def test_searchresultslistview_status_code_when_missing_q_parameter(self, empty_response):
+        assert empty_response.status_code == 200
+
+    def test_searchresultslistview_template_when_missing_q_parameter(self, empty_response):
+        assert "search_results.html" in empty_response.template_name
+
+    def test_searchresultslistview_contains_correct_html_when_missing_q_parameter(self, empty_response):
+        assert "Oh no, it looks like we can’t find the skills for this job..." in empty_response.rendered_content
 
 
 @pytest.mark.django_db
