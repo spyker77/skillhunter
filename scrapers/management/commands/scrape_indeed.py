@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from django.db import OperationalError
 
 from scrapers.management.commands.indeed_scraper import main
+from scrapers.management.commands.logging_config import logger
 from scrapers.models import Job, Skill, Vacancy
 
 
@@ -15,7 +16,7 @@ class Command(BaseCommand):
     skills = {skill.clean_name: ast.literal_eval(skill.unclean_names) for skill in Skill.objects.all()}
 
     def handle(self, *args, **options):
-        self.stdout.write("🚀 indeed.com launched to parse!")
+        logger.info("🚀 indeed.com launched to parse!")
         # Shuffle the list of jobs each time to prevent timeout errors for
         # the same jobs and subsequent constant data loss.
         random.shuffle(self.jobs)
@@ -43,7 +44,7 @@ class Command(BaseCommand):
                 new_vacancies = Vacancy.objects.bulk_create(all_jobs)
                 number_of_new_vacancies = len(new_vacancies)
                 vacancies_parsed += number_of_new_vacancies
-                self.stdout.write(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from indeed.com")
+                logger.info(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from indeed.com")
             except OperationalError:
-                self.stdout.write(f"🚨 Got an OperationalError for {job_title}.")
-        self.stdout.write(f"💃🕺 indeed.com finished to parse: {vacancies_parsed} in total!")
+                logger.error(f"🚨 Got an OperationalError for {job_title}.")
+        logger.info(f"💃🕺 indeed.com finished to parse: {vacancies_parsed} in total!")

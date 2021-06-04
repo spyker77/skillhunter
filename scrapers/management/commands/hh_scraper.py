@@ -15,6 +15,8 @@ from bs4 import BeautifulSoup
 from faker import Faker
 from flashtext import KeywordProcessor
 
+from scrapers.management.commands.logging_config import logger
+
 
 def get_user_agent():
     # Generate user-agent appropriate for the platform.
@@ -59,22 +61,22 @@ async def scan_single_search_page(job_title, page_num, session):
                     links = set(vacancy["href"].split("?")[0] for vacancy in all_vacancies)
                     return links
                 except AttributeError:
-                    print(f"🚨 AttributeError occurred while scanning: {resp.url}")
+                    logger.error(f"🚨 AttributeError occurred while scanning: {resp.url}")
                     return None
                 except ClientPayloadError:
-                    print(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
+                    logger.error(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
                     return None
                 except asyncio.TimeoutError:
-                    print(f"🚨 TimeoutError occurred while scanning: {resp.url}")
+                    logger.error(f"🚨 TimeoutError occurred while scanning: {resp.url}")
                     await asyncio.sleep(60)
         except ClientConnectorError:
-            print("🚨 ClientConnectorError occurred while scanning hh.ru.")
+            logger.error("🚨 ClientConnectorError occurred while scanning hh.ru.")
             await asyncio.sleep(60)
         except ServerDisconnectedError:
-            print("🚨 ServerDisconnectedError occurred while scanning hh.ru.")
+            logger.error("🚨 ServerDisconnectedError occurred while scanning hh.ru.")
             await asyncio.sleep(60)
         except ClientOSError:
-            print("🚨 ClientOSError occurred while scanning hh.ru.")
+            logger.error("🚨 ClientOSError occurred while scanning hh.ru.")
             await asyncio.sleep(60)
     return None
 
@@ -111,16 +113,16 @@ async def fetch_vacancy_page(link, session):
                 }
                 return vacancy_page
         except AttributeError:
-            print(f"🚨 AttributeError occurred while fetching: {link}")
+            logger.error(f"🚨 AttributeError occurred while fetching: {link}")
             return None
         except ClientPayloadError:
-            print(f"🚨 ClientPayloadError occurred while fetching: {link}")
+            logger.error(f"🚨 ClientPayloadError occurred while fetching: {link}")
             return None
         except ServerDisconnectedError:
-            print(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
+            logger.error(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
             await asyncio.sleep(60)
         except asyncio.TimeoutError:
-            print(f"🚨 TimeoutError occurred while fetching: {link}")
+            logger.error(f"🚨 TimeoutError occurred while fetching: {link}")
             await asyncio.sleep(60)
     return None
 
@@ -151,7 +153,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         vacancy_plus_skills.update(skills)
         return vacancy_plus_skills
     except TypeError:
-        print("🚨 TypeError occurred while processing vacancy content.")
+        logger.error("🚨 TypeError occurred while processing vacancy content.")
         return None
 
 
@@ -173,7 +175,7 @@ async def main(job_title, hh_links_we_already_have, skills):
                 await asyncio.sleep(60)
                 return collected_jobs
             except OSError:
-                print(f"🚨 OSError occured for {job_title}.")
+                logger.error(f"🚨 OSError occured for {job_title}.")
         # If couldn't recover after errors, then return an empty list.
         await asyncio.sleep(60)
         return []
