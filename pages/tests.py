@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 import pytest
 from django.db.models.query import QuerySet
-from django.urls import resolve, reverse
+from django.urls import reverse
 
 from pages.apps import PagesConfig
 from pages.sitemaps import StaticViewSitemap
@@ -31,10 +31,6 @@ class TestHomePage:
     def test_homepage_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
 
-    def test_homepage_url_resolves_homepageview(self):
-        view = resolve("/")
-        assert view.func.__name__ == HomePageView.as_view().__name__
-
 
 class TestAboutPage:
     @pytest.fixture
@@ -55,10 +51,6 @@ class TestAboutPage:
 
     def test_aboutpage_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
-
-    def test_aboutpage_url_resolves_aboutpageview(self):
-        view = resolve("/about/")
-        assert view.func.__name__ == AboutPageView.as_view().__name__
 
 
 class TestStaticViewSitemap:

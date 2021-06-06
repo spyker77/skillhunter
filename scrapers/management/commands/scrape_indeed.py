@@ -1,12 +1,16 @@
 import ast
+import logging.config
 import random
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import OperationalError
 
 from scrapers.management.commands.indeed_scraper import main
-from scrapers.management.commands.logging_config import logger
 from scrapers.models import Job, Skill, Vacancy
+
+logging.config.dictConfig(settings.LOGGING)
+logger = logging.getLogger()
 
 
 class Command(BaseCommand):
@@ -46,5 +50,5 @@ class Command(BaseCommand):
                 vacancies_parsed += number_of_new_vacancies
                 logger.info(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from indeed.com")
             except OperationalError:
-                logger.error(f"🚨 Got an OperationalError for {job_title}.")
+                logger.warning(f"🚨 Got an OperationalError for {job_title}.")
         logger.info(f"💃🕺 indeed.com finished to parse: {vacancies_parsed} in total!")

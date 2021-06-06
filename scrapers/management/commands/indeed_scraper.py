@@ -1,4 +1,5 @@
 import json
+import logging.config
 import platform
 import random
 import re
@@ -6,6 +7,7 @@ from collections import Counter
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
+from django.conf import settings
 from faker import Faker
 from flashtext import KeywordProcessor
 from selenium import webdriver
@@ -16,7 +18,8 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from scrapers.management.commands.logging_config import logger
+logging.config.dictConfig(settings.LOGGING)
+logger = logging.getLogger()
 
 
 def get_user_agent():
@@ -97,7 +100,7 @@ def scan_all_search_results(job_title):
                 webdriver.ActionChains(driver).move_to_element(next_button).perform()
                 next_button.click()
     except MoveTargetOutOfBoundsException:
-        logger.error(f'🚨 MoveTargetOutOfBoundsException occurred while parsing "{job_title}"')
+        logger.warning(f'🚨 MoveTargetOutOfBoundsException occurred while parsing "{job_title}"')
         return all_links
     finally:
         driver.quit()
@@ -116,7 +119,7 @@ def fetch_vacancy_page(link, driver):
         vacancy_page = {"url": link, "title": title, "content": content}
         return vacancy_page
     except AttributeError:
-        logger.error(f"🚨 AttributeError occurred while fetching: {link}")
+        logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
         return None
 
 
@@ -149,7 +152,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         vacancy_plus_skills.update(skills)
         return vacancy_plus_skills
     except TypeError:
-        logger.error("🚨 TypeError occurred while processing vacancy content.")
+        logger.warning("🚨 TypeError occurred while processing vacancy content.")
         return None
 
 

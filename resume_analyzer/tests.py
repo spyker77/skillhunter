@@ -1,6 +1,6 @@
 import pytest
 from django.core.cache import cache
-from django.urls import resolve, reverse
+from django.urls import reverse
 
 from resume_analyzer.forms import UploadResumeForm
 from resume_analyzer.views import upload_resume
@@ -45,10 +45,6 @@ class TestUploadResumeCorrect:
     def test_uploadresumecorrect_returns_vacancies(self, response):
         assert "python developer" in response.content.decode().lower()
 
-    def test_uploadresumecorrect_url_resolves_uploadresumecorrect_view(self, response):
-        view = resolve("/tailored-vacancies/")
-        assert view.func.__name__ == upload_resume.__name__
-
     def test_uploadresumecorrect_cache_contains_skills(self, response):
         assert cache.get("skills_from_db") is not None
 
@@ -82,10 +78,6 @@ class TestUploadResumeFake:
     def test_uploadresumefake_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.content.decode()
 
-    def test_uploadresumefake_url_resolves_uploadresumefake_view(self):
-        view = resolve("/tailored-vacancies/")
-        assert view.func.__name__ == upload_resume.__name__
-
 
 @pytest.mark.django_db
 class TestUploadResumeEmpty:
@@ -112,7 +104,3 @@ class TestUploadResumeEmpty:
 
     def test_uploadresumeempty_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.content.decode()
-
-    def test_uploadresumeempty_url_resolves_uploadresumeempty_view(self):
-        view = resolve("/tailored-vacancies/")
-        assert view.func.__name__ == upload_resume.__name__
