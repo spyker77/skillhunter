@@ -1,16 +1,17 @@
 import ast
 import asyncio
+import logging
 import logging.config
 import random
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import OperationalError
 
-from scrapers.management.commands.sh_scraper import main
+from scrapers.management.logging_config import LOGGING
+from scrapers.management.sh_scraper import main
 from scrapers.models import Job, Skill, Vacancy
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
 
 

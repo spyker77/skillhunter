@@ -1,4 +1,5 @@
 import json
+import logging
 import logging.config
 import platform
 import random
@@ -7,7 +8,6 @@ from collections import Counter
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
-from django.conf import settings
 from faker import Faker
 from flashtext import KeywordProcessor
 from selenium import webdriver
@@ -18,7 +18,9 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-logging.config.dictConfig(settings.LOGGING)
+from scrapers.management.logging_config import LOGGING
+
+logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
 
 

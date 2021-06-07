@@ -1,12 +1,13 @@
+import logging
 import logging.config
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
+from scrapers.management.logging_config import LOGGING
 from scrapers.models import Vacancy
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
 
 

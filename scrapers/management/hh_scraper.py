@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import logging.config
 import platform
 import re
@@ -13,11 +14,12 @@ from aiohttp.client_exceptions import (
     ServerDisconnectedError,
 )
 from bs4 import BeautifulSoup
-from django.conf import settings
 from faker import Faker
 from flashtext import KeywordProcessor
 
-logging.config.dictConfig(settings.LOGGING)
+from scrapers.management.logging_config import LOGGING
+
+logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
 
 
