@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 new_vacancies = Vacancy.objects.bulk_create(all_jobs)
                 number_of_new_vacancies = len(new_vacancies)
                 vacancies_parsed += number_of_new_vacancies
-                logger.ingo(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from simplyhired.com")
+                logger.info(f"👍 {job_title} – {number_of_new_vacancies} vacancies parsed from simplyhired.com")
             except OperationalError:
                 logger.warning(f"🚨 Got an OperationalError for {job_title}.")
         logger.info(f"💃🕺 simplyhired.com finished to parse: {vacancies_parsed} in total!")
