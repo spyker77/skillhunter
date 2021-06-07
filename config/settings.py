@@ -167,21 +167,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 
 
-# Content-Security-Policy settings for django-csp
-# https://django-csp.readthedocs.io/en/latest/
-CSP_DEFAULT_SRC = ["'self'"]
-CSP_STYLE_SRC = ["'self'"]
-CSP_SCRIPT_SRC = ["'self'"]
-CSP_FONT_SRC = ["'self'"]
-CSP_IMG_SRC = ["'self'", "data:"]
-CSP_INCLUDE_NONCE_IN = ["script-src"]
-
-
-# django-debug-toolbar
-# https://django-debug-toolbar.readthedocs.io/en/latest/
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG}
-
-
 # Django REST framework
 # https://www.django-rest-framework.org/#installation
 REST_FRAMEWORK = {
@@ -212,6 +197,42 @@ SPECTACULAR_SETTINGS = {
 }
 
 
+# Caching with Redis
+if "REDIS_URL" in os.environ:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": env.str("REDIS_URL"),
+            "OPTIONS": {
+                "PASSWORD": env.str("REDIS_PASSWORD"),
+                "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            },
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://redis:6379",
+        }
+    }
+
+
+# django-debug-toolbar
+# https://django-debug-toolbar.readthedocs.io/en/latest/
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG}
+
+
+# Content-Security-Policy settings for django-csp
+# https://django-csp.readthedocs.io/en/latest/
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_STYLE_SRC = ["'self'", "https://unpkg.com"]
+CSP_SCRIPT_SRC = ["'self'", "https://unpkg.com"]
+CSP_FONT_SRC = ["'self'"]
+CSP_IMG_SRC = ["'self'", "data:"]
+CSP_INCLUDE_NONCE_IN = ["script-src"]
+
+
 # Production settings
 if ENVIRONMENT == "production":
     X_FRAME_OPTIONS = "DENY"
@@ -234,27 +255,6 @@ if ENVIRONMENT == "production":
             traces_sample_rate=1.0,
             send_default_pii=True,
         )
-
-
-# Caching with Redis
-if "REDIS_URL" in os.environ:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": env.str("REDIS_URL"),
-            "OPTIONS": {
-                "PASSWORD": env.str("REDIS_PASSWORD"),
-                "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
-            },
-        }
-    }
-else:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://redis:6379",
-        }
-    }
 
 
 django_heroku.settings(locals())
