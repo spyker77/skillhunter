@@ -21,11 +21,11 @@ git clone https://github.com/spyker77/skillhunter.git
 
 ## Usage
 
-Update environment variables inside docker-compose.yml and run the following bash command inside downloaded project's folder – that will launch the process of building the image (if it doesn't exist), create and start containers in detached mode.
+Update environment variables inside the docker-compose.yml and run the following bash commands inside downloaded project's folder – this will launch the process of building the image (if it doesn't exist), create and start containers in a detached mode.
 
 **Note** ⚠️ 
 
-Due to forced HTTPS in production, it might be a good idea to use "ENVIRONMENT=development" first – this will allow you to avoid SSL related errors in the local browser.
+Due to a forced HTTPS in production, it might be a good idea to use "ENVIRONMENT=development" first – this will allow you to avoid SSL related errors.
 
 ```bash
 docker compose up -d
