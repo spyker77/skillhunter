@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /tailored-vacancies/
+
+Host: skillhunter.app
+Sitemap: https://skillhunter.app/sitemap.xml
+

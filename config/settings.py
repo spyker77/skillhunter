@@ -4,27 +4,23 @@ from pathlib import Path
 import dj_database_url
 import django_heroku
 import sentry_sdk
-from environs import Env
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
-
-env = Env()
-env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-ENVIRONMENT = env.str("ENVIRONMENT", default="production")
+ENVIRONMENT = os.getenv("ENVIRONMENT", default="production")
 
 
 # Quick-start development settings - unsuitable for production
 # https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("DJANGO_SECRET_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = [
     "skillhunter.app",
@@ -53,7 +49,6 @@ INSTALLED_APPS = [
     "pages",
     "api",
     "debug_toolbar",
-    "robots",
     "rest_framework",
     "drf_spectacular",
     "django_otp",
@@ -111,12 +106,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # to prevent associated errors due to its early close when scraping.
 CONN_MAX_AGE = 60 * 60 * 6
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default="postgres://postgres@db/postgres",
-        conn_max_age=CONN_MAX_AGE,
-    )
-}
+DATABASES = {"default": dj_database_url.config(default="postgres://postgres@db/postgres", conn_max_age=CONN_MAX_AGE)}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -125,18 +115,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
@@ -154,17 +136,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-MEDIA_URL = "/media/"
 MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
+MEDIA_URL = "/media/"
 
 
 # Django REST framework
@@ -198,24 +178,16 @@ SPECTACULAR_SETTINGS = {
 
 
 # Caching with Redis
-if "REDIS_URL" in os.environ:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": env.str("REDIS_URL"),
-            "OPTIONS": {
-                "PASSWORD": env.str("REDIS_PASSWORD"),
-                "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
-            },
-        }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.getenv("REDIS_URL", default="redis://redis:6379"),
+        "OPTIONS": {
+            "PASSWORD": os.getenv("REDIS_PASSWORD", default=""),
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+        },
     }
-else:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://redis:6379",
-        }
-    }
+}
 
 
 # django-debug-toolbar
@@ -250,7 +222,7 @@ if ENVIRONMENT == "production":
     # Django error and performance monitoring with Sentry
     if "SENTRY_DSN" in os.environ:
         sentry_sdk.init(
-            dsn=env.str("SENTRY_DSN"),
+            dsn=os.getenv("SENTRY_DSN"),
             integrations=[DjangoIntegration(), RedisIntegration()],
             traces_sample_rate=1.0,
             send_default_pii=True,
