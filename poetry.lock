@@ -603,6 +603,14 @@ optional = false
 python-versions = ">=2.6"
 
 [[package]]
+name = "pdftotext"
+version = "2.1.6"
+description = "Simple PDF text extraction"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pluggy"
 version = "0.13.1"
 description = "plugin and hook calling mechanisms for python"
@@ -1080,7 +1088,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "528cb7c6e2f01d605d755305475c751ba1fd51430eae45ef78ed111cc9ee5eeb"
+content-hash = "baf8e4699149d1aa3fc43a316ca084f84b10e753f225614831dac622b431280b"
 
 [metadata.files]
 aiohttp = [
@@ -1524,6 +1532,9 @@ pathspec = [
 pbr = [
     {file = "pbr-5.6.0-py2.py3-none-any.whl", hash = "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"},
     {file = "pbr-5.6.0.tar.gz", hash = "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd"},
+]
+pdftotext = [
+    {file = "pdftotext-2.1.6.tar.gz", hash = "sha256:caf8ddbaeaf0a5897f07655a71747242addab2e695e84c5d47f2ea92dfe2a594"},
 ]
 pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
