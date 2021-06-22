@@ -13,6 +13,8 @@ services:
       - postgresql_data:/var/lib/postgresql/data/
 
   web:
+    env_file:
+      - .env.prod
     build: .
     command: gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker config.asgi:application
     environment:

@@ -1,6 +1,7 @@
 *.log
 *.pot
 *.pyc
+.env
 .vscode
 .coverage
 .coverage.*
