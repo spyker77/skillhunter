@@ -15,8 +15,8 @@ install:
 before_script:
   - docker-compose --version
   - env > .env
-  - docker-compose --env-file .env up -d
-  # - docker-compose exec -u root web python manage.py migrate --noinput
+  - docker-compose --env-file .env up -d --build
+  - docker-compose exec -u root web python manage.py migrate --noinput
 script:
   - docker-compose exec -u root web pytest -n auto --cov --cov-report=xml
 after_success:
