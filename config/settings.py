@@ -218,9 +218,7 @@ if ENVIRONMENT == "production":
     SECURE_CONTENT_TYPE_NONSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DATABASES["default"] = dj_database_url.config(
-        default="postgres://postgres@db/postgres", conn_max_age=CONN_MAX_AGE, ssl_require=True
-    )
+    DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE, ssl_require=True)
     # Django error and performance monitoring with Sentry
     if "SENTRY_DSN" in os.environ:
         sentry_sdk.init(
