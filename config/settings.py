@@ -20,7 +20,8 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", default="production")
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=False)
+DEBUG = eval(os.getenv("DEBUG", default="False"))
+
 
 ALLOWED_HOSTS = [
     "skillhunter.app",
