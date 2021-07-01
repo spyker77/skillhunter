@@ -1,4 +1,4 @@
-from typing import List
+from typing import Tuple
 
 from django.conf import settings
 from fastapi import FastAPI
@@ -11,7 +11,7 @@ API_VERSIONS_ROUTERS = {
 }
 
 
-def create_application(api_versions: List[str] = ["v2"]) -> FastAPI:
+def create_application(api_versions: Tuple[str] = ("v2",)) -> FastAPI:
     application = FastAPI(title="SkillHunter API", version=api_versions[0])
     application.add_middleware(
         CORSMiddleware,
