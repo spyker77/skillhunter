@@ -12,12 +12,12 @@
     <link rel="icon" sizes="16x16" href="{{ static ('images/favicon/favicon-16x16.png') }}">
     <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.1.4/dist/tailwind.min.css">
+    <link rel="stylesheet" href="{{ static ('css/tailwind.min.css') }}">
     {% if url ('swagger-ui') in request.path %}
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3.50.0/swagger-ui.css">
     <script src="https://unpkg.com/swagger-ui-dist@3.50.0/swagger-ui-bundle.js"></script>
     {% endif %}
-    <link rel="stylesheet" href="{{ static ('css/base.css') }}">
+    <link rel="stylesheet" href="{{ static ('css/_base.css') }}">
 </head>
 
 <body>
@@ -38,7 +38,7 @@
             </div>
             <div class="flex-grow w-auto mt-2 lg:m-1">
                 <div class="text-center lg:text-right">
-                    <a href="{{ url ('swagger-ui') }}" class="hover:text-purple-600 transition ease-in duration-200">
+                    <a href="{{ url ('fastapi-docs') }}" class="hover:text-purple-600 transition ease-in duration-200">
                         API
                     </a>
                 </div>

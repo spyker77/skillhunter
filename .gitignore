@@ -13,3 +13,4 @@ coverage.xml
 docker-compose-prod.yml
 localhost+1-key.pem
 localhost+1.pem
+htmlcov

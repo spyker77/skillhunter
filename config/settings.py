@@ -1,3 +1,4 @@
+import ast
 import os
 from pathlib import Path
 
@@ -20,14 +21,18 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", default="production")
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = eval(os.getenv("DEBUG", default="False"))
+DEBUG = ast.literal_eval(os.getenv("DEBUG", default="False"))
 
 
 ALLOWED_HOSTS = [
-    "skillhunter.app",
-    "skillhunter-app.herokuapp.com",
-    "localhost",
-    "127.0.0.1",
+    "http://skillhunter.app",
+    "http://skillhunter-app.herokuapp.com",
+    "http://localhost",
+    "http://127.0.0.1",
+    "https://skillhunter.app",
+    "https://skillhunter-app.herokuapp.com",
+    "https://localhost",
+    "https://127.0.0.1",
 ]
 
 SITE_ID = 1
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     "scrapers",
     "pages",
     "api",
+    "fast_api",
     "debug_toolbar",
     "rest_framework",
     "drf_spectacular",

@@ -65,6 +65,9 @@ class SkillViewSet(viewsets.ViewSet):
                 location=OpenApiParameter.QUERY,
             ),
         ],
+        description="🚨 This version 1 is deprecated and will be removed soon, please use version 2.",
+        deprecated=True,
+        tags=["skills"],
     )
     def list(self, request):
         query, limit = self._get_meta_data(request)

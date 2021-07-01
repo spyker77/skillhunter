@@ -1,6 +1,6 @@
 [run]
 omit =
-    *migrations*,
-    manage.py,
-    asgi.py,
-    wsgi.py
+    */migrations/*
+    *asgi.py
+    *wsgi.py
+    manage.py
