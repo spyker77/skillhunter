@@ -62,7 +62,7 @@ def initialize_webdriver():
 def check_subscription_popup(driver):
     # Check if there is a subscription popup, then close it.
     try:
-        WebDriverWait(driver, random.uniform(2.0, 5.0)).until(
+        WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
             EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
         )
         close_alert = driver.find_element_by_xpath('//*[@id="popover-x"]')
