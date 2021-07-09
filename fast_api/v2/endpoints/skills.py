@@ -19,8 +19,7 @@ def show_skills(
     limit: Optional[int] = Query(None, description="The number of most wanted skills to display."),
 ):
     background_tasks.add_task(save_query_with_meta_data, request, q)
-    queryset = Vacancy.objects.filter(search_vector=q)
-    if not queryset:
+    if not (queryset := Vacancy.objects.filter(search_vector=q)):
         raise HTTPException(status_code=404, detail="Skills not found")
     serializer = VacanciesSchema.serialize(queryset)
     serialized_data = serializer.dict().get("data")

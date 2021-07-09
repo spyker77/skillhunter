@@ -153,6 +153,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 MEDIA_URL = "/media/"
 
+FIXTURE_DIRS = ["test_fixtures"]
+
 
 # Django REST framework
 # https://www.django-rest-framework.org/#installation
@@ -225,7 +227,8 @@ if ENVIRONMENT == "production":
     SECURE_CONTENT_TYPE_NONSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE, ssl_require=True)
+    if "DATABASE_URL" in os.environ:
+        DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE, ssl_require=True)
     # Django error and performance monitoring with Sentry
     if "SENTRY_DSN" in os.environ:
         sentry_sdk.init(

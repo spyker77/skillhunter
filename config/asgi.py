@@ -2,8 +2,9 @@ import os
 
 from django.apps import apps
 from django.conf import settings
-from django.core.asgi import get_asgi_application
 from django.core.exceptions import ImproperlyConfigured
+from django.core.wsgi import get_wsgi_application
+from fastapi.middleware.wsgi import WSGIMiddleware
 
 try:
     from fast_api.main import create_application
@@ -13,6 +14,6 @@ except ImproperlyConfigured:
     from fast_api.main import create_application
 
 
-# Create main FastAPI application and mount Django app
+# Create main FastAPI application and mount wsgi Django app.
 application = create_application()
-application.mount("/", get_asgi_application())
+application.mount("/", WSGIMiddleware(get_wsgi_application()))

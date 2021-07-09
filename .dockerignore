@@ -10,7 +10,7 @@
 .pytest_cache
 __pycache__
 coverage.xml
-docker-compose-prod.yml
+docker-compose.prod.yml
 localhost+1-key.pem
 localhost+1.pem
 htmlcov

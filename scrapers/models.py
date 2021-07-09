@@ -68,10 +68,11 @@ class Search(models.Model):
 
     class Meta:
         """
-        Custom plural name of the model.
+        Custom plural name of the model and descending order.
         """
 
         verbose_name_plural = "Searches"
+        ordering = ["-created_date"]
 
 
 class Skill(models.Model):

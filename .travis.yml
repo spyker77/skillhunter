@@ -18,6 +18,6 @@ before_script:
   - docker-compose up -d
   - docker-compose exec -u root web python manage.py migrate --noinput
 script:
-  - docker-compose exec -u root web pytest -n auto --cov="." --cov-report=xml
+  - docker-compose exec -u root web pytest -n 2 --cov="." --cov-report=xml
 after_success:
   - bash <(curl -s https://codecov.io/bash)
