@@ -1,1 +1,1 @@
-*.json filter=lfs diff=lfs merge=lfs -text
+scrapers_vacancy.json filter=lfs diff=lfs merge=lfs -text
