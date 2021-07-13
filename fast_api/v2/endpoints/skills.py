@@ -23,8 +23,6 @@ def show_skills(
         raise HTTPException(status_code=404, detail="Skills not found")
     serializer = VacanciesSchema.serialize(queryset)
     serialized_data = serializer.dict().get("data")
-    sorted_skills = sort_skills(serialized_data)
-    if limit:
-        sorted_skills = sorted_skills[: int(limit)]
+    sorted_skills = sort_skills(serialized_data)[:limit]
     content = OrderedDict({"vacancy_name": q, "number_of_vacancies": len(queryset), "rated_skills": sorted_skills})
     return content
