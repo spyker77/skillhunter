@@ -14,9 +14,15 @@ def _prepopulate_database(django_db_blocker):
     with django_db_blocker.unblock():
         try:
             # Provide initial data for tests.
-            call_command("loaddata", "scrapers_vacancy.json")
-            call_command("loaddata", "skills.json")
             call_command("loaddata", "jobs.json")
+            call_command("loaddata", "skills.json")
+            # Split to reduce the size of a single file and not pay for Git LFS.
+            call_command("loaddata", "scrapers_vacancy_part_1.json")
+            call_command("loaddata", "scrapers_vacancy_part_2.json")
+            call_command("loaddata", "scrapers_vacancy_part_3.json")
+            call_command("loaddata", "scrapers_vacancy_part_4.json")
+            call_command("loaddata", "scrapers_vacancy_part_5.json")
+            call_command("loaddata", "scrapers_vacancy_part_6.json")
         except IntegrityError:
             # Data is already in the database.
             pass
