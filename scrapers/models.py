@@ -34,7 +34,7 @@ class Vacancy(models.Model):
 
 class Job(models.Model):
     id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, unique=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -77,7 +77,7 @@ class Search(models.Model):
 
 class Skill(models.Model):
     id = models.BigAutoField(primary_key=True)
-    clean_name = models.CharField(max_length=50)
+    clean_name = models.CharField(max_length=50, unique=True)
     unclean_names = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
 
