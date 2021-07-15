@@ -122,7 +122,7 @@ class TestSearchModel:
             ip_address="9.9.9.9",
             user_agent="Test User-Agent",
         )
-        search_object = Search.objects.get(ip_address="9.9.9.9")
+        search_object = Search.objects.filter(ip_address="9.9.9.9")[0]
         assert str(search_object) == search_object.query
 
 
