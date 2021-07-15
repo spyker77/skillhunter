@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ static ('images/favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ static ('images/favicon/site.webmanifest') }}">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css">
-    {% if url ('swagger-ui') in request.path %}
+    {% if request and url ('swagger-ui') in request.path %}
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3.50.0/swagger-ui.css">
     <script src="https://unpkg.com/swagger-ui-dist@3.50.0/swagger-ui-bundle.js"></script>
     {% endif %}
