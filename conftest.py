@@ -16,13 +16,13 @@ def _prepopulate_database(django_db_blocker):
             # Provide initial data for tests.
             call_command("loaddata", "jobs.json")
             call_command("loaddata", "skills.json")
-            # Split to reduce the size of a single file and not pay for Git LFS.
-            call_command("loaddata", "scrapers_vacancy_part_1.json")
-            call_command("loaddata", "scrapers_vacancy_part_2.json")
-            call_command("loaddata", "scrapers_vacancy_part_3.json")
-            call_command("loaddata", "scrapers_vacancy_part_4.json")
-            call_command("loaddata", "scrapers_vacancy_part_5.json")
-            call_command("loaddata", "scrapers_vacancy_part_6.json")
+            call_command("loaddata", "scrapers_vacancy.json")
+            # Split to reduce the size of a single potentially huge file and not pay for Git LFS. Use it if
+            # you need more data for tests. The file above contains 10000 records while below is an
+            # additional 30000 – so in total there can be 40000 vacancies.
+            # call_command("loaddata", "scrapers_vacancy_part_1.json")
+            # call_command("loaddata", "scrapers_vacancy_part_2.json")
+            # call_command("loaddata", "scrapers_vacancy_part_3.json")
         except IntegrityError:
             # Data is already in the database.
             pass
