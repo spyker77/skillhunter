@@ -32,7 +32,7 @@ RUN pip install --upgrade pip \
 
 # Copy the project and lint
 COPY . .
-RUN pip install flake9 black isort \
+RUN pip install flake9 black==21.6b0 isort \
     && flake8 . \
     && black . \
     && isort .
