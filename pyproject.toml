@@ -59,6 +59,7 @@ whitenoise = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.0"
+# Fixed version due to incompatibility issues with the latest one.
 black = "21.6b0"
 flake9 = "^3.8.3"
 isort = "^5.8.0"
