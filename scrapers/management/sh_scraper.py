@@ -2,11 +2,11 @@ import asyncio
 import json
 import logging
 import logging.config
-import platform
 import re
 from collections import Counter
+from typing import Dict, List, Set
 
-import aiohttp
+from aiohttp import ClientSession
 from aiohttp.client_exceptions import (
     ClientConnectorError,
     ClientOSError,
@@ -14,37 +14,16 @@ from aiohttp.client_exceptions import (
     ServerDisconnectedError,
 )
 from bs4 import BeautifulSoup
-from faker import Faker
 from flashtext import KeywordProcessor
 
 from scrapers.management.logging_config import LOGGING
+from scrapers.management.utils import get_user_agent
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
 
 
-def get_user_agent():
-    # Generate user-agent appropriate for the platform.
-    faker = Faker()
-    os_name = platform.system().lower()
-    if os_name == "darwin":
-        while True:
-            user_agent = faker.firefox()
-            if "Mac" in user_agent:
-                return user_agent
-    elif os_name == "windows":
-        while True:
-            user_agent = faker.firefox()
-            if "Windows" in user_agent:
-                return user_agent
-    else:
-        while True:
-            user_agent = faker.firefox()
-            if "Linux" in user_agent:
-                return user_agent
-
-
-async def scan_single_search_page(job_title, page_num, session):
+async def scan_single_search_page(job_title: str, page_num: int, session: ClientSession):
     # Scan search page for vacancy links.
     payload = {"q": f'"{job_title}"', "fdb": 7, "pn": page_num}
     for _ in range(10):
@@ -80,7 +59,7 @@ async def scan_single_search_page(job_title, page_num, session):
     return None
 
 
-async def scan_all_search_results(job_title, session):
+async def scan_all_search_results(job_title: str, session: ClientSession):
     # Schedule all search results for asynchronous processing.
     tasks = list()
     sh_max_pages = 90 + 1
@@ -96,7 +75,7 @@ async def scan_all_search_results(job_title, session):
     return all_links
 
 
-async def fetch_vacancy_page(link, session):
+async def fetch_vacancy_page(link: str, session: ClientSession):
     # Put the link, title and content in a dict – so far without skills.
     for _ in range(5):
         try:
@@ -105,11 +84,7 @@ async def fetch_vacancy_page(link, session):
                 soup = BeautifulSoup(html, "html.parser")
                 title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
                 content = soup.find(attrs={"class": "p"}).text
-                vacancy_page = {
-                    "url": link,
-                    "title": title,
-                    "content": content,
-                }
+                vacancy_page = {"url": link, "title": title, "content": content}
                 return vacancy_page
         except AttributeError:
             logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
@@ -126,7 +101,7 @@ async def fetch_vacancy_page(link, session):
     return None
 
 
-async def fetch_all_vacancy_pages(all_links, sh_links_we_already_have, session):
+async def fetch_all_vacancy_pages(all_links: Set[str], sh_links_we_already_have: List[str], session: ClientSession):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = list()
     # Reduce pressure on simplyhired.com by checking if we have this link.
@@ -138,7 +113,7 @@ async def fetch_all_vacancy_pages(all_links, sh_links_we_already_have, session):
     return vacancies_without_skills
 
 
-def process_vacancy_content(vacancy_without_skills, keyword_processor):
+def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_processor: KeywordProcessor):
     # Extract keywords from the content of the vacancy and count each keyword.
     try:
         content = vacancy_without_skills["content"]
@@ -156,10 +131,10 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-async def main(job_title, sh_links_we_already_have, skills):
+async def main(job_title: str, sh_links_we_already_have: List[str], skills: Dict[str, List[str]]):
     # Import this function to collect vacancies for a given job title.
     fake_agent = get_user_agent()
-    async with aiohttp.ClientSession(headers={"user-agent": fake_agent, "Connection": "close"}) as session:
+    async with ClientSession(headers={"user-agent": fake_agent, "Connection": "close"}) as session:
         all_links = await scan_all_search_results(job_title, session)
         for _ in range(10):
             try:

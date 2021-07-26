@@ -1,14 +1,13 @@
 import json
 import logging
 import logging.config
-import platform
 import random
 import re
 from collections import Counter
+from typing import Dict, List, Set
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
-from faker import Faker
 from flashtext import KeywordProcessor
 from selenium import webdriver
 from selenium.common.exceptions import MoveTargetOutOfBoundsException, TimeoutException
@@ -19,30 +18,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from scrapers.management.logging_config import LOGGING
+from scrapers.management.utils import get_user_agent
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
-
-
-def get_user_agent():
-    # Generate user-agent appropriate for the platform.
-    faker = Faker()
-    os_name = platform.system().lower()
-    if os_name == "darwin":
-        while True:
-            user_agent = faker.firefox()
-            if "Mac" in user_agent:
-                return user_agent
-    elif os_name == "windows":
-        while True:
-            user_agent = faker.firefox()
-            if "Windows" in user_agent:
-                return user_agent
-    else:
-        while True:
-            user_agent = faker.firefox()
-            if "Linux" in user_agent:
-                return user_agent
 
 
 def initialize_webdriver():
@@ -59,7 +38,7 @@ def initialize_webdriver():
     return driver
 
 
-def check_subscription_popup(driver):
+def check_subscription_popup(driver: webdriver):
     # Check if there is a subscription popup, then close it.
     try:
         WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
@@ -73,9 +52,9 @@ def check_subscription_popup(driver):
         pass
 
 
-def scan_all_search_results(job_title):
+def scan_all_search_results(job_title: str):
     # Scan each search page for vacancy links and continue while the Next button is presented.
-    all_links = set()
+    all_links: Set[str] = set()
     driver = initialize_webdriver()
     try:
         payload = {"q": f"title:({job_title})", "fromage": 1, "filter": 0}
@@ -108,7 +87,7 @@ def scan_all_search_results(job_title):
         driver.quit()
 
 
-def fetch_vacancy_page(link, driver):
+def fetch_vacancy_page(link: str, driver: webdriver):
     # Put the link, title and content in a dict – so far without skills.
     try:
         driver.get(link)
@@ -125,7 +104,7 @@ def fetch_vacancy_page(link, driver):
         return None
 
 
-def fetch_all_vacancy_pages(all_links, indeed_links_we_already_have):
+def fetch_all_vacancy_pages(all_links: Set[str], indeed_links_we_already_have: List[str]):
     # Parse all the vacancy pages one by one.
     driver = initialize_webdriver()
     try:
@@ -140,7 +119,7 @@ def fetch_all_vacancy_pages(all_links, indeed_links_we_already_have):
         driver.quit()
 
 
-def process_vacancy_content(vacancy_without_skills, keyword_processor):
+def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_processor: KeywordProcessor):
     # Extract keywords from the content of the vacancy and count each keyword.
     try:
         content = vacancy_without_skills["content"]
@@ -158,7 +137,7 @@ def process_vacancy_content(vacancy_without_skills, keyword_processor):
         return None
 
 
-def main(job_title, indeed_links_we_already_have, skills):
+def main(job_title: str, indeed_links_we_already_have: List[str], skills: Dict[str, List[str]]):
     # Main flow of parsing the vacancies and counting the relevant skills.
     all_links = scan_all_search_results(job_title)
     vacancies_without_skills = fetch_all_vacancy_pages(all_links, indeed_links_we_already_have)
