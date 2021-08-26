@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 from django.db import models
 from pydantic import BaseModel as _BaseModel
-from pydantic import validator
+from pydantic import HttpUrl, validator
 
 
 class BaseModel(_BaseModel):
@@ -48,3 +48,7 @@ class SkillsResponseSchema(BaseModel):
     vacancy_name: str
     number_of_vacancies: int
     rated_skills: List[Tuple[str, int]]
+
+
+class VacanciesResponseSchema(BaseModel):
+    vacancies: List[Tuple[HttpUrl, Tuple[str, int]]]

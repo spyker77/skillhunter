@@ -46,3 +46,31 @@ async def test_save_query_with_meta_data(db):
     await save_query_with_meta_data(request, query)
     assert await _check_scrapers_search_for_testclient_records() > initial_db_state
     await _clean_db_after_tests()
+
+
+@pytest.mark.django_db
+def test_show_tailored_vacancies_correct_resume(test_app):
+    endpoint = "/api/v2/vacancies/"
+    with open("resume_analyzer/test_resumes/correct_resume.pdf", "rb") as resume:
+        response = test_app.post(url=endpoint, files={"resume": resume}, allow_redirects=True)
+    number_of_default_vacancies = 200
+    assert response.status_code == 200
+    assert len(response.json()["vacancies"]) == number_of_default_vacancies
+
+
+@pytest.mark.django_db
+def test_show_tailored_vacancies_fake_resume(test_app):
+    endpoint = "/api/v2/vacancies/"
+    with open("resume_analyzer/test_resumes/fake_format.pdf", "rb") as resume:
+        response = test_app.post(url=endpoint, files={"resume": resume}, allow_redirects=True)
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Vacancies not found"
+
+
+@pytest.mark.django_db
+def test_show_tailored_vacancies_empty_resume(test_app):
+    endpoint = "/api/v2/vacancies/"
+    with open("resume_analyzer/test_resumes/empty_file.pdf", "rb") as resume:
+        response = test_app.post(url=endpoint, files={"resume": resume}, allow_redirects=True)
+    assert response.status_code == 200
+    assert response.json()["vacancies"] == []
