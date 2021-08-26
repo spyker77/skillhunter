@@ -12,7 +12,13 @@ API_VERSIONS_ROUTERS = {
 
 
 def create_application(api_versions: Tuple[str] = ("v2",)) -> FastAPI:
-    application = FastAPI(title="SkillHunter API", version=api_versions[0])
+    application = FastAPI(
+        title="SkillHunter API",
+        description="""This is a public API for obtaining either the skills required for
+        a particular job or a vacancies tailored to the resume provided.
+        """,
+        version=api_versions[0],
+    )
     application.add_middleware(
         CORSMiddleware,
         allow_origins=settings.ALLOWED_HOSTS,
