@@ -18,8 +18,8 @@ def _prepopulate_database(django_db_blocker):
             call_command("loaddata", "skills.json")
             call_command("loaddata", "scrapers_vacancy.json")
             # Split to reduce the size of a single potentially huge file and not pay for Git LFS. Use it if
-            # you need more data for tests. The file above contains 10000 records while below is an
-            # additional 30000 – so in total there can be 40000 vacancies.
+            # you need more data for tests. The file above contains 9999 records while below is an
+            # additional 29997 – so in total there can be 39996 vacancies.
             # call_command("loaddata", "scrapers_vacancy_part_1.json")
             # call_command("loaddata", "scrapers_vacancy_part_2.json")
             # call_command("loaddata", "scrapers_vacancy_part_3.json")
