@@ -1,5 +1,5 @@
 import ipaddress
-from typing import List, Tuple
+from typing import List, Union
 
 from django.db import models
 from pydantic import BaseModel as _BaseModel
@@ -47,8 +47,8 @@ class SearchSchema(BaseModel):
 class SkillsResponseSchema(BaseModel):
     vacancy_name: str
     number_of_vacancies: int
-    rated_skills: List[Tuple[str, int]]
+    rated_skills: List[List[Union[int, str]]]
 
 
 class VacanciesResponseSchema(BaseModel):
-    vacancies: List[Tuple[HttpUrl, Tuple[str, int]]]
+    vacancies: List[List[Union[HttpUrl, List[Union[int, str]]]]]
