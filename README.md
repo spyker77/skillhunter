@@ -31,10 +31,9 @@ Due to a forced HTTPS in production, it might be a good idea to use **ENVIRONMEN
 docker compose up -d
 ```
 
-On the first run you need to make additional migrations and apply them to the fresh database:
+On the first run you need to apply migrations to the fresh database:
 
 ```bash
-docker compose exec -u root web python manage.py makemigrations
 docker compose exec -u root web python manage.py migrate
 ```
 
