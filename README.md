@@ -1,10 +1,3 @@
-[![Build Status](https://travis-ci.com/spyker77/skillhunter.svg?branch=main)](https://travis-ci.com/spyker77/skillhunter)
-[![codecov](https://codecov.io/gh/spyker77/skillhunter/branch/main/graph/badge.svg)](https://codecov.io/gh/spyker77/skillhunter)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://www.codacy.com/gh/spyker77/skillhunter/dashboard)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
-
 # SkillHunter
 
 SkillHunter is all about helping you and your mates identify the most in-demand skills in the job market in order to find a new position as soon as possible. Cut the bullshit and prepare yourself in the most efficient way, no need to learn everything!
@@ -23,7 +16,7 @@ git clone https://github.com/spyker77/skillhunter.git
 
 Update environment variables inside the docker-compose.yml and run the following bash commands inside downloaded project's folder – this will launch the process of building the image (if it doesn't exist), create and start containers in a detached mode.
 
-**Note** ⚠️ 
+**Note** ⚠️
 
 Due to a forced HTTPS in production, it might be a good idea to use **ENVIRONMENT=development** first – this will allow you to avoid SSL related errors.
 
@@ -68,21 +61,21 @@ docker compose exec web pytest -n 2 --cov="." --cov-report=term-missing
 
 ## Tech Stack
 
--   Python
--   Docker
--   Django
--   Django REST framework
--   Swagger UI
--   FastAPI
--   PostgreSQL
--   Redis
--   Tailwind CSS
--   Jinja
--   Beautiful Soup
--   Selenium WebDriver
--   AIOHTTP
--   Pytest
--   Travis CI
+- Python
+- Docker
+- Django
+- Django REST framework
+- Swagger UI
+- FastAPI
+- PostgreSQL
+- Redis
+- Tailwind CSS
+- Jinja
+- Beautiful Soup
+- Selenium WebDriver
+- AIOHTTP
+- Pytest
+- Travis CI
 
 ## Contributing
 
@@ -93,3 +86,10 @@ Also, make sure to update tests as appropriate 🙏
 ## License
 
 This project is licensed under the terms of the [MIT](https://github.com/spyker77/skillhunter/blob/main/LICENSE) license.
+
+[![Build Status](https://travis-ci.com/spyker77/skillhunter.svg?branch=main)](https://travis-ci.com/spyker77/skillhunter)
+[![codecov](https://codecov.io/gh/spyker77/skillhunter/branch/main/graph/badge.svg)](https://codecov.io/gh/spyker77/skillhunter)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://www.codacy.com/gh/spyker77/skillhunter/dashboard)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
