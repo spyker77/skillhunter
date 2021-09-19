@@ -1,5 +1,12 @@
 # SkillHunter
 
+[![Build Status](https://travis-ci.com/spyker77/skillhunter.svg?branch=main)](https://travis-ci.com/spyker77/skillhunter)
+[![codecov](https://codecov.io/gh/spyker77/skillhunter/branch/main/graph/badge.svg)](https://codecov.io/gh/spyker77/skillhunter)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://www.codacy.com/gh/spyker77/skillhunter/dashboard)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
+
 SkillHunter is all about helping you and your mates identify the most in-demand skills in the job market in order to find a new position as soon as possible. Cut the bullshit and prepare yourself in the most efficient way, no need to learn everything!
 
 What if you asked yourself the wrong question: "What do I need to learn?" Whereas a better one could be: "What I don't need to learn?" The latter helps you save a ton of time by avoiding unnecessary work when time is the most valuable – at the very beginning of unknown – that's where the SkillHunter really shines.
@@ -86,10 +93,3 @@ Also, make sure to update tests as appropriate 🙏
 ## License
 
 This project is licensed under the terms of the [MIT](https://github.com/spyker77/skillhunter/blob/main/LICENSE) license.
-
-[![Build Status](https://travis-ci.com/spyker77/skillhunter.svg?branch=main)](https://travis-ci.com/spyker77/skillhunter)
-[![codecov](https://codecov.io/gh/spyker77/skillhunter/branch/main/graph/badge.svg)](https://codecov.io/gh/spyker77/skillhunter)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://www.codacy.com/gh/spyker77/skillhunter/dashboard)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
