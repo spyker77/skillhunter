@@ -28,10 +28,25 @@ services:
       # - SENTRY_DSN=<replace_it_with_your_sentry_url>
     volumes:
       - .:/code
-    ports:
-      - 8000:8000
+    expose:
+      - "8000"
     depends_on:
       - db
 
+  nginx:
+    build: ./nginx
+    restart: always
+    environment:
+      - PORT=8000
+    volumes:
+      - staticfiles_volume:/code/staticfiles
+      - media_volume:/code/media
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
 volumes:
   postgresql_data:
+  staticfiles_volume:
+  media_volume:

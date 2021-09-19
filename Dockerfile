@@ -46,15 +46,12 @@ RUN pip install flake9 black==21.6b0 isort \
 FROM python:3.9-slim-buster
 
 # Set working directory
-WORKDIR /code
+ENV APP_HOME=/code
+WORKDIR $APP_HOME
 
 # Create the app user
 RUN addgroup --system app \
     && adduser --system --group app
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies
 RUN apt-get update \
@@ -75,8 +72,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install project dependencies from wheels
-COPY --from=builder /code/wheels /wheels
-COPY --from=builder /code/requirements.txt .
+COPY --from=builder $APP_HOME/wheels /wheels
+COPY --from=builder $APP_HOME/requirements.txt .
 RUN pip install --upgrade pip \
     && pip install --no-cache /wheels/*
 
@@ -84,7 +81,7 @@ RUN pip install --upgrade pip \
 COPY . .
 
 # Chown all the files to the app user
-RUN chown -R app:app /code
+RUN chown -R app:app $APP_HOME
 
 # Change to the app user
 USER app
