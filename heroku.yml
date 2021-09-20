@@ -2,9 +2,3 @@ build:
   docker:
     web: Dockerfile
     nginx: nginx/Dockerfile
-release:
-  image: web
-  command:
-    - python manage.py collectstatic --clear --noinput
-run:
-  web: gunicorn -b 0.0.0.0:$PORT -k uvicorn.workers.UvicornWorker config.asgi:application
