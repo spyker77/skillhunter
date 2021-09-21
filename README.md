@@ -76,7 +76,6 @@ docker compose exec web pytest -n 2 --cov="." --cov-report=term-missing
 - FastAPI
 - PostgreSQL
 - Redis
-- NGINX
 - Tailwind CSS
 - Jinja
 - Beautiful Soup

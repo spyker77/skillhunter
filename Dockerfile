@@ -85,6 +85,3 @@ RUN chown -R app:app $APP_HOME
 
 # Change to the app user
 USER app
-
-# Run gunicorn server with uvicorn worker
-CMD gunicorn -b 0.0.0.0:$PORT -k uvicorn.workers.UvicornWorker config.asgi:application
