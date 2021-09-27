@@ -6,7 +6,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from api.v1.serializers import SkillSerializer
+from api.v1.serializers import VacancySerializer
 from scrapers.models import Search, Vacancy
 
 
@@ -75,7 +75,7 @@ class SkillViewSet(viewsets.ViewSet):
         if query is None:
             return Response({"Error": "A required q parameter was not specified for this request."}, 400)
         queryset = Vacancy.objects.filter(search_vector=query)
-        serializer = SkillSerializer(queryset, many=True)
+        serializer = VacancySerializer(queryset, many=True)
         serialized_data = serializer.data
         sorted_skills = self._sort_skills(serialized_data)
         if limit:
