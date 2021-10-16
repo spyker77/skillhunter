@@ -19,6 +19,15 @@ skip_glob = [".mypy_cache", ".pytest_cache", "migrations"]
 [tool.mypy]
 plugins = "pydantic.mypy"
 
+[tool.coverage]
+[tool.coverage.run]
+omit = ["*migrations*", "*asgi.py", "*wsgi.py", "*manage.py", "*conftest.py"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+addopts = "--reuse-db"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+
 [tool.poetry]
 authors = ["Evgeni Sautin <evgeni.sautin@gmail.com>"]
 description = "Find the skills you need to get a job in IT"
@@ -59,6 +68,7 @@ whitenoise = {extras = ["brotli"], version = "^5.3.0"}
 bandit = "^1.7.0"
 # Fixed version due to incompatibility issues with the latest one.
 black = "21.6b0"
+coverage = {extras = ["toml"], version = "^6.0.2"}
 flake9 = "^3.8.3"
 isort = "^5.8.0"
 mypy = "^0.812"
