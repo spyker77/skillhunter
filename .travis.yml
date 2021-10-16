@@ -20,4 +20,6 @@ before_script:
 script:
   - docker-compose exec -u root web pytest -n 2 --cov="." --cov-report=xml
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - curl -Os https://uploader.codecov.io/latest/alpine/codecov
+  - chmod +x codecov
+  - ./codecov -t ${CODECOV_TOKEN}
