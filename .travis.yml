@@ -14,7 +14,7 @@ install:
   - sudo mv docker-compose /usr/local/bin
 before_script:
   - docker-compose --version
-  - env >> .env.prod
+  - env > ".env.prod"
   - docker-compose up -d
   - docker-compose exec -u root web python manage.py migrate --noinput
 script:
