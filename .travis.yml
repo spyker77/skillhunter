@@ -8,15 +8,12 @@ services:
 before_install:
   - docker-compose --version
 install:
-  - sudo apt-get update
-  - sudo apt install travis
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 before_script:
   - docker-compose --version
-  - travis env list > .env.prod
   - docker-compose up -d
   - docker-compose exec -u root web python manage.py migrate --noinput
 script:
