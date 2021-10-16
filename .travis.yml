@@ -8,6 +8,8 @@ services:
 before_install:
   - docker-compose --version
 install:
+  - sudo apt-get update
+  - sudo apt install travis
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
