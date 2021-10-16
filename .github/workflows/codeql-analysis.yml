@@ -46,7 +46,7 @@ jobs:
           languages: ${{ matrix.language }}
           # Override the default behavior so that the action doesn't attempt
           # to auto-install Python dependencies
-          setup-python-dependencies: false
+          setup-python-dependencies: true
 
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
