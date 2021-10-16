@@ -5,17 +5,15 @@ os: linux
 dist: focal
 services:
   - docker
-before_install:
-  - docker-compose --version
 install:
+  - docker-compose --version
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-before_script:
   - docker-compose --version
-  - docker-compose up -d
-  - docker-compose exec -u root web python manage.py migrate --noinput
+before_script:
+  - docker-compose up -d --quiet-pull
 script:
   - docker-compose exec -u root web pytest -n 2 --cov="." --cov-report=xml
 after_success:
