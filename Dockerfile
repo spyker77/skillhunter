@@ -63,10 +63,10 @@ RUN apt-get update \
     tar \
     # Package required for converting uploaded resumes to pdf >>> resume_analyzer.analyzer.convert_to
     # libreoffice \
-    && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz \
-    && tar -x geckodriver -zf geckodriver-v0.29.1-linux64.tar.gz -O > /usr/bin/geckodriver \
+    && wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
+    && tar -x geckodriver -zf geckodriver-v0.30.0-linux64.tar.gz -O > /usr/bin/geckodriver \
     && chmod +x /usr/bin/geckodriver \
-    && rm geckodriver-v0.29.1-linux64.tar.gz \
+    && rm geckodriver-v0.30.0-linux64.tar.gz \
     && rm -rf /var/lib/apt/lists/*
 
 # Install project dependencies from wheels
