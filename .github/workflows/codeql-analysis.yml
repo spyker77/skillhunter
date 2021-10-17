@@ -12,14 +12,13 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        # Override automatic language detection by changing the below list
-        # Supported options are ['csharp', 'cpp', 'go', 'java', 'javascript', 'python']
-        language: ["python"]
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.9", "3.10"]
         # Learn more...
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 
@@ -30,7 +29,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.x"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
 
       - name: Install dependencies
         run: |
