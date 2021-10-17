@@ -3,7 +3,7 @@
 ###########
 
 # Pull base image
-FROM python:3.9-slim-buster as builder
+FROM python:3.10-slim-buster as builder
 
 # Set working directory
 WORKDIR /code
@@ -41,7 +41,7 @@ RUN pip install flake9 black==21.6b0 isort \
 #########
 
 # Pull base image
-FROM python:3.9-slim-buster
+FROM python:3.10-slim-buster
 
 # Set working directory
 ENV APP_HOME=/code
