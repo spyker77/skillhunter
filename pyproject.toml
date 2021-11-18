@@ -19,6 +19,13 @@ skip_glob = [".mypy_cache", ".pytest_cache", "migrations"]
 [tool.mypy]
 plugins = "pydantic.mypy"
 
+[tool.pylint]
+[tool.pylint.master]
+django-settings-module = ["config.settings"]
+load-plugins = ["pylint_django"]
+[tool.pylint.format]
+max-line-length = 119
+
 [tool.coverage]
 [tool.coverage.run]
 omit = ["*migrations*", "*asgi.py", "*wsgi.py", "*manage.py", "*conftest.py"]
