@@ -22,18 +22,12 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install project dependencies
-COPY ./pyproject.toml .
+COPY poetry.lock .
+COPY pyproject.toml .
 RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry export -f requirements.txt --output requirements.txt --dev \
     && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
-
-# Copy the project and lint
-COPY . .
-RUN pip install flake9 black==21.6b0 isort \
-    && flake8 . \
-    && black . \
-    && isort .
 
 
 #########
