@@ -26,7 +26,7 @@ COPY poetry.lock .
 COPY pyproject.toml .
 RUN pip install --upgrade pip \
     && pip install poetry \
-    && poetry export -f requirements.txt --output requirements.txt --dev \
+    && poetry export --format requirements.txt --output requirements.txt --dev --without-hashes \
     && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
 
 
