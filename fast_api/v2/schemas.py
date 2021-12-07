@@ -38,7 +38,7 @@ class SearchSchema(BaseModel):
     def set_ip_address(cls, ip_address):
         try:
             # Replicate GenericIPAddressField behavior:
-            # https://docs.djangoproject.com/en/3.2/ref/models/fields/#genericipaddressfield
+            # https://docs.djangoproject.com/en/4.0/ref/models/fields/#genericipaddressfield
             return str(ipaddress.ip_address(ip_address))
         except ValueError:
             return "1.1.1.1"

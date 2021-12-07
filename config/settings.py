@@ -15,7 +15,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", default="production")
 
 
 # Quick-start development settings - unsuitable for production
-# https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
@@ -103,7 +103,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # Keep connection to the database opened for 6 hours in order
 # to prevent associated errors due to its early close when scraping.
@@ -115,7 +115,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -126,17 +126,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
+# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -182,12 +181,8 @@ SPECTACULAR_SETTINGS = {
 # Caching with Redis
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": os.getenv("REDIS_URL", default="redis://redis:6379"),
-        "OPTIONS": {
-            "PASSWORD": os.getenv("REDIS_PASSWORD", default=""),
-            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
-        },
     }
 }
 
@@ -224,7 +219,7 @@ if ENVIRONMENT == "production":
         DATABASES["default"] = dj_database_url.config(conn_max_age=CONN_MAX_AGE, ssl_require=True)
     # Django error and performance monitoring with Sentry
     if "SENTRY_DSN" in os.environ:
-        sentry_sdk.init(
+        sentry_sdk.init(  # pylint: disable=abstract-class-instantiated
             dsn=os.getenv("SENTRY_DSN"),
             integrations=[DjangoIntegration(), RedisIntegration()],
             traces_sample_rate=1.0,

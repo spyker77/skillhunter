@@ -37,7 +37,6 @@ if "DATABASE_URL" in os.environ:
         settings.DATABASES["default"] = dj_database_url.config(default="postgres://postgres@db/postgres")
         _prepopulate_database(django_db_blocker)
 
-
 else:
 
     @pytest.fixture(scope="session")
