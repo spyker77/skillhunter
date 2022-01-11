@@ -2,25 +2,15 @@ version: "3.9"
 
 services:
 
-  redis:
-    image: redis:6-alpine
-
-  db:
-    image: postgres:14-alpine
-    command: -c max_wal_size=2GB
-    environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    volumes:
-      - postgresql_data:/var/lib/postgresql/data/
-
   web:
     env_file:
-      - .env
+      - .env.prod
+    platform: linux/amd64
+    image: 771499844454.dkr.ecr.eu-central-1.amazonaws.com/skillhunter-ec2:latest
     build: .
-    command: gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
-      config.asgi:application
+    command: sh -c "python manage.py collectstatic --clear --noinput && gunicorn
+      config.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker"
     volumes:
-      - .:/code
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     expose:
@@ -29,17 +19,20 @@ services:
       - db
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
     restart: on-failure
     volumes:
+      - ./nginx/certs:/etc/nginx/certs
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - web
 
 volumes:
-  postgresql_data: null
   static_volume: null
   media_volume: null

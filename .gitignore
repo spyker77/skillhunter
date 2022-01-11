@@ -1,7 +1,7 @@
 *.log
 *.pot
 *.pyc
-.env
+.env.prod
 .vscode
 .coverage
 .coverage.*
@@ -10,7 +10,7 @@
 .pytest_cache
 __pycache__
 coverage.xml
-docker-compose.prod.yml
-localhost+1-key.pem
-localhost+1.pem
+staticfiles
+mediafiles
 htmlcov
+certs

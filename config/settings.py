@@ -1,9 +1,9 @@
 import ast
 import os
 from pathlib import Path
+from typing import Dict, List, Union
 
 import dj_database_url
-import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
@@ -26,7 +26,7 @@ DEBUG = ast.literal_eval(os.getenv("DEBUG", default="False"))
 
 ALLOWED_HOSTS = [
     "skillhunter.app",
-    "skillhunter-app.herokuapp.com",
+    "3.125.98.119",
     "localhost",
     "127.0.0.1",
 ]
@@ -41,26 +41,28 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    # Local apps
     "resume_analyzer",
     "scrapers",
     "pages",
     "api",
     "fast_api",
+    # 3rd party apps
     "debug_toolbar",
     "rest_framework",
     "drf_spectacular",
     "django_otp",
     "django_otp.plugins.otp_totp",
+    "storages",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django_permissions_policy.PermissionsPolicyMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.http.ConditionalGetMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -113,10 +115,16 @@ DATABASES = {"default": dj_database_url.config(default="postgres://postgres@db/p
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("REDIS_URL", default="redis://redis:6379"),
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -127,23 +135,75 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
 
+# Permissions-Policy settings
+# https://github.com/adamchainz/django-permissions-policy
+PERMISSIONS_POLICY: Dict[str, Union[str, List[str]]] = {
+    "accelerometer": [],
+    "ambient-light-sensor": [],
+    "autoplay": [],
+    "camera": [],
+    "document-domain": [],
+    "encrypted-media": [],
+    "fullscreen": [],
+    "geolocation": [],
+    "gyroscope": [],
+    "magnetometer": [],
+    "microphone": [],
+    "midi": [],
+    "payment": [],
+    "sync-xhr": [],
+    "usb": [],
+}
+
+
+# Content-Security-Policy settings
+# https://django-csp.readthedocs.io/en/latest/
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_STYLE_SRC = ["'self'", "https://unpkg.com"]
+CSP_SCRIPT_SRC = ["'self'", "https://unpkg.com"]
+CSP_FONT_SRC = ["'self'"]
+CSP_IMG_SRC = ["'self'", "data:"]
+CSP_INCLUDE_NONCE_IN = ["script-src"]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+USE_S3 = ast.literal_eval(os.getenv("USE_S3", default="False"))
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+if USE_S3:
+    # AWS S3 storage settings
+    AWS_DEFAULT_ACL = None
+    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+    AWS_S3_CUSTOM_DOMAIN = os.getenv("AWS_S3_CUSTOM_DOMAIN", "")
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=2592000"}
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    # Static files
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+    STATICFILES_STORAGE = "config.storage_backends.StaticStorage"
+    # Media files
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+    DEFAULT_FILE_STORAGE = "config.storage_backends.MediaStorage"
+    # Extend Content-Security-Policy
+    CSP_STYLE_SRC.append(AWS_S3_CUSTOM_DOMAIN)
+    CSP_SCRIPT_SRC.append(AWS_S3_CUSTOM_DOMAIN)
+    CSP_FONT_SRC.append(AWS_S3_CUSTOM_DOMAIN)
+    CSP_IMG_SRC.append(AWS_S3_CUSTOM_DOMAIN)
+else:
+    # Local storage settings
+    STATIC_URL = "/static/"
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "mediafiles"
+
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 
 FIXTURE_DIRS = ["test_fixtures"]
 
@@ -169,6 +229,8 @@ REST_FRAMEWORK = {
 }
 
 
+# drf-spectacular settings
+# https://drf-spectacular.readthedocs.io/en/latest/index.html
 SPECTACULAR_SETTINGS = {
     "TITLE": "SkillHunter API",
     "DESCRIPTION": """Returns a list of rated skills ordered by number of
@@ -178,28 +240,9 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-# Caching with Redis
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL", default="redis://redis:6379"),
-    }
-}
-
-
-# django-debug-toolbar
+# Django Debug Toolbar settings
 # https://django-debug-toolbar.readthedocs.io/en/latest/
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG}
-
-
-# Content-Security-Policy settings for django-csp
-# https://django-csp.readthedocs.io/en/latest/
-CSP_DEFAULT_SRC = ["'self'"]
-CSP_STYLE_SRC = ["'self'", "https://unpkg.com"]
-CSP_SCRIPT_SRC = ["'self'", "https://unpkg.com"]
-CSP_FONT_SRC = ["'self'"]
-CSP_IMG_SRC = ["'self'", "data:"]
-CSP_INCLUDE_NONCE_IN = ["script-src"]
 
 
 # Production settings
@@ -225,6 +268,3 @@ if ENVIRONMENT == "production":
             traces_sample_rate=1.0,
             send_default_pii=True,
         )
-
-
-django_heroku.settings(locals())
