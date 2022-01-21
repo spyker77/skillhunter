@@ -17,8 +17,9 @@ services:
     env_file:
       - .env
     build: .
-    command: gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
-      config.asgi:application
+    environment:
+      - PYTHONDEVMODE=1
+    command: sh -c "python manage.py collectstatic --no-input --clear && gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker core.asgi:application"
     volumes:
       - .:/code
       - static_volume:/code/staticfiles
