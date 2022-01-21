@@ -4,7 +4,7 @@ import logging
 import logging.config
 import re
 from collections import Counter
-from typing import Dict, List, Set
+from secrets import randbelow
 
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import (
@@ -16,8 +16,8 @@ from aiohttp.client_exceptions import (
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
 
-from scrapers.management.logging_config import LOGGING
-from scrapers.management.utils import get_user_agent
+from .logging_config import LOGGING
+from .utils import get_user_agent
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
@@ -34,9 +34,9 @@ async def scan_single_search_page(job_title: str, page_num: int, session: Client
                     soup = BeautifulSoup(html, "html.parser")
                     all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
                     # Extract valid links to vacancy pages and clean the tail.
-                    links = set(
+                    links = {
                         ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0] for vacancy in all_vacancies
-                    )
+                    }
                     return links
                 except AttributeError:
                     logger.warning(f"🚨 AttributeError occurred while scanning: {resp.url}")
@@ -61,7 +61,7 @@ async def scan_single_search_page(job_title: str, page_num: int, session: Client
 
 async def scan_all_search_results(job_title: str, session: ClientSession):
     # Schedule all search results for asynchronous processing.
-    tasks = list()
+    tasks = []
     sh_max_pages = 90 + 1
     for page_num in range(1, sh_max_pages):
         task = asyncio.create_task(scan_single_search_page(job_title, page_num, session))
@@ -85,6 +85,7 @@ async def fetch_vacancy_page(link: str, session: ClientSession):
                 title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
                 content = soup.find(attrs={"class": "p"}).text
                 vacancy_page = {"url": link, "title": title, "content": content}
+                await asyncio.sleep(randbelow(2))
                 return vacancy_page
         except AttributeError:
             logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
@@ -101,9 +102,9 @@ async def fetch_vacancy_page(link: str, session: ClientSession):
     return None
 
 
-async def fetch_all_vacancy_pages(all_links: Set[str], sh_links_we_already_have: List[str], session: ClientSession):
+async def fetch_all_vacancy_pages(all_links: set[str], sh_links_we_already_have: list[str], session: ClientSession):
     # Schedule all the vacancy pages for asynchronous processing.
-    tasks = list()
+    tasks = []
     # Reduce pressure on simplyhired.com by checking if we have this link.
     new_links = [link for link in all_links if link not in sh_links_we_already_have]
     for link in new_links:
@@ -113,7 +114,7 @@ async def fetch_all_vacancy_pages(all_links: Set[str], sh_links_we_already_have:
     return vacancies_without_skills
 
 
-def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_processor: KeywordProcessor):
+def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_processor: KeywordProcessor):
     # Extract keywords from the content of the vacancy and count each keyword.
     try:
         content = vacancy_without_skills["content"]
@@ -131,7 +132,7 @@ def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_proc
         return None
 
 
-async def main(job_title: str, sh_links_we_already_have: List[str], skills: Dict[str, List[str]]):
+async def main(job_title: str, sh_links_we_already_have: list[str], skills: dict[str, list[str]]):
     # Import this function to collect vacancies for a given job title.
     fake_agent = get_user_agent()
     async with ClientSession(headers={"user-agent": fake_agent, "Connection": "close"}) as session:

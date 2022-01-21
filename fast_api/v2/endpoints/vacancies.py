@@ -1,8 +1,9 @@
 import pdftotext
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 
-from fast_api.v2.schemas import VacanciesResponseSchema
 from resume_analyzer.analyzer import analyze_resume
+
+from ..schemas import VacanciesResponseSchema
 
 router = APIRouter()
 

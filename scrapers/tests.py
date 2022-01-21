@@ -4,9 +4,9 @@ from urllib.parse import urlencode, urlparse
 import pytest
 from django.urls import reverse
 
-from scrapers.apps import ScrapersConfig
-from scrapers.models import Job, Search, Skill, Vacancy
-from scrapers.views import SearchResultsListView
+from .apps import ScrapersConfig
+from .models import Job, Search, Skill, Vacancy
+from .views import SearchResultsListView
 
 
 @pytest.mark.django_db

@@ -1,5 +1,4 @@
 import ipaddress
-from typing import List, Union
 
 from django.db import models
 from pydantic import BaseModel as _BaseModel
@@ -8,7 +7,7 @@ from pydantic import HttpUrl, validator
 
 class BaseModel(_BaseModel):
     @classmethod
-    def from_orms(cls, instances: List[models.Model]):
+    def from_orms(cls, instances: list[models.Model]):
         return [cls.from_orm(inst) for inst in instances]
 
 
@@ -22,7 +21,7 @@ class VacancySchema(BaseModel):
 
 
 class VacanciesSchema(BaseModel):
-    data: List[VacancySchema]
+    data: list[VacancySchema]
 
     @classmethod
     def serialize(cls, instances):
@@ -47,8 +46,8 @@ class SearchSchema(BaseModel):
 class SkillsResponseSchema(BaseModel):
     vacancy_name: str
     number_of_vacancies: int
-    rated_skills: List[List[Union[int, str]]]
+    rated_skills: list[list[int | str]]
 
 
 class VacanciesResponseSchema(BaseModel):
-    vacancies: List[List[Union[HttpUrl, List[Union[int, str]]]]]
+    vacancies: list[list[HttpUrl | list[int | str]]]

@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from django.views.generic import ListView
 
-from scrapers.models import Search, Vacancy
+from .models import Search, Vacancy
 
 
 class SearchResultsListView(ListView):
@@ -25,11 +25,18 @@ class SearchResultsListView(ListView):
         if query is None:
             return {}
         ip_address = self.request.META.get("REMOTE_ADDR")
-        user_agent = self.request.META.get("HTTP_USER_AGENT")
+        user_agent = self.request.headers.get("User-Agent")
         # Save the search query for future analysis.
         Search.objects.create(query=query, ip_address=ip_address, user_agent=user_agent)
         # From here, the main skill collection process continues.
-        suitable_vacancies = Vacancy.objects.filter(search_vector=query)
+        suitable_vacancies = Vacancy.objects.filter(title__search=query)
+
+        # SearchVector is currently disabled as it does not work properly on AWS RDS due to lack of
+        # pg_catalog.english support from the migrations file. Retaled discussions:
+        # https://stackoverflow.com/q/40032685/10748367
+        # https://forums.aws.amazon.com/thread.jspa?threadID=143920
+        # suitable_vacancies = Vacancy.objects.filter(search_vector=query)
+
         # Get skills for each vacancy and convert it from str to dict.
         rated_skills_to_merge = (json.loads(vacancy.rated_skills) for vacancy in suitable_vacancies)
         # Combine skills from all suitable vacancies into one dict.

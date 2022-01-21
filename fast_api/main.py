@@ -1,17 +1,15 @@
-from typing import Tuple
-
 from django.conf import settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from fast_api.v2.routers import api_router_v2
+from .v2.routers import api_router_v2
 
 API_VERSIONS_ROUTERS = {
     "v2": api_router_v2,
 }
 
 
-def create_application(api_versions: Tuple[str] = ("v2",)) -> FastAPI:
+def create_application(api_versions: tuple[str] = ("v2",)) -> FastAPI:
     application = FastAPI(
         title="SkillHunter API",
         description="""This is a public API for obtaining either the skills required for

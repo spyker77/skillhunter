@@ -2,8 +2,8 @@ import pytest
 from django.core.cache import cache
 from django.urls import reverse
 
-from resume_analyzer.forms import UploadResumeForm
-from resume_analyzer.views import upload_resume
+from .forms import UploadResumeForm
+from .views import upload_resume
 
 
 @pytest.mark.django_db

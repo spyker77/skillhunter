@@ -12,11 +12,7 @@ class TestSkillViewSet:
 
     @pytest.fixture(autouse=True)
     def override_redis_cache(self, settings):
-        settings.CACHES = {
-            "default": {
-                "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-            }
-        }
+        settings.CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
     @pytest.fixture
     def response(self, client):

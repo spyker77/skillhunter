@@ -1,8 +1,9 @@
 from asgiref.sync import sync_to_async
 from fastapi import Request
 
-from fast_api.v2.schemas import SearchSchema
 from scrapers.models import Search
+
+from .schemas import SearchSchema
 
 
 async def save_query_with_meta_data(request: Request, query: str) -> None:

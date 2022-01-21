@@ -1,8 +1,8 @@
 import pdftotext
 from django.shortcuts import render
 
-from resume_analyzer.analyzer import analyze_resume
-from resume_analyzer.forms import UploadResumeForm
+from .analyzer import analyze_resume
+from .forms import UploadResumeForm
 
 
 def upload_resume(request):

@@ -1,9 +1,9 @@
 import json
 from collections import defaultdict
-from typing import DefaultDict, Dict, Generator, List, Tuple
+from typing import DefaultDict, Generator
 
 
-def _combine_rated_skills(rated_skills_to_merge: Generator[Dict[str, int], None, None]) -> DefaultDict[str, List[int]]:
+def _combine_rated_skills(rated_skills_to_merge: Generator[dict[str, int], None, None]) -> DefaultDict[str, list[int]]:
     # Combine skills from all suitable vacancies into one dict.
     super_dict = defaultdict(list)
     for rated_skills in rated_skills_to_merge:
@@ -13,7 +13,7 @@ def _combine_rated_skills(rated_skills_to_merge: Generator[Dict[str, int], None,
     return super_dict
 
 
-def sort_skills(serialized_data: List) -> List[Tuple[str, int]]:
+def sort_skills(serialized_data: list) -> list[tuple[str, int]]:
     # Get rated skills for each vacancy and convert it from str to dict.
     rated_skills_to_merge = (json.loads(vacancy.get("rated_skills")) for vacancy in serialized_data)
     super_dict = _combine_rated_skills(rated_skills_to_merge)

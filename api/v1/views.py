@@ -6,8 +6,9 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from api.v1.serializers import VacancySerializer
 from scrapers.models import Search, Vacancy
+
+from .serializers import VacancySerializer
 
 
 class SkillViewSet(viewsets.ViewSet):
@@ -36,7 +37,7 @@ class SkillViewSet(viewsets.ViewSet):
         if query is None:
             return query, limit
         ip_address = self.request.META.get("REMOTE_ADDR")
-        user_agent = self.request.META.get("HTTP_USER_AGENT")
+        user_agent = self.request.headers.get("User-Agent")
         # Additionally, save the search query for future analysis.
         Search.objects.create(query=query, ip_address=ip_address, user_agent=user_agent)
         return query, limit

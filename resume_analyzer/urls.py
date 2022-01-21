@@ -1,7 +1,7 @@
 from django.urls import path
 
-from resume_analyzer import views
+from .views import upload_resume
 
 urlpatterns = [
-    path("", views.upload_resume, name="tailored_vacancies"),
+    path("", upload_resume, name="tailored_vacancies"),
 ]

@@ -4,7 +4,6 @@ import logging.config
 import random
 import re
 from collections import Counter
-from typing import Dict, List, Set
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
@@ -17,8 +16,8 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from scrapers.management.logging_config import LOGGING
-from scrapers.management.utils import get_user_agent
+from .logging_config import LOGGING
+from .utils import get_user_agent
 
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger()
@@ -44,9 +43,12 @@ def check_subscription_popup(driver: webdriver):
         WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
             EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
         )
-        close_alert = driver.find_element_by_xpath('//*[@id="popover-x"]')
-        webdriver.ActionChains(driver).move_to_element(close_alert).perform()
-        close_alert.click()
+        WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]'))
+        )
+        close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
+        webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
+        close_alert_button.click()
     except TimeoutException:
         # If there is no pop-up, do nothing and continue the flow.
         pass
@@ -54,10 +56,10 @@ def check_subscription_popup(driver: webdriver):
 
 def scan_all_search_results(job_title: str):
     # Scan each search page for vacancy links and continue while the Next button is presented.
-    all_links: Set[str] = set()
+    all_links: set[str] = set()
     driver = initialize_webdriver()
     try:
-        payload = {"q": f"title:({job_title})", "fromage": 1, "filter": 0}
+        payload = {"q": f"title:({job_title})", "fromage": 7, "filter": 0}
         driver.get("https://www.indeed.com/jobs?" + urlencode(payload))
         while True:
             check_subscription_popup(driver)
@@ -65,9 +67,9 @@ def scan_all_search_results(job_title: str):
             html = driver.page_source
             soup = BeautifulSoup(html, "html.parser")
             all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
-            links = set(
+            links = {
                 "https://www.indeed.com/viewjob?jk=" + vacancy["href"].split("jk=")[-1] for vacancy in all_vacancies
-            )
+            }
             # Exit if we started collecting the same links or vacancies are not displayed at all.
             if links.issubset(all_links):
                 return all_links
@@ -104,7 +106,7 @@ def fetch_vacancy_page(link: str, driver: webdriver):
         return None
 
 
-def fetch_all_vacancy_pages(all_links: Set[str], indeed_links_we_already_have: List[str]):
+def fetch_all_vacancy_pages(all_links: set[str], indeed_links_we_already_have: list[str]):
     # Parse all the vacancy pages one by one.
     driver = initialize_webdriver()
     try:
@@ -119,7 +121,7 @@ def fetch_all_vacancy_pages(all_links: Set[str], indeed_links_we_already_have: L
         driver.quit()
 
 
-def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_processor: KeywordProcessor):
+def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_processor: KeywordProcessor):
     # Extract keywords from the content of the vacancy and count each keyword.
     try:
         content = vacancy_without_skills["content"]
@@ -137,7 +139,7 @@ def process_vacancy_content(vacancy_without_skills: Dict[str, str], keyword_proc
         return None
 
 
-def main(job_title: str, indeed_links_we_already_have: List[str], skills: Dict[str, List[str]]):
+def main(job_title: str, indeed_links_we_already_have: list[str], skills: dict[str, list[str]]):
     # Main flow of parsing the vacancies and counting the relevant skills.
     all_links = scan_all_search_results(job_title)
     vacancies_without_skills = fetch_all_vacancy_pages(all_links, indeed_links_we_already_have)
