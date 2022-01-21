@@ -41,10 +41,6 @@ FROM python:3.10-slim-buster
 ENV APP_HOME=/code
 WORKDIR $APP_HOME
 
-# Create the app user
-RUN addgroup --system app \
-    && adduser --system --group app
-
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -71,9 +67,3 @@ RUN pip install --upgrade pip \
 
 # Copy the project
 COPY . .
-
-# Chown all the files to the app user
-RUN chown -R app:app $APP_HOME
-
-# Change to the app user
-USER app
