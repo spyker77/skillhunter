@@ -28,34 +28,34 @@ Update environment variables inside the docker-compose.yml and run the following
 Due to a forced HTTPS in production, it might be a good idea to start with **ENVIRONMENT=development** in .env file – this will allow you to avoid SSL related errors.
 
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 On the first run you need to apply migrations to the fresh database:
 
 ```bash
-docker compose exec -u root web python manage.py migrate
+docker-compose exec web python manage.py migrate
 ```
 
 Note that in order to see the work in full color, you also need to fill the database once by loading the list of job titles to parse and skills to identify...
 
 ```bash
-docker compose exec web python manage.py loaddata jobs.json
-docker compose exec web python manage.py loaddata skills.json
+docker-compose exec web python manage.py loaddata jobs.json
+docker-compose exec web python manage.py loaddata skills.json
 ```
 
 ...and run scrapers to collect initial data on available vacancies...
 
 ```bash
-docker compose exec web python manage.py scrape_hh
-docker compose exec web python manage.py scrape_indeed
-docker compose exec web python manage.py scrape_sh
+docker-compose exec web python manage.py scrape_hh
+docker-compose exec web python manage.py scrape_indeed
+docker-compose exec web python manage.py scrape_sh
 ```
 
 ...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
 
 ```bash
-docker compose exec web python manage.py purge_db
+docker-compose exec web python manage.py purge_db
 ```
 
 **Tada** 🎉
@@ -63,7 +63,7 @@ docker compose exec web python manage.py purge_db
 By now you should be up and running. Try to reach the <http://localhost> in your browser. In order to run tests, try this:
 
 ```bash
-docker compose exec web pytest -n auto --cov="." --cov-report=term-missing
+docker-compose exec web pytest -n auto --cov="." --cov-report=term-missing
 ```
 
 ## Tech Stack
