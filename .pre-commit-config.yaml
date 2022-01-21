@@ -1,19 +1,47 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.31.0
+    hooks:
+      - id: pyupgrade
+        name: upgrade python syntax for newer version
+        args: [--py310-plus]
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.4.0
+    hooks:
+      - id: django-upgrade
+        name: upgrade django project by fixing deprecations
+        args: [--target-version, "4.0"]
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.1
+    hooks:
+      - id: bandit
+        name: check code for security issues
+        exclude: tests|migrations
   - repo: local
     hooks:
-      - id: flake8
-        name: Run flake8
-        entry: flake8 .
-        language: python
-        files: \.py$
       - id: black
-        name: Run black
+        name: format code with black
         entry: black .
         language: python
         files: \.py$
         exclude: migrations
       - id: isort
-        name: Run isort
+        name: sort imports with isort
         entry: isort .
+        language: python
+        files: \.py$
+      - id: flake8
+        name: lint code with flake8
+        entry: flake8 .
         language: python
         files: \.py$
