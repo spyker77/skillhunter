@@ -5,18 +5,17 @@ services:
   web:
     env_file:
       - .env.prod
-    platform: linux/amd64
+    platform: linux/arm64
     image: 771499844454.dkr.ecr.eu-central-1.amazonaws.com/skillhunter-ec2:latest
-    build: .
-    command: sh -c "python manage.py collectstatic --clear --noinput && gunicorn
-      config.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker"
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    command: gunicorn core.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
     volumes:
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     expose:
       - 8000
-    depends_on:
-      - db
 
   nginx:
     build:
