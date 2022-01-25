@@ -1,5 +1,5 @@
 import pdftotext
-from fastapi import APIRouter, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, HTTPException, UploadFile, status
 
 from resume_analyzer.analyzer import analyze_resume
 
@@ -13,7 +13,7 @@ router = APIRouter()
     response_model=VacanciesResponseSchema,
     description="Upload resume in PDF and get tailored vacancies.",
 )
-def show_tailored_vacancies(resume: UploadFile = File(...)):
+def show_tailored_vacancies(resume: UploadFile):
     try:
         tailored_vacancies = analyze_resume(resume.file)
     except pdftotext.Error:
