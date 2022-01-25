@@ -15,6 +15,7 @@ class TestSearchResultsListView:
     data = {"q": "test search query"}
     query = data.get("q")
     ip_address = "9.9.9.9"
+    x_forwarded_for = "90.90.90.90"
     user_agent = "Test User-Agent"
 
     @pytest.fixture
@@ -40,6 +41,18 @@ class TestSearchResultsListView:
         response = SearchResultsListView.as_view()(request)
         return response
 
+    @pytest.fixture
+    def response_with_x_forwarded_for(self, rf):
+        request = rf.get(
+            self.url,
+            self.data,
+            follow=True,
+            HTTP_X_FORWARDED_FOR=self.x_forwarded_for,
+            HTTP_USER_AGENT=self.user_agent,
+        )
+        response = SearchResultsListView.as_view()(request)
+        return response
+
     def test_searchresultslistview_status_code(self, response):
         assert response.status_code == 200
 
@@ -56,6 +69,15 @@ class TestSearchResultsListView:
         new_search_object = Search.objects.filter(user_agent=self.user_agent)
         assert new_search_object[0].query == self.query
         assert new_search_object[0].ip_address == self.ip_address
+        assert new_search_object[0].user_agent == self.user_agent
+
+    def test_searchresultslistview_creates_new_search_object_with_x_forwarded_for(
+        self,
+        response_with_x_forwarded_for,
+    ):
+        new_search_object = Search.objects.filter(user_agent=self.user_agent)
+        assert new_search_object[0].query == self.query
+        assert new_search_object[0].ip_address == self.x_forwarded_for
         assert new_search_object[0].user_agent == self.user_agent
 
     def test_searchresultslistview_combines_rated_skills(self):

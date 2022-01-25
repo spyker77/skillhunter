@@ -24,8 +24,12 @@ class SearchResultsListView(ListView):
         # Handler for crawlers that reach the path without the q parameter.
         if query is None:
             return {}
-        ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.headers.get("User-Agent")
+        # Either get the IP address from the HTTP_X_FORWARDED_FOR or from the REMOTE_ADDR header.
+        if x_forwarded_for := self.request.headers.get("X-Forwarded-For"):
+            ip_address = x_forwarded_for.split(", ")[0]
+        else:
+            ip_address = self.request.META.get("REMOTE_ADDR")
         # Save the search query for future analysis.
         Search.objects.create(query=query, ip_address=ip_address, user_agent=user_agent)
         # From here, the main skill collection process continues.

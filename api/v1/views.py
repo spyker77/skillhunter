@@ -36,8 +36,12 @@ class SkillViewSet(viewsets.ViewSet):
         limit = self.request.query_params.get("limit")
         if query is None:
             return query, limit
-        ip_address = self.request.META.get("REMOTE_ADDR")
         user_agent = self.request.headers.get("User-Agent")
+        # Either get the IP address from the HTTP_X_FORWARDED_FOR or from the REMOTE_ADDR header.
+        if x_forwarded_for := self.request.headers.get("X-Forwarded-For"):
+            ip_address = x_forwarded_for.split(", ")[0]
+        else:
+            ip_address = self.request.META.get("REMOTE_ADDR")
         # Additionally, save the search query for future analysis.
         Search.objects.create(query=query, ip_address=ip_address, user_agent=user_agent)
         return query, limit

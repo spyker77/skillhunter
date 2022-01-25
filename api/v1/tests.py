@@ -8,6 +8,7 @@ class TestSkillViewSet:
     data = {"q": "python developer", "limit": 20, "format": "json"}
     query = data.get("q")
     ip_address = "9.9.9.9"
+    x_forwarded_for = "90.90.90.90"
     user_agent = "Test User-Agent"
 
     @pytest.fixture(autouse=True)
@@ -35,8 +36,25 @@ class TestSkillViewSet:
         )
         return error_response
 
+    @pytest.fixture
+    def response_with_x_forwarded_for(self, client):
+        response = client.get(
+            self.url,
+            self.data,
+            follow=True,
+            HTTP_X_FORWARDED_FOR=self.x_forwarded_for,
+            HTTP_USER_AGENT=self.user_agent,
+        )
+        return response
+
     def test_skillviewset_has_correct_status_code(self, response):
         assert response.status_code == 200
+
+    def test_skillviewset_has_correct_status_code_when_ip_address_in_x_forwarded_for(
+        self,
+        response_with_x_forwarded_for,
+    ):
+        assert response_with_x_forwarded_for.status_code == 200
 
     def test_skillviewset_has_correct_data_content(self, response):
         assert response.json()["vacancy_name"] == self.query
