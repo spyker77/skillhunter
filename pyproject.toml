@@ -35,12 +35,12 @@ name = "SkillHunter"
 version = "2.0.0"
 
 [tool.poetry.dependencies]
-Django = "^4.0"
-Faker = "^11.1.0"
+Django = "^4.0.1"
+Faker = "^11.3.0"
 Jinja2 = "^3.0.3"
 aiohttp = "^3.8.1"
 beautifulsoup4 = "^4.10.0"
-boto3 = "^1.20.32"
+boto3 = "^1.20.42"
 django-csp = "^3.7"
 django-debug-toolbar = "^3.2.4"
 django-linear-migrations = "^2.3.0"
@@ -51,7 +51,7 @@ djangorestframework = "^3.13.1"
 djangorestframework-xml = "^2.0.0"
 djangorestframework-yaml = "^2.0.0"
 drf-spectacular = "^0.21.1"
-fastapi = "^0.72.0"
+fastapi = "^0.73.0"
 flashtext = "^2.7"
 gunicorn = "^20.1.0"
 pdftotext = "^2.2.2"
@@ -59,11 +59,11 @@ psycopg2-binary = "^2.9.3"
 python = "^3.10"
 python-multipart = "^0.0.5"
 qrcode = "^7.3.1"
-redis = {extras = ["hiredis"], version = "^4.1.0"}
-requests = "^2.26.0"
+redis = {extras = ["hiredis"], version = "^4.1.1"}
+requests = "^2.27.1"
 selenium = "^4.1.0"
-sentry-sdk = "^1.5.1"
-uvicorn = {extras = ["standard"], version = "^0.16.0"}
+sentry-sdk = "^1.5.3"
+uvicorn = {extras = ["standard"], version = "^0.17.0.post1"}
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
