@@ -40,15 +40,15 @@ def initialize_webdriver():
 
 def check_subscription_popup(driver: webdriver):
     # Check if there is a subscription popup, then close it.
-    WebDriverWait(driver, 5, ignored_exceptions=TimeoutException).until(
-        EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
-    )
-    WebDriverWait(driver, 5, ignored_exceptions=TimeoutException).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]'))
-    )
-    close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
-    webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
-    close_alert_button.click()
+    try:
+        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]')))
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]')))
+        close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
+        webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
+        close_alert_button.click()
+    except TimeoutException:
+        # If there is no pop-up, do nothing and continue the flow.
+        pass
 
 
 def scan_all_search_results(job_title: str):
