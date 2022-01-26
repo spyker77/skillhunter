@@ -4,6 +4,7 @@ import logging
 import logging.config
 import re
 from collections import Counter
+from secrets import SystemRandom
 
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import (
@@ -90,6 +91,8 @@ async def fetch_vacancy_page(link: str, session: ClientSession):
                 title = soup.find(attrs={"data-qa": "vacancy-title"}).text
                 content = soup.find(attrs={"data-qa": "vacancy-description"}).text
                 vacancy_page = {"url": link, "title": title, "content": content}
+                timeout = SystemRandom().uniform(1.0, 5.0)
+                await asyncio.sleep(timeout)
                 return vacancy_page
         except AttributeError:
             logger.warning(f"🚨 AttributeError occurred while fetching: {link}")

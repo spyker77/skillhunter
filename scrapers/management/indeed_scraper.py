@@ -1,9 +1,10 @@
 import json
 import logging
 import logging.config
-import random
 import re
 from collections import Counter
+from secrets import SystemRandom
+from time import sleep
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
@@ -39,19 +40,15 @@ def initialize_webdriver():
 
 def check_subscription_popup(driver: webdriver):
     # Check if there is a subscription popup, then close it.
-    try:
-        WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
-            EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
-        )
-        WebDriverWait(driver, random.SystemRandom().uniform(2.0, 5.0)).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]'))
-        )
-        close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
-        webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
-        close_alert_button.click()
-    except TimeoutException:
-        # If there is no pop-up, do nothing and continue the flow.
-        pass
+    WebDriverWait(driver, 5, ignored_exceptions=TimeoutException).until(
+        EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]'))
+    )
+    WebDriverWait(driver, 5, ignored_exceptions=TimeoutException).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]'))
+    )
+    close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
+    webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
+    close_alert_button.click()
 
 
 def scan_all_search_results(job_title: str):
@@ -100,6 +97,8 @@ def fetch_vacancy_page(link: str, driver: webdriver):
         title = soup.find(attrs={"class": "jobsearch-JobInfoHeader-title-container"}).text
         content = soup.find(attrs={"class": "jobsearch-jobDescriptionText"}).text
         vacancy_page = {"url": link, "title": title, "content": content}
+        timeout = SystemRandom().uniform(1.0, 5.0)
+        sleep(timeout)
         return vacancy_page
     except AttributeError:
         logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
