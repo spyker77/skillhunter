@@ -17,12 +17,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ast.literal_eval(os.getenv("DEBUG", default="False"))
 
-ALLOWED_HOSTS = [
-    "skillhunter.app",
-    "3.125.98.119",
-    "127.0.0.1",
-    "localhost",
-]
+DEFAULT_HOSTS = "localhost,0.0.0.0,127.0.0.1"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", default=DEFAULT_HOSTS).split(",")
 
 SITE_ID = 1
 
