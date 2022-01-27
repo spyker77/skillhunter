@@ -6,11 +6,8 @@
 FROM python:3.10-slim-buster as builder
 
 # Set working directory
-WORKDIR /code
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV APP_HOME=/code
+WORKDIR $APP_HOME
 
 # Install system dependencies
 RUN apt-get update \
@@ -19,15 +16,24 @@ RUN apt-get update \
     libpq-dev \
     libpoppler-cpp-dev \
     pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+    curl \
+    tar \
+    # Install Rust
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    && export PATH="$HOME/.cargo/bin:$PATH" \
+    # Compile geckodriver from source using cargo
+    && curl -o v0.30.0.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v0.30.0.tar.gz \
+    && tar -xzf v0.30.0.tar.gz \
+    && cd geckodriver-0.30.0 \
+    && cargo build --release \
+    && mv target/release/geckodriver $APP_HOME/geckodriver
 
 # Install project dependencies
-COPY poetry.lock .
-COPY pyproject.toml .
+COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry export --format requirements.txt --output requirements.txt --without-hashes \
-    && pip wheel --no-cache-dir --no-deps --wheel-dir /code/wheels -r requirements.txt
+    && pip wheel --no-cache-dir --no-deps --wheel-dir $APP_HOME/wheels -r requirements.txt
 
 
 #########
@@ -36,6 +42,10 @@ RUN pip install --upgrade pip \
 
 # Pull base image
 FROM python:3.10-slim-buster
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set working directory
 ENV APP_HOME=/code
@@ -49,21 +59,15 @@ RUN apt-get update \
     libpoppler-cpp-dev \
     pkg-config \
     firefox-esr \
-    wget \
-    tar \
-    # Package required for converting uploaded resumes to pdf >>> resume_analyzer.analyzer.convert_to
-    # libreoffice \
-    && wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
-    && tar -x geckodriver -zf geckodriver-v0.30.0-linux64.tar.gz -O > /usr/bin/geckodriver \
-    && chmod +x /usr/bin/geckodriver \
-    && rm geckodriver-v0.30.0-linux64.tar.gz \
     && rm -rf /var/lib/apt/lists/*
 
-# Install project dependencies from wheels
+# Install project dependencies
 COPY --from=builder $APP_HOME/wheels /wheels
 COPY --from=builder $APP_HOME/requirements.txt .
+COPY --from=builder $APP_HOME/geckodriver /usr/bin/geckodriver
 RUN pip install --upgrade pip \
-    && pip install --no-cache /wheels/*
+    && pip install --no-cache /wheels/* \
+    && chmod +x /usr/bin/geckodriver
 
 # Copy the project
 COPY . .
