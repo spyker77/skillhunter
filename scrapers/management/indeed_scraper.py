@@ -12,8 +12,8 @@ from flashtext import KeywordProcessor
 from selenium import webdriver
 from selenium.common.exceptions import MoveTargetOutOfBoundsException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -26,14 +26,13 @@ logger = logging.getLogger()
 
 def initialize_webdriver():
     # Run webdriver with a new user agent each time it starts.
-    firefox_options = FirefoxOptions()
-    firefox_options.headless = True
-    profile = FirefoxProfile()
-    profile.set_preference("general.useragent.override", get_user_agent())
-    profile.set_preference("dom.webdriver.enabled", False)
-    profile.set_preference("useAutomationExtension", False)
-    profile.update_preferences()
-    driver = webdriver.Firefox(firefox_profile=profile, options=firefox_options, service_log_path="/dev/null")
+    service = Service(log_path="/dev/null")
+    options = Options()
+    options.headless = True
+    options.set_preference("general.useragent.override", get_user_agent())
+    options.set_preference("dom.webdriver.enabled", False)
+    options.set_preference("useAutomationExtension", False)
+    driver = webdriver.Firefox(service=service, options=options)
     driver.maximize_window()
     return driver
 
@@ -43,7 +42,7 @@ def check_subscription_popup(driver: webdriver):
     try:
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]')))
         WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]')))
-        close_alert_button = driver.find_element_by_xpath('//*[@id="popover-x"]')
+        close_alert_button = driver.find_element(By.XPATH, '//*[@id="popover-x"]')
         webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
         close_alert_button.click()
     except TimeoutException:
@@ -76,7 +75,7 @@ def scan_all_search_results(job_title: str):
                 return all_links
             # Otherwise, continue with normal flow.
             else:
-                next_button = driver.find_element_by_css_selector('[aria-label="Next"]')
+                next_button = driver.find_element(By.CSS_SELECTOR, '[aria-label="Next"]')
                 webdriver.ActionChains(driver).move_to_element(next_button).perform()
                 next_button.click()
     except MoveTargetOutOfBoundsException:
