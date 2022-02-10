@@ -243,6 +243,68 @@ SPECTACULAR_SETTINGS = {
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG}
 
 
+# Logging
+# https://docs.djangoproject.com/en/4.0/topics/logging/
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+        },
+        "django.security.DisallowedHost": {
+            "handlers": ["console", "mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console", "mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.server": {
+            "handlers": ["django.server"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
+
+
 # Production settings
 if ENVIRONMENT == "production":
     X_FRAME_OPTIONS = "DENY"
@@ -259,9 +321,12 @@ if ENVIRONMENT == "production":
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_HTTPONLY = True
     CSRF_COOKIE_NAME = "__Secure-csrftoken"
-    # Django error and performance monitoring with Sentry
+    # Django error and performance monitoring with Sentry.
+    # https://docs.sentry.io/platforms/python/django/
     sentry_sdk.init(
         dsn=os.getenv("SENTRY_DSN"),
+        # Notice: DjangoIntegration is enabled by default thanks to auto_enabling_integrations,
+        # LoggingIntegration is enabled by default thanks to default_integrations.
         integrations=[RedisIntegration()],
         traces_sample_rate=1.0,
         send_default_pii=True,
