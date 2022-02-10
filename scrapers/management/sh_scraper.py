@@ -1,7 +1,6 @@
 import asyncio
 import json
 import logging
-import logging.config
 import re
 from collections import Counter
 from secrets import SystemRandom
@@ -16,11 +15,9 @@ from aiohttp.client_exceptions import (
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
 
-from .logging_config import LOGGING
 from .utils import get_user_agent
 
-logging.config.dictConfig(LOGGING)
-logger = logging.getLogger()
+logger = logging.getLogger("django")
 
 
 async def scan_single_search_page(job_title: str, page_num: int, session: ClientSession):

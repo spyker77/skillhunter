@@ -1,6 +1,5 @@
 import json
 import logging
-import logging.config
 import re
 from collections import Counter
 from secrets import SystemRandom
@@ -17,11 +16,9 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from .logging_config import LOGGING
 from .utils import get_user_agent
 
-logging.config.dictConfig(LOGGING)
-logger = logging.getLogger()
+logger = logging.getLogger("django")
 
 
 def initialize_webdriver():

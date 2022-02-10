@@ -1,17 +1,14 @@
 import ast
 import logging
-import logging.config
 import random
 
 from django.core.management.base import BaseCommand
 from django.db import OperationalError
 
 from scrapers.management.indeed_scraper import main
-from scrapers.management.logging_config import LOGGING
 from scrapers.models import Job, Skill, Vacancy
 
-logging.config.dictConfig(LOGGING)
-logger = logging.getLogger()
+logger = logging.getLogger("django")
 
 
 class Command(BaseCommand):
