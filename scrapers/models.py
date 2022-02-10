@@ -44,7 +44,7 @@ class Job(models.Model):
     def get_absolute_url(self):
         job_title = self.title.lower()
         query = {"q": job_title}
-        link_for_sitemap = reverse("search_results") + "?" + urlencode(query)
+        link_for_sitemap = reverse("search-results") + "?" + urlencode(query)
         return link_for_sitemap
 
     class Meta:

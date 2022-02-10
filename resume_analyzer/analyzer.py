@@ -7,7 +7,6 @@ import pdftotext
 from django.core.cache import cache
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from flashtext import KeywordProcessor
-from pydantic import HttpUrl
 
 from scrapers.models import Skill, Vacancy
 
@@ -67,7 +66,7 @@ def find_suitable_vacancies(skills_in_resume: set[str]) -> Generator[dict[str, s
 
 def sort_suitable_vacancies(
     skills_in_resume: set[str], suitable_vacancies: Generator[dict[str, str], None, None]
-) -> list[tuple[HttpUrl, tuple[str, int]]]:
+) -> list[tuple[str, tuple[str, int]]]:
     # Find how many skills from resume are present in rated skills of vacancies and sort the result.
     weighted_vacancies: dict = {}
     for vacancy in suitable_vacancies:
@@ -82,16 +81,32 @@ def sort_suitable_vacancies(
         reverted_dict.setdefault(value, set()).add(key)
     unique_vacancies = {list(value)[0]: key for key, value in reverted_dict.items()}
     # Sort by the most relevant vacancies and return their titles with links.
-    tailored_vacancies = sorted(unique_vacancies.items(), key=lambda x: x[1][1], reverse=True)[:200]
+    tailored_vacancies = sorted(unique_vacancies.items(), key=lambda x: x[1][1], reverse=True)
     return tailored_vacancies
+
+
+def put_tailored_vacancies_in_dicts(
+    tailored_vacancies: list[tuple[str, tuple[str, int]]]
+) -> list[dict[str, str | int]]:
+    # Put the tailored vacancies in dicts for easier access.
+    dicted_tailored_vacancies = [
+        {
+            "url": vacancy[0],
+            "title": vacancy[1][0],
+            "skills_frequency": vacancy[1][1],
+        }
+        for vacancy in tailored_vacancies
+    ]
+    return dicted_tailored_vacancies
 
 
 def analyze_resume(
     resume_in_memory: SpooledTemporaryFile | InMemoryUploadedFile,
-) -> list[tuple[HttpUrl, tuple[str, int]]]:
+) -> list[dict[str, str | int]]:
     # Main pipeline for processing the uploaded resume.
     text_from_resume = extract_text_from_resume(resume_in_memory)
     skills_in_resume = find_skills_in_resume(text_from_resume)
     suitable_vacancies = find_suitable_vacancies(skills_in_resume)
     tailored_vacancies = sort_suitable_vacancies(skills_in_resume, suitable_vacancies)
-    return tailored_vacancies
+    dicted_tailored_vacancies = put_tailored_vacancies_in_dicts(tailored_vacancies)
+    return dicted_tailored_vacancies

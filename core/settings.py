@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Third party apps
     "debug_toolbar",
     "rest_framework",
+    "rest_framework.authtoken",
     "drf_spectacular",
     "django_otp",
     "django_otp.plugins.otp_totp",
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
     "scrapers",
     "pages",
     "api",
-    "fast_api",
 ]
 
 MIDDLEWARE = [
@@ -113,12 +113,21 @@ DATABASES = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
+# Cache
+# https://docs.djangoproject.com/en/4.0/ref/settings/#caches
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL", default="redis://redis:6379"),
+        "LOCATION": os.getenv("REDIS_URL", default="redis://redis"),
     }
 }
+
+
+# Celery
+# https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", default="amqp://rabbitmq")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", default="redis://redis")
 
 
 # Password validation
@@ -143,7 +152,6 @@ USE_TZ = True
 # https://github.com/adamchainz/django-permissions-policy
 PERMISSIONS_POLICY = {
     "accelerometer": [],
-    "ambient-light-sensor": [],
     "autoplay": [],
     "camera": [],
     "document-domain": [],
@@ -209,21 +217,21 @@ FIXTURE_DIRS = ["test_fixtures"]
 # Django REST framework
 # https://www.django-rest-framework.org/#installation
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.TokenAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
-    "DEFAULT_PARSER_CLASSES": (
-        "rest_framework_xml.parsers.XMLParser",
-        "rest_framework_yaml.parsers.YAMLParser",
-    ),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"anon": "100/minute", "user": "1000/minute"},
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
-        "rest_framework_xml.renderers.XMLRenderer",
-        "rest_framework_yaml.renderers.YAMLRenderer",
     ),
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "PAGE_SIZE": 10,
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
 }
 
 
@@ -231,10 +239,10 @@ REST_FRAMEWORK = {
 # https://drf-spectacular.readthedocs.io/en/latest/index.html
 SPECTACULAR_SETTINGS = {
     "TITLE": "SkillHunter API",
-    "DESCRIPTION": """Returns a list of rated skills ordered by number of
-    occurrences in vacancies description, including the job title and number of
-    vacancies analyzed.""",
+    "DESCRIPTION": """This is a public API for obtaining either the skills required for a
+    particular job or a vacancies tailored to the resume provided, plus related low-level endpoints.""",
     "VERSION": "",
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 

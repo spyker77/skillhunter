@@ -12,17 +12,17 @@ learn in order to get hired faster.{% endblock description %}
         <div class="text-center text-4xl font-medium pt-2 pb-5">👇</div>
         {% for vacancy in vacancies %}
         <p class="text-center text-lg font-semibold pb-2">
-            <a href="{{ vacancy.0 }}" class="hover:text-fuchsia-500 transition ease-in duration-200" target="_blank"
-                rel="noopener">{{ vacancy.1.0 }}</a> –
+            <a href="{{ vacancy.url }}" class="hover:text-fuchsia-500 transition ease-in duration-200" target="_blank"
+                rel="noopener">{{ vacancy.title }}</a> –
             <span
                 class="rounded-full bg-fuchsia-500 text-white text-sm px-3 py-1 shadow-md shadow-fuchsia-500/20 hover:shadow-xl hover:shadow-fuchsia-500/50 transition ease-in duration-200">
-                {{ vacancy.1.1 }}
+                {{ vacancy.skills_frequency }}
             </span>
         </p>
         {% endfor %}
         {% else %}
         <h1 class="text-center text-4xl pb-5">😩</h1>
-        <p class="text-center text-gray-600 pb-8">Oh no, it looks like we can’t tailor vacancies right now...</p>
+        <p class="text-center text-gray-600 pb-8">Oh no, it looks like we can't tailor vacancies right now...</p>
         <div class="text-center">
             <a class="bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white py-2 px-4 border border-fuchsia-500 hover:border-transparent rounded-full shadow-lg shadow-fuchsia-500/20 hover:shadow-2xl hover:shadow-fuchsia-500/50 transition ease-in duration-200"
                 href="{{ url ('home') }}" role="button">Try again</a>

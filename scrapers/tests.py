@@ -4,6 +4,8 @@ from urllib.parse import urlencode, urlparse
 import pytest
 from django.urls import reverse
 
+from core.tasks import save_query_with_metadata
+
 from .apps import ScrapersConfig
 from .models import Job, Search, Skill, Vacancy
 from .views import SearchResultsListView
@@ -11,7 +13,7 @@ from .views import SearchResultsListView
 
 @pytest.mark.django_db
 class TestSearchResultsListView:
-    url = reverse("search_results")
+    url = reverse("search-results")
     data = {"q": "test search query"}
     query = data.get("q")
     ip_address = "9.9.9.9"
@@ -19,7 +21,11 @@ class TestSearchResultsListView:
     user_agent = "Test User-Agent"
 
     @pytest.fixture
-    def response(self, rf):
+    def response(self, rf, monkeypatch):
+        def mock_delay(query, user_agent, ip_address):
+            return None
+
+        monkeypatch.setattr(save_query_with_metadata, "delay", mock_delay)
         request = rf.get(
             self.url,
             self.data,
@@ -31,18 +37,11 @@ class TestSearchResultsListView:
         return response
 
     @pytest.fixture
-    def empty_response(self, rf):
-        request = rf.get(
-            self.url,
-            follow=True,
-            REMOTE_ADDR=self.ip_address,
-            HTTP_USER_AGENT=self.user_agent,
-        )
-        response = SearchResultsListView.as_view()(request)
-        return response
+    def response_with_x_forwarded_for(self, rf, monkeypatch):
+        def mock_delay(query, user_agent, ip_address):
+            return None
 
-    @pytest.fixture
-    def response_with_x_forwarded_for(self, rf):
+        monkeypatch.setattr(save_query_with_metadata, "delay", mock_delay)
         request = rf.get(
             self.url,
             self.data,
@@ -53,10 +52,16 @@ class TestSearchResultsListView:
         response = SearchResultsListView.as_view()(request)
         return response
 
-    def test_searchresultslistview_status_code(self, response):
+    def test_searchresultslistview_has_correct_status_code(self, response):
         assert response.status_code == 200
 
-    def test_searchresultslistview_template(self, response):
+    def test_searchresultslistview_has_correct_status_code_when_ip_address_in_x_forwarded_for(
+        self,
+        response_with_x_forwarded_for,
+    ):
+        assert response_with_x_forwarded_for.status_code == 200
+
+    def test_searchresultslistview_uses_correct_template(self, response):
         assert "search_results.html" in response.template_name
 
     def test_searchresultslistview_contains_correct_html(self, response):
@@ -64,41 +69,6 @@ class TestSearchResultsListView:
 
     def test_searchresultslistview_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.rendered_content
-
-    def test_searchresultslistview_creates_new_search_object(self, response):
-        new_search_object = Search.objects.filter(user_agent=self.user_agent)
-        assert new_search_object[0].query == self.query
-        assert new_search_object[0].ip_address == self.ip_address
-        assert new_search_object[0].user_agent == self.user_agent
-
-    def test_searchresultslistview_creates_new_search_object_with_x_forwarded_for(
-        self,
-        response_with_x_forwarded_for,
-    ):
-        new_search_object = Search.objects.filter(user_agent=self.user_agent)
-        assert new_search_object[0].query == self.query
-        assert new_search_object[0].ip_address == self.x_forwarded_for
-        assert new_search_object[0].user_agent == self.user_agent
-
-    def test_searchresultslistview_combines_rated_skills(self):
-        rated_skills_to_merge = (
-            {"Python": 1, "JS": 2},
-            {"Python": 3, "AWS": 1},
-            None,
-        )
-        super_dict = SearchResultsListView._combine_rated_skills(self, rated_skills_to_merge)
-        merged_skills = {k: sum(v) for k, v in super_dict.items()}
-        assert merged_skills["Python"] == 4
-        assert None not in merged_skills
-
-    def test_searchresultslistview_status_code_when_missing_q_parameter(self, empty_response):
-        assert empty_response.status_code == 200
-
-    def test_searchresultslistview_template_when_missing_q_parameter(self, empty_response):
-        assert "search_results.html" in empty_response.template_name
-
-    def test_searchresultslistview_contains_correct_html_when_missing_q_parameter(self, empty_response):
-        assert "Oh no, it looks like we can’t find the skills for this job..." in empty_response.rendered_content
 
 
 @pytest.mark.django_db
@@ -119,9 +89,7 @@ class TestJobModel:
     title = "Test job"
 
     def test_jobmodel_str_method(self):
-        Job.objects.create(
-            title=self.title,
-        )
+        Job.objects.create(title=self.title)
         job_object = Job.objects.get(title=self.title)
         assert str(job_object) == job_object.title
 
@@ -132,19 +100,15 @@ class TestJobModel:
         assert isinstance(url, str)
         assert parsed_url.scheme == ""
         assert parsed_url.netloc == ""
-        assert parsed_url.path == reverse("search_results")
+        assert parsed_url.path == reverse("search-results")
         assert query in parsed_url.query
 
 
 @pytest.mark.django_db
 class TestSearchModel:
     def test_searchmodel_str_method(self):
-        Search.objects.create(
-            query="test search query",
-            ip_address="9.9.9.9",
-            user_agent="Test User-Agent",
-        )
-        search_object = Search.objects.filter(ip_address="9.9.9.9")[0]
+        Search.objects.create(query="test search query", ip_address="0.0.0.0", user_agent="Test User-Agent")
+        search_object = Search.objects.filter(ip_address="0.0.0.0")[0]
         assert str(search_object) == search_object.query
 
 

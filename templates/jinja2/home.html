@@ -11,7 +11,7 @@ most relevant IT vacancies from all over the world.{% endblock description %}
     job in
     <u class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">IT</u>
 </h1>
-<form action="{{ url ('search_results') }}" autocomplete="off" method="GET">
+<form action="{{ url ('search-results') }}" autocomplete="off" method="GET">
     <div class="flex justify-center text-center text-fuchsia-500">
         <input name="q" placeholder="Enter desired job title" aria-label="Search" maxlength="100" required autofocus
             class="h-10 pl-6 pr-14 w-full lg:w-4/6 text-center outline-none shadow-lg focus:shadow-2xl rounded-full transition ease-in duration-200">
@@ -25,7 +25,7 @@ most relevant IT vacancies from all over the world.{% endblock description %}
         class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">PDF</u> and get
     tailored vacancies
 </h2>
-<form action="{{ url ('tailored_vacancies') }}" enctype="multipart/form-data" method="POST">
+<form action="{{ url ('upload-resume') }}" enctype="multipart/form-data" method="POST">
     {{ csrf_input }}
     <div class=" flex justify-center">
         <label

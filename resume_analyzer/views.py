@@ -4,6 +4,8 @@ from django.shortcuts import render
 from .analyzer import analyze_resume
 from .forms import UploadResumeForm
 
+LIMIT_OF_VACANCIES = 200
+
 
 def upload_resume(request):
     upload_resume_form = UploadResumeForm()
@@ -19,4 +21,4 @@ def upload_resume(request):
                 tailored_vacancies = analyze_resume(resume_in_memory)
             except pdftotext.Error:
                 return render(request, "home.html", context_for_error)
-            return render(request, "tailored_vacancies.html", {"vacancies": tailored_vacancies})
+            return render(request, "tailored_vacancies.html", {"vacancies": tailored_vacancies[:LIMIT_OF_VACANCIES]})

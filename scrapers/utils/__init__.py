@@ -13,12 +13,19 @@ def _combine_rated_skills(rated_skills_to_merge: Generator[dict[str, int], None,
     return super_dict
 
 
-def sort_skills(serialized_data: list) -> list[tuple[str, int]]:
+def _put_sorted_skills_in_dicts(sorted_skills: list[tuple[str, int]]) -> list[dict[str, int]]:
+    # Put the sorted skills into dicts for easier access.
+    dicted_skills = [{"skill": skill[0], "frequency": skill[1]} for skill in sorted_skills]
+    return dicted_skills
+
+
+def sort_skills(vacancies: list) -> list[tuple[str, int]]:
     # Get rated skills for each vacancy and convert it from str to dict.
-    rated_skills_to_merge = (json.loads(vacancy.get("rated_skills")) for vacancy in serialized_data)
+    rated_skills_to_merge = (json.loads(vacancy.rated_skills) for vacancy in vacancies)
     super_dict = _combine_rated_skills(rated_skills_to_merge)
     # Summ skills that are the same.
     merged_skills = {k: sum(v) for k, v in super_dict.items()}
     # Sort summed skills in descending order.
     sorted_skills = sorted(merged_skills.items(), key=lambda x: x[1], reverse=True)
-    return sorted_skills
+    tailored_skills = _put_sorted_skills_in_dicts(sorted_skills)
+    return tailored_skills

@@ -1,2 +1,27 @@
 /* Swagger UI customization */
-.swagger-ui .info .title{color:#000}.swagger-ui .info hgroup.main{text-align:center}.swagger-ui .info li,.swagger-ui .info p,.swagger-ui .info table{font-size:16px;color:#718096}.swagger-ui .info{margin:0}.swagger-ui .wrapper{padding:0}.swagger-ui .opblock.opblock-get{border-color:#D946EF;background:#d846ef18}.swagger-ui .opblock.opblock-get .opblock-summary-method{background:#D946EF}.swagger-ui .opblock.opblock-get .opblock-summary{border-color:#D946EF}.swagger-ui .opblock.opblock-get .tab-header .tab-item.active h4 span::after{background:#D946EF}.swagger-ui .info a{color:#D946EF}.swagger-ui .btn.execute{background-color:#D946EF;border-color:#D946EF}
+.swagger-ui .info .title{
+    color:#000
+}
+.swagger-ui .info hgroup.main{
+    text-align:center
+}
+.swagger-ui .info li,.swagger-ui .info p,.swagger-ui .info table{
+    font-size:16px;
+    color:rgb(75 85 99 / 1);
+    text-align:center
+}
+.swagger-ui .info{
+    margin:0
+}
+.swagger-ui .wrapper{
+    padding:0
+}
+.swagger-ui .info a{
+    color:#D946EF
+}
+.swagger-ui .info a:hover{
+    color:rgb(75 85 99 / 1)
+}
+.swagger-ui .scheme-container {
+    box-shadow: none;
+  }

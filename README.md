@@ -73,9 +73,10 @@ docker-compose exec web pytest -n auto --cov="." --cov-report=term-missing
 - Django
 - Django REST framework
 - Swagger UI
-- FastAPI
 - PostgreSQL
+- RabbitMQ
 - Redis
+- Celery
 - NGINX
 - Tailwind CSS
 - Jinja

@@ -1,9 +1,10 @@
 import pytest
 from django.core.management import call_command
 from django.db.utils import IntegrityError
-from fastapi.testclient import TestClient
 
-from core.asgi import application
+# from core.asgi import application
+
+# from fastapi.testclient import TestClient
 
 
 def _prepopulate_database(django_db_blocker):
@@ -31,7 +32,7 @@ def django_db_setup(django_db_setup, django_db_blocker):
     _prepopulate_database(django_db_blocker)
 
 
-@pytest.fixture(scope="function")
-def test_app():
-    with TestClient(application) as test_client:
-        yield test_client
+# @pytest.fixture(scope="function")
+# def test_app():
+#     with TestClient(application) as test_client:
+#         yield test_client
