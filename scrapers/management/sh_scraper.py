@@ -45,13 +45,13 @@ async def scan_single_search_page(job_title: str, page_num: int, session: Client
                     logger.warning(f"🚨 TimeoutError occurred while scanning: {resp.url}")
                     await asyncio.sleep(60)
         except ClientConnectorError:
-            logger.warning("🚨 ClientConnectorError occurred while scanning indeed.com.")
+            logger.warning("🚨 ClientConnectorError occurred while scanning simplyhired.com.")
             await asyncio.sleep(60)
         except ServerDisconnectedError:
-            logger.warning("🚨 ServerDisconnectedError occurred while scanning indeed.com.")
+            logger.warning("🚨 ServerDisconnectedError occurred while scanning simplyhired.com.")
             await asyncio.sleep(60)
         except ClientOSError:
-            logger.warning("🚨 ClientOSError occurred while scanning hh.ru.")
+            logger.warning("🚨 ClientOSError occurred while scanning simplyhired.com")
             await asyncio.sleep(60)
     return None
 
