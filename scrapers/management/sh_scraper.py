@@ -34,6 +34,8 @@ async def scan_single_search_page(job_title: str, page_num: int, session: Client
                     links = {
                         ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0] for vacancy in all_vacancies
                     }
+                    timeout = SystemRandom().uniform(1.0, 10.0)
+                    await asyncio.sleep(timeout)
                     return links
                 except AttributeError:
                     logger.warning(f"🚨 AttributeError occurred while scanning: {resp.url}")
