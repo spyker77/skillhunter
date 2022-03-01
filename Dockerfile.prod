@@ -19,7 +19,7 @@ RUN apt-get update \
     curl \
     tar \
     # Install Rust
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
     && export PATH="$HOME/.cargo/bin:$PATH" \
     # Compile geckodriver from source using cargo
     && curl -o v0.30.0.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v0.30.0.tar.gz \
