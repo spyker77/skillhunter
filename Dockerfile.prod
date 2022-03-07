@@ -63,7 +63,6 @@ RUN apt-get update \
 
 # Install project dependencies
 COPY --from=builder $APP_HOME/wheels /wheels
-COPY --from=builder $APP_HOME/requirements.txt .
 COPY --from=builder $APP_HOME/geckodriver /usr/bin/geckodriver
 RUN pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
