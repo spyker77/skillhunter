@@ -12,7 +12,7 @@ jobs:
       - name: Build and run containers
         run: docker-compose up -d --quiet-pull
       - name: Pytest
-        run: docker-compose exec -u root web pytest -n auto --cov="." --cov-report=xml
+        run: docker-compose exec -T web pytest -n auto --cov="." --cov-report=xml
       - name: Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
