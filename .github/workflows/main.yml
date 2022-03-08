@@ -3,7 +3,7 @@ name: CI/CD
 on: [push]
 
 env:
-  BUILDER_IMAGE: ghcr.io/$(echo $GITHUB_ACTOR | tr '[A-Z]' '[a-z]')/builder
+  BUILDER_IMAGE: ghcr.io/spyker77/skillhunter-builder
 
 jobs:
   test:
@@ -39,13 +39,7 @@ jobs:
         run: docker pull ${{ env.BUILDER_IMAGE }}:latest || true
 
       - name: Refresh builder image
-        run: docker build \
-          --target builder \
-          --platform linux/arm64 \
-          --cache-from ${{ env.BUILDER_IMAGE }}:latest \
-          --tag ${{ env.BUILDER_IMAGE }}:latest \
-          --file ./Dockerfile.prod \
-          "."
+        run: docker build --target builder --platform linux/arm64 --cache-from ${{ env.BUILDER_IMAGE }}:latest --tag ${{ env.BUILDER_IMAGE }}:latest --file Dockerfile.prod .
 
       - name: Push builder image to GitHub Packages
         run: docker push ${{ env.BUILDER_IMAGE }}:latest
