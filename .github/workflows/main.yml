@@ -40,7 +40,7 @@ jobs:
 
       - name: Refresh builder image
         run: |
-          DOCKER_BUILDKIT=1 docker build \
+          docker build \
             --target builder \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
