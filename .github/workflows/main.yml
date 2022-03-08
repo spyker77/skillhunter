@@ -3,12 +3,12 @@ name: CI/CD
 on: [push]
 
 env:
-  BUILDER_IMAGE: ghcr.io/spyker77/skillhunter-builder
+  BUILDER_IMAGE: ghcr.io/$(echo "${{ github.actor }}" | tr '[A-Z]' '[a-z]')/skillhunter-builder
 
 jobs:
   test:
     name: Test with Docker Compose
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, linux, ARM64]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
 
   build-and-deploy:
     name: Build Production Images and Deploy to Amazon ECR
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, linux, ARM64]
     needs: [test]
     steps:
       - name: Checkout
@@ -39,7 +39,14 @@ jobs:
         run: docker pull ${{ env.BUILDER_IMAGE }}:latest || true
 
       - name: Refresh builder image
-        run: docker build --target builder --platform linux/arm64 --cache-from ${{ env.BUILDER_IMAGE }}:latest --tag ${{ env.BUILDER_IMAGE }}:latest --file Dockerfile.prod .
+        run: |
+          DOCKER_BUILDKIT=1 docker build \
+            --target builder \
+            --platform linux/arm64 \
+            --cache-from ${{ env.BUILDER_IMAGE }}:latest \
+            --tag ${{ env.BUILDER_IMAGE }}:latest \
+            --file Dockerfile.prod \
+            "."
 
       - name: Push builder image to GitHub Packages
         run: docker push ${{ env.BUILDER_IMAGE }}:latest
@@ -57,13 +64,13 @@ jobs:
 
       - name: Build and tag production images
         run: |
-          docker build \
+          DOCKER_BUILDKIT=1 docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
             --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-web:latest \
             --file ./Dockerfile.prod \
             "."
-          docker build \
+          DOCKER_BUILDKIT=1 docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
             --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-celery:latest \
