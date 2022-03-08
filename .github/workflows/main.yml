@@ -3,7 +3,7 @@ name: CI/CD
 on: [push]
 
 env:
-  BUILDER_IMAGE: ghcr.io/$(echo ${{ github.actor }} | tr '[A-Z]' '[a-z]')/builder
+  BUILDER_IMAGE: ghcr.io/$(echo "${{ github.actor }}" | tr '[A-Z]' '[a-z]')/builder
 
 jobs:
   test:
