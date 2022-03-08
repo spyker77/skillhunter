@@ -28,10 +28,6 @@ jobs:
     name: Build Production Images and Deploy to Amazon ECR
     runs-on: ubuntu-20.04
     needs: [test]
-    env:
-      ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      ECR_REPOSITORY_WEB: skillhunter-ec2-web
-      ECR_REPOSITORY_CELERY: skillhunter-ec2-celery
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -70,17 +66,17 @@ jobs:
           DOCKER_BUILDKIT=1 docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
-            --tag $ECR_REGISTRY/$ECR_REPOSITORY_WEB:latest \
+            --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-web:latest \
             --file ./Dockerfile.prod \
             "."
           DOCKER_BUILDKIT=1 docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
-            --tag $ECR_REGISTRY/$ECR_REPOSITORY_CELERY:latest \
+            --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-celery:latest \
             --file ./Dockerfile.prod \
             "."
 
       - name: Push production images to Amazon ECR
         run: |
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_WEB:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CELERY:latest
+          docker push ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-web:latest
+          docker push ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-celery:latest
