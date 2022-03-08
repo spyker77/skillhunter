@@ -28,7 +28,7 @@ Update environment variables inside the docker-compose.yml and run the following
 Due to a forced HTTPS in production, it might be a good idea to start with **ENVIRONMENT=development** in .env file – this will allow you to avoid SSL related errors.
 
 ```bash
-docker-compose up -d
+docker-compose --env-file .env up -d
 ```
 
 On the first run you need to apply migrations to the fresh database:

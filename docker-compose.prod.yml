@@ -3,8 +3,6 @@ version: "3.9"
 services:
 
   web:
-    env_file:
-      - .env.prod
     platform: linux/arm64
     image: 771499844454.dkr.ecr.eu-central-1.amazonaws.com/skillhunter-ec2-web:latest
     build:
@@ -18,8 +16,6 @@ services:
       - 8000
 
   celery:
-    env_file:
-      - .env.prod
     platform: linux/arm64
     image: 771499844454.dkr.ecr.eu-central-1.amazonaws.com/skillhunter-ec2-celery:latest
     build:
