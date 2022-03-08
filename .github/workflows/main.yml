@@ -2,6 +2,9 @@ name: CI/CD
 
 on: [push]
 
+env:
+  BUILDER_IMAGE: ghcr.io/$(echo ${{ github.actor }} | tr '[A-Z]' '[a-z]')/builder
+
 jobs:
   test:
     name: Test with Docker Compose
@@ -9,32 +12,75 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Build and run containers
         run: docker-compose up -d --quiet-pull
+
       - name: Pytest
         run: docker-compose exec -T web pytest -n auto --cov="." --cov-report=xml
+
       - name: Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   build-and-deploy:
-    name: Build Production Images and Deploy to AWS ECR
+    name: Build Production Images and Deploy to Amazon ECR
     runs-on: ubuntu-20.04
     needs: [test]
+    env:
+      ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      ECR_REPOSITORY_WEB: skillhunter-ec2-web
+      ECR_REPOSITORY_CELERY: skillhunter-ec2-celery
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Login to GitHub Packages
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Pull builder image from GitHub Packages
+        run: docker pull ${{ env.BUILDER_IMAGE }}:latest || true
+
+      - name: Refresh builder image
+        run: DOCKER_BUILDKIT=1 docker build \
+          --target builder \
+          --platform linux/arm64 \
+          --cache-from ${{ env.BUILDER_IMAGE }}:latest \
+          --tag ${{ env.BUILDER_IMAGE }}:latest \
+          --file ./Dockerfile.prod \
+          "."
+
+      - name: Push builder image to GitHub Packages
+        run: docker push ${{ env.BUILDER_IMAGE }}:latest
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push images to Amazon ECR
+
+      - name: Build and tag production images
         run: |
-          docker-compose -f docker-compose.prod.yml build
-          docker-compose -f docker-compose.prod.yml push
+          DOCKER_BUILDKIT=1 docker build \
+            --platform linux/arm64 \
+            --cache-from ${{ env.BUILDER_IMAGE }}:latest \
+            --tag $ECR_REGISTRY/$ECR_REPOSITORY_WEB:latest \
+            --file ./Dockerfile.prod \
+            "."
+          DOCKER_BUILDKIT=1 docker build \
+            --platform linux/arm64 \
+            --cache-from ${{ env.BUILDER_IMAGE }}:latest \
+            --tag $ECR_REGISTRY/$ECR_REPOSITORY_CELERY:latest \
+            --file ./Dockerfile.prod \
+            "."
+
+      - name: Push production images to Amazon ECR
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_WEB:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CELERY:latest
