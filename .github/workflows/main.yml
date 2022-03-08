@@ -39,7 +39,7 @@ jobs:
         run: docker pull ${{ env.BUILDER_IMAGE }}:latest || true
 
       - name: Refresh builder image
-        run: DOCKER_BUILDKIT=1 docker build \
+        run: docker build \
           --target builder \
           --platform linux/arm64 \
           --cache-from ${{ env.BUILDER_IMAGE }}:latest \
@@ -63,13 +63,13 @@ jobs:
 
       - name: Build and tag production images
         run: |
-          DOCKER_BUILDKIT=1 docker build \
+          docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
             --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-web:latest \
             --file ./Dockerfile.prod \
             "."
-          DOCKER_BUILDKIT=1 docker build \
+          docker build \
             --platform linux/arm64 \
             --cache-from ${{ env.BUILDER_IMAGE }}:latest \
             --tag ${{ steps.login-ecr.outputs.registry }}/skillhunter-ec2-celery:latest \
