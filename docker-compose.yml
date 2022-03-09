@@ -17,6 +17,8 @@ services:
       - postgresql_data:/var/lib/postgresql/data/
 
   web:
+    env_file:
+      - .env
     build: .
     environment:
       - PYTHONDEVMODE=1
@@ -33,6 +35,8 @@ services:
       - db
 
   celery:
+    env_file:
+      - .env
     build: .
     command: celery -A core worker --without-heartbeat --without-gossip --without-mingle -l INFO
     volumes:

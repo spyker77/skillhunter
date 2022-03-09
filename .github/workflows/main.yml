@@ -5,13 +5,13 @@ on: [push]
 jobs:
   test:
     name: Test with Docker Compose
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Build and run containers
-        run: docker-compose --env-file .env up -d --quiet-pull
+        run: docker-compose up -d --quiet-pull
 
       - name: Pytest
         run: docker-compose exec -T web pytest -n auto --cov="." --cov-report=xml
@@ -23,7 +23,7 @@ jobs:
 
   build-and-deploy:
     name: Build Production Images and Deploy to Amazon ECR
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: [test]
     steps:
       - name: Checkout
@@ -42,5 +42,6 @@ jobs:
 
       - name: Build, tag, and push images to Amazon ECR
         run: |
-          DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml build
-          DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml push
+          touch .env.prod
+          docker-compose -f docker-compose.prod.yml build
+          docker-compose -f docker-compose.prod.yml push
