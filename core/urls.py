@@ -7,6 +7,11 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 from django_otp.admin import OTPAdminSite
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 from pages.sitemaps import StaticViewSitemap
 from scrapers.models import Job
@@ -31,6 +36,9 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path("api/", include("api.urls")),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     # Swagger UI for DRF.
     path("api/schema/", SpectacularAPIView.as_view(api_version="v3"), name="schema"),
     path(

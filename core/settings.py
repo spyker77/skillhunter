@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "rest_framework",
     "rest_framework.authtoken",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
     "django_otp",
     "django_otp.plugins.otp_totp",
@@ -217,7 +219,7 @@ FIXTURE_DIRS = ["test_fixtures"]
 # Django REST framework
 # https://www.django-rest-framework.org/#installation
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.TokenAuthentication"],
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
