@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.3.0
     hooks:
       - id: check-json
       - id: check-yaml
@@ -10,19 +10,19 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.0
+    rev: v2.37.2
     hooks:
       - id: pyupgrade
         name: upgrade python syntax for newer version
         args: [--py310-plus]
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.4.0
+    rev: 1.7.0
     hooks:
       - id: django-upgrade
         name: upgrade django project by fixing deprecations
         args: [--target-version, "4.0"]
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.1
+    rev: 1.7.4
     hooks:
       - id: bandit
         name: check code for security issues
@@ -40,8 +40,10 @@ repos:
         entry: isort .
         language: python
         files: \.py$
+        exclude: migrations
       - id: flake8
         name: lint code with flake8
         entry: flake8 .
         language: python
         files: \.py$
+        exclude: migrations
