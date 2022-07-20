@@ -22,9 +22,9 @@ RUN apt-get update \
     && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
     && export PATH="$HOME/.cargo/bin:$PATH" \
     # Compile geckodriver from source using cargo
-    && curl -o v0.30.0.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v0.30.0.tar.gz \
-    && tar -xzf v0.30.0.tar.gz \
-    && cd geckodriver-0.30.0 \
+    && curl -o v0.31.0.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v0.31.0.tar.gz \
+    && tar -xzf v0.31.0.tar.gz \
+    && cd geckodriver-0.31.0 \
     && cargo build --release \
     && mv target/release/geckodriver $APP_HOME/geckodriver
 
