@@ -6,12 +6,7 @@ from collections import Counter
 from secrets import SystemRandom
 
 from aiohttp import ClientSession
-from aiohttp.client_exceptions import (
-    ClientConnectorError,
-    ClientOSError,
-    ClientPayloadError,
-    ServerDisconnectedError,
-)
+from aiohttp.client_exceptions import ClientConnectorError, ClientOSError, ClientPayloadError, ServerDisconnectedError
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
 

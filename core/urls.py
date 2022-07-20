@@ -7,11 +7,7 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 from django_otp.admin import OTPAdminSite
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from pages.sitemaps import StaticViewSitemap
 from scrapers.models import Job
