@@ -37,9 +37,10 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libpq-dev libpoppler-cpp-dev pkg-config
+          sudo apt-get install -y build-essential libpq-dev libpoppler-cpp-dev pkg-config curl
           python -m pip install --upgrade pip
-          pip install poetry
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="/root/.local/bin:$PATH"
           poetry export -f requirements.txt --output requirements.txt --dev --without-hashes
           pip install -r requirements.txt
 

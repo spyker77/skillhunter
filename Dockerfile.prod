@@ -31,7 +31,8 @@ RUN apt-get update \
 # Install project dependencies
 COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip \
-    && pip install poetry \
+    && curl -sSL https://install.python-poetry.org | python3 - \
+    && export PATH="/root/.local/bin:$PATH" \
     && poetry export --format requirements.txt --output requirements.txt --without-hashes \
     && pip wheel --no-cache-dir --no-deps --wheel-dir $APP_HOME/wheels -r requirements.txt
 
