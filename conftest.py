@@ -2,10 +2,6 @@ import pytest
 from django.core.management import call_command
 from django.db.utils import IntegrityError
 
-# from core.asgi import application
-
-# from fastapi.testclient import TestClient
-
 
 def _prepopulate_database(django_db_blocker):
     with django_db_blocker.unblock():
@@ -30,9 +26,3 @@ def django_db_setup(django_db_setup, django_db_blocker):
     # Notice django_db_setup in the argument – it triggers the original pytest-django fixture to create the
     # test database, so that when call_command is invoked, the test database is already prepared and configured.
     _prepopulate_database(django_db_blocker)
-
-
-# @pytest.fixture(scope="function")
-# def test_app():
-#     with TestClient(application) as test_client:
-#         yield test_client
