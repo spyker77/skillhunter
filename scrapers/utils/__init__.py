@@ -1,6 +1,7 @@
 import json
 from collections import defaultdict
-from typing import DefaultDict, Generator
+from collections.abc import Generator
+from typing import DefaultDict
 
 
 def _combine_rated_skills(rated_skills_to_merge: Generator[dict[str, int], None, None]) -> DefaultDict[str, list[int]]:

@@ -21,9 +21,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-# 
+#
 #   Disable CD since there is no hosting at the moment.
-# 
+#
 #   build-and-deploy:
 #     name: Build Production Images and Deploy to Amazon ECR
 #     runs-on: ubuntu-latest

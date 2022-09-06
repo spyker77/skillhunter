@@ -1,7 +1,7 @@
 import ast
 import json
+from collections.abc import Generator
 from tempfile import SpooledTemporaryFile
-from typing import Generator
 
 import pdftotext
 from django.core.cache import cache
