@@ -20,7 +20,7 @@ repos:
     hooks:
       - id: django-upgrade
         name: upgrade django project by fixing deprecations
-        args: [--target-version, "4.0"]
+        args: [--target-version, "4.1"]
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.4
     hooks:
