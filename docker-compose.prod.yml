@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    command: gunicorn core.asgi:application -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker
+    command: gunicorn core.asgi:application -b 0.0.0.0:8000 -w 8 -k uvicorn.workers.UvicornWorker
     volumes:
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
