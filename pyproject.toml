@@ -51,7 +51,12 @@ djangorestframework = "^3.13.1"
 djangorestframework-simplejwt = "^5.2.0"
 drf-spectacular = "^0.23.1"
 flashtext = "^2.7"
-gunicorn = "^20.1.0"
+
+# TODO: switch to the normal version after this fix is released: https://github.com/benoitc/gunicorn/pull/2581
+gunicorn = { extras = [
+  "eventlet",
+], url = "https://github.com/benoitc/gunicorn/archive/ff58e0c6da83d5520916bc4cc109a529258d76e1.zip#egg=gunicorn==20.1.0" }
+
 pdftotext = "^2.2.2"
 psycopg2 = "^2.9.3"
 python = "^3.10"
