@@ -9,7 +9,7 @@ services:
     image: rabbitmq:3.10-management
 
   db:
-    image: postgres:14-alpine
+    image: postgres:15-alpine
     command: -c max_wal_size=2GB
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
