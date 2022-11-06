@@ -59,7 +59,7 @@ gunicorn = { extras = [
 
 pdftotext = "^2.2.2"
 psycopg2 = "^2.9.4"
-python = "^3.10"
+python = "^3.11"
 python-multipart = "^0.0.5"
 qrcode = "^7.3.1"
 redis = { extras = ["hiredis"], version = "^4.3.4" }

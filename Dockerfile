@@ -3,7 +3,7 @@
 ###########
 
 # Pull base image
-FROM python:3.10-slim-buster as builder
+FROM python:3.11-slim-buster as builder
 
 # Set working directory
 ENV APP_HOME=/code
@@ -42,7 +42,7 @@ RUN pip install --upgrade pip \
 #########
 
 # Pull base image
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-buster
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
