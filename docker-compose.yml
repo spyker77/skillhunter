@@ -6,10 +6,10 @@ services:
     image: redis:7-alpine
 
   rabbitmq:
-    image: rabbitmq:3.10-management
+    image: rabbitmq:3.11-management
 
   db:
-    image: postgres:15-alpine
+    image: postgres:15.2-alpine
     command: -c max_wal_size=2GB
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
