@@ -1342,6 +1342,7 @@ tornado = ["tornado (>=0.2)"]
 [package.source]
 type = "url"
 url = "https://github.com/benoitc/gunicorn/archive/ff58e0c6da83d5520916bc4cc109a529258d76e1.zip#egg=gunicorn==20.1.0"
+
 [[package]]
 name = "h11"
 version = "0.14.0"
@@ -2577,17 +2578,18 @@ test = ["coverage", "pytest"]
 
 [[package]]
 name = "redis"
-version = "4.5.3"
+version = "4.5.4"
 description = "Python client for Redis database and key-value store"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "redis-4.5.3-py3-none-any.whl", hash = "sha256:7df17a0a2b72a4c8895b462dd07616c51b1dcb48fdd7ecb7b6f4bf39ecb2e94e"},
-    {file = "redis-4.5.3.tar.gz", hash = "sha256:56732e156fe31801c4f43396bd3ca0c2a7f6f83d7936798531b9848d103381aa"},
+    {file = "redis-4.5.4-py3-none-any.whl", hash = "sha256:2c19e6767c474f2e85167909061d525ed65bea9301c0770bb151e041b7ac89a2"},
+    {file = "redis-4.5.4.tar.gz", hash = "sha256:73ec35da4da267d6847e47f68730fdd5f62e2ca69e3ef5885c6a78a9374c3893"},
 ]
 
 [package.dependencies]
+async-timeout = {version = ">=4.0.2", markers = "python_version <= \"3.11.2\""}
 hiredis = {version = ">=1.0.0", optional = true, markers = "extra == \"hiredis\""}
 
 [package.extras]
@@ -3268,4 +3270,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b7ffee84ce6b77ba90cf35bf783ed8c1efdef739a3293d672b518e9ff91a724f"
+content-hash = "b7617a50877fb82aea60b76ab2da0fa3fdff5a49c2481bb042cdcca1e62db578"
