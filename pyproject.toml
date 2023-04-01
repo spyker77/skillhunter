@@ -62,7 +62,7 @@ psycopg2 = "^2.9.5"
 python = "^3.11"
 python-multipart = "^0.0.6"
 qrcode = "^7.4.2"
-redis = { extras = ["hiredis"], version = "^4.5.3" }
+redis = { extras = ["hiredis"], version = "^4.5.4" }
 requests = "^2.28.2"
 selenium = "^4.8.3"
 sentry-sdk = "^1.17.0"
