@@ -1342,6 +1342,7 @@ tornado = ["tornado (>=0.2)"]
 [package.source]
 type = "url"
 url = "https://github.com/benoitc/gunicorn/archive/ff58e0c6da83d5520916bc4cc109a529258d76e1.zip#egg=gunicorn==20.1.0"
+
 [[package]]
 name = "h11"
 version = "0.14.0"
