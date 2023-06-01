@@ -66,26 +66,9 @@ By now you should be up and running. Try to reach the <http://localhost> in your
 docker-compose exec web pytest -n auto --cov
 ```
 
-## Tech Stack
+## Architecture
 
-- Python
-- Docker
-- Django
-- Django REST framework
-- Swagger UI
-- PostgreSQL
-- RabbitMQ
-- Redis
-- Celery
-- NGINX
-- Tailwind CSS
-- Jinja
-- Beautiful Soup
-- Selenium WebDriver
-- AIOHTTP
-- Pytest
-- GitHub Actions
-- AWS
+![SkillHunter's architecture](https://imgtr.ee/images/2023/06/01/Sog8J.png)
 
 ## Contributing
 
