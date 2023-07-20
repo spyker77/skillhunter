@@ -37,7 +37,7 @@ version = "3.0.0"
 Django = "^4.2.1"
 Faker = "^18.9.0"
 Jinja2 = "^3.1.2"
-aiohttp = "^3.8.4"
+aiohttp = "^3.8.5"
 beautifulsoup4 = "^4.12.2"
 boto3 = "^1.26.144"
 celery = { extras = ["pytest"], version = "^5.2.7" }
