@@ -68,7 +68,7 @@ docker-compose exec web pytest -n auto --cov
 
 ## Architecture
 
-![SkillHunter's architecture](https://imgtr.ee/images/2023/06/01/Sog8J.png)
+![SkillHunter's architecture](https://spyker77.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F24293db7-cf4b-46ca-8a44-e9ac458107f9%2FArchitecture.png?table=block&id=de70516a-c572-4324-8f80-c40b97118997&spaceId=d8f7323e-790b-48e9-8264-b0e2573a22ac&width=2000&userId=&cache=v2)
 
 ## Contributing
 
