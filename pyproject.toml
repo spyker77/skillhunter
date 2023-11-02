@@ -34,7 +34,7 @@ name = "SkillHunter"
 version = "3.0.0"
 
 [tool.poetry.dependencies]
-Django = "^4.2.3"
+Django = "^4.2.7"
 Faker = "^19.2.0"
 Jinja2 = "^3.1.2"
 aiohttp = "^3.8.5"
