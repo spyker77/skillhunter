@@ -17,54 +17,64 @@ Download this project and run [Docker Compose](https://docs.docker.com/compose/i
 
 ```bash
 git clone https://github.com/spyker77/skillhunter.git
+cd skillhunter
 ```
 
 ## Usage
 
 Update environment variables inside the docker-compose.yml and run the following bash commands inside downloaded project's folder – this will launch the process of building the image (if it doesn't exist), create and start containers in a detached mode.
 
-**Note** ⚠️
-
-Due to a forced HTTPS in production, it might be a good idea to start with **ENVIRONMENT=development** in .env file – this will allow you to avoid SSL related errors.
+1. Due to a forced HTTPS in production, it might be a good idea to start with **ENVIRONMENT=development** in .env file – this will allow you to avoid SSL related errors.
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
-On the first run you need to apply migrations to the fresh database:
+2. On the first run you need to apply migrations to the fresh database:
 
 ```bash
-docker-compose exec web python manage.py migrate
+docker compose exec web python manage.py migrate
 ```
 
-Note that in order to see the work in full color, you also need to fill the database once by loading the list of job titles to parse and skills to identify...
+3. Load the job titles to parse and skills to identify:
 
 ```bash
-docker-compose exec web python manage.py loaddata jobs.json
-docker-compose exec web python manage.py loaddata skills.json
+docker compose exec web python manage.py loaddata jobs.json skills.json
 ```
 
-...and run scrapers to collect initial data on available vacancies...
+4. [Optional] Run scrapers to collect initial data on available vacancies:
 
 ```bash
-docker-compose exec web python manage.py scrape_hh
-docker-compose exec web python manage.py scrape_indeed
-docker-compose exec web python manage.py scrape_sh
+docker compose exec web python manage.py scrape_hh
+docker compose exec web python manage.py scrape_indeed
+docker compose exec web python manage.py scrape_sh
 ```
 
 ...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
 
 ```bash
-docker-compose exec web python manage.py purge_db
+docker compose exec web python manage.py purge_db
 ```
 
 **Tada** 🎉
 
-By now you should be up and running. Try to reach the <http://localhost> in your browser. In order to run tests, try this:
+By now you should be up and running. Try to reach the <http://localhost> in your browser.
+
+In order to prepopulate the database, you can use the test data:
 
 ```bash
-docker-compose exec web pytest -n auto --cov
+docker compose exec web python manage.py loaddata scrapers_vacancy.json scrapers_vacancy_part_1.json scrapers_vacancy_part_2.json scrapers_vacancy_part_3.json
 ```
+
+In order to run tests:
+
+```bash
+docker compose exec -e DB_HOST=db web pytest -n auto --cov="."
+```
+
+**Note** ⚠️
+
+For the local development you may need to install **poppler** (e.g. using `brew install poppler`) for the **pdftotext** package, and **pg_config** for the **psycopg** (e.g. using `brew install postgresql`).
 
 ## Architecture
 
