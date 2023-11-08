@@ -4,22 +4,39 @@ on: [push]
 
 jobs:
   test:
-    name: Test with Docker Compose
+    name: Test and check quality
     runs-on: ubuntu-latest
+    env:
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      DOCKER_BUILDKIT: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-buildx-
+
       - name: Build and run containers
-        run: docker-compose up -d --quiet-pull
+        run: docker-compose up -d --build --quiet-pull
+
+      - name: Check code formatting with Black
+        run: docker-compose exec -T web black --check .
+
+      - name: Lint code with Ruff
+        run: docker-compose exec -T web ruff check .
 
       - name: Run tests
         run: docker-compose exec -T -e DB_HOST=db web pytest -n auto --cov="." --cov-report=xml
 
-      - name: Send results to Codecov
+      - name: Send test results to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
 
       - name: Clean up
         run: docker-compose down -v
