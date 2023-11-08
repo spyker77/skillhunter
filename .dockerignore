@@ -8,6 +8,8 @@
 .DS_Store
 .mypy_cache
 .pytest_cache
+.ruff_cache
+.cache
 __pycache__
 coverage.xml
 staticfiles
