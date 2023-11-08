@@ -1,63 +1,72 @@
-###########
-# BUILDER #
-###########
+####################
+# 1 STAGE – PYTHON #
+####################
 
-# Pull base image
-FROM python:3.11-slim-buster as builder
+# Python dependencies builder
+FROM python:3.12-alpine as python-builder
 
-# Set working directory
 ENV APP_HOME=/code
 WORKDIR $APP_HOME
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential libpq-dev libpoppler-cpp-dev pkg-config curl && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
-    export PATH="$HOME/.cargo/bin:$PATH" && \
-    curl -o v0.33.0.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v0.33.0.tar.gz && \
-    tar -xzf v0.33.0.tar.gz && \
-    cd geckodriver-0.33.0 && \
-    cargo build --release && \
-    mv target/release/geckodriver $APP_HOME/geckodriver && \
-    cd $APP_HOME && \
-    rm -rf /var/lib/apt/lists/* geckodriver-0.33.0 v0.33.0.tar.gz
+# Install system dependencies for Python packages
+RUN apk update && \
+    apk add --no-cache --virtual .build-deps \
+    build-base postgresql-dev poppler-dev curl gcc musl-dev
 
 # Install project dependencies
+ARG POETRY_VERSION=1.7.0
 COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip && \
-    curl -sSL https://install.python-poetry.org | python3 - && \
+    curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION} && \
     export PATH="/root/.local/bin:$PATH" && \
-    poetry export --format requirements.txt --output requirements.txt --without-hashes && \
-    pip wheel --no-cache-dir --no-deps --wheel-dir $APP_HOME/wheels -r requirements.txt
+    poetry config virtualenvs.create false && \
+    poetry install --without dev
 
+# Remove build dependencies to reduce cached layer size
+RUN apk del .build-deps
 
-#########
-# FINAL #
-#########
+##################
+# 2 STAGE – RUST #
+##################
 
-# Pull base image
-FROM python:3.11-slim-buster
+# Rust-based geckodriver builder
+FROM rust:1.73-alpine as rust-builder
 
-# Set environment variables
+# Compile geckodriver
+ARG GECKODRIVER_VERSION=0.33.0
+RUN apk add --no-cache --virtual .rust-deps curl gcc musl-dev && \
+    curl -o geckodriver.tar.gz -L https://github.com/mozilla/geckodriver/archive/refs/tags/v${GECKODRIVER_VERSION}.tar.gz && \
+    tar -xzf geckodriver.tar.gz && \
+    cd geckodriver-${GECKODRIVER_VERSION} && \
+    cargo build --release && \
+    mv target/release/geckodriver /usr/local/bin/geckodriver && \
+    rm -rf /var/cache/apk/* /geckodriver-${GECKODRIVER_VERSION} geckodriver.tar.gz && \
+    apk del .rust-deps
+
+###################
+# 3 STAGE – FINAL #
+###################
+
+# Pull base image for final stage
+FROM python:3.12-alpine
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     APP_HOME=/code
 
-# Set working directory
 WORKDIR $APP_HOME
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev libpoppler-cpp-dev pkg-config firefox-esr && \
-    rm -rf /var/lib/apt/lists/*
+# Install runtime system dependencies
+RUN apk update && \
+    apk add --no-cache libpq poppler-utils firefox-esr && \
+    rm -rf /var/cache/apk/*
 
-# Install project dependencies
-COPY --from=builder $APP_HOME/wheels /wheels
-COPY --from=builder $APP_HOME/geckodriver /usr/bin/geckodriver
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir /wheels/* && \
-    chmod +x /usr/bin/geckodriver && \
-    rm -rf /wheels
+# Copy Python project dependencies
+COPY --from=python-builder /usr/local/ /usr/local/
+
+# Copy geckodriver
+COPY --from=rust-builder /usr/local/bin/geckodriver /usr/local/bin/geckodriver
+RUN chmod +x /usr/local/bin/geckodriver
 
 # Copy the project
 COPY . .
