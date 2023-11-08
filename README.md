@@ -1,8 +1,8 @@
 # SkillHunter
 
 [![CI/CD](https://github.com/spyker77/skillhunter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/spyker77/skillhunter/actions/workflows/main.yml)
-[![Codecov](https://codecov.io/gh/spyker77/skillhunter/branch/main/graph/badge.svg?token=BBTT6UO39V)](https://codecov.io/gh/spyker77/skillhunter)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://www.codacy.com/gh/spyker77/skillhunter/dashboard)
+[![Codecov](https://codecov.io/gh/spyker77/skillhunter/graph/badge.svg?token=BBTT6UO39V)](https://codecov.io/gh/spyker77/skillhunter)
+[![Codacy](https://app.codacy.com/project/badge/Grade/111702284f88482bbc4b64d2b6d169c5)](https://app.codacy.com/gh/spyker77/skillhunter/dashboard)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
