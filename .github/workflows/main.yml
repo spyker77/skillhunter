@@ -14,7 +14,7 @@ jobs:
         run: docker-compose up -d --quiet-pull
 
       - name: Run tests
-        run: docker-compose exec -e DB_HOST=db web pytest -n auto --cov="." --cov-report=xml
+        run: docker-compose exec -T -e DB_HOST=db web pytest -n auto --cov="." --cov-report=xml
 
       - name: Send results to Codecov
         uses: codecov/codecov-action@v3
