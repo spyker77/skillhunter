@@ -103,15 +103,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME", "postgres"),
         "USER": os.getenv("DB_USER", "postgres"),
         "PASSWORD": os.getenv("DB_PASSWORD", "postgres"),
-        "HOST": os.getenv("DB_HOST", "db"),
+        "HOST": os.getenv("DB_HOST", "pgbouncer"),
         "PORT": os.getenv("DB_PORT", 5432),
-        # Keep connection to the database opened for 6 hours in order
-        # to prevent associated errors due to its early close when scraping.
-        "CONN_MAX_AGE": 60 * 60 * 6,
+        # # Connections are managed by PgBouncer.
+        "CONN_MAX_AGE": 0,
+        "DISABLE_SERVER_SIDE_CURSORS": True,
     }
 }
 

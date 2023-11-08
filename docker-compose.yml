@@ -16,6 +16,16 @@ services:
     volumes:
       - postgresql_data:/var/lib/postgresql/data/
 
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - POOL_MODE=transaction
+    ports:
+      - "5432:5432"
+    depends_on:
+      - db
+
   web:
     env_file:
       - .env
