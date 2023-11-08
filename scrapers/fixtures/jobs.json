@@ -904,5 +904,95 @@
         "fields": {
             "title": "Vue developer"
         }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Artificial Intelligence Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Cloud Security Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Quantum Computing Scientist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Augmented Reality Developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "5G Network Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Sustainability Software Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Biotech Software Developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "EdTech Developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Fintech Developer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Health Informatics Specialist"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "NLP Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Robotics Engineer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Ethical Hacker / Penetration Tester"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "UX/UI Designer"
+        }
+    },
+    {
+        "model": "scrapers.job",
+        "fields": {
+            "title": "Data Privacy Officer"
+        }
     }
 ]
