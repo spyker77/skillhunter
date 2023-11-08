@@ -1,12 +1,10 @@
 import asyncio
-import json
 import logging
 import re
 from collections import Counter
 from secrets import SystemRandom
 
-from aiohttp import ClientSession
-from aiohttp.client_exceptions import ClientConnectorError, ClientOSError, ClientPayloadError, ServerDisconnectedError
+import httpx
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
 
@@ -15,50 +13,32 @@ from .utils import get_user_agent
 logger = logging.getLogger("django")
 
 
-async def scan_single_search_page(job_title: str, page_num: int, session: ClientSession):
+async def scan_single_search_page(job_title: str, page_num: int, client: httpx.AsyncClient):
     # Scan search page for vacancy links.
     payload = {"q": f'"{job_title}"', "fdb": 7, "pn": page_num}
     for _ in range(10):
         try:
-            async with session.get("https://www.simplyhired.com/search", params=payload) as resp:
-                try:
-                    html = await asyncio.shield(resp.text())
-                    soup = BeautifulSoup(html, "html.parser")
-                    all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
-                    # Extract valid links to vacancy pages and clean the tail.
-                    links = {
-                        ("https://www.simplyhired.com" + vacancy["href"]).split("?")[0] for vacancy in all_vacancies
-                    }
-                    timeout = SystemRandom().uniform(1.0, 10.0)
-                    await asyncio.sleep(timeout)
-                    return links
-                except AttributeError:
-                    logger.warning(f"🚨 AttributeError occurred while scanning: {resp.url}")
-                    return None
-                except ClientPayloadError:
-                    logger.warning(f"🚨 ClientPayloadError occurred while scanning: {resp.url}")
-                    return None
-                except asyncio.TimeoutError:
-                    logger.warning(f"🚨 TimeoutError occurred while scanning: {resp.url}")
-                    await asyncio.sleep(60)
-        except ClientConnectorError:
-            logger.warning("🚨 ClientConnectorError occurred while scanning simplyhired.com.")
-            await asyncio.sleep(60)
-        except ServerDisconnectedError:
-            logger.warning("🚨 ServerDisconnectedError occurred while scanning simplyhired.com.")
-            await asyncio.sleep(60)
-        except ClientOSError:
-            logger.warning("🚨 ClientOSError occurred while scanning simplyhired.com")
+            response = await client.get("https://www.simplyhired.com/search", params=payload)
+            html = response.text
+            soup = BeautifulSoup(html, "html.parser")
+            all_vacancies = soup.find_all("a", href=re.compile(r"/job/"))
+            # Extract valid links to vacancy pages and clean the tail.
+            links = {("https://www.simplyhired.com" + vacancy["href"]).split("?")[0] for vacancy in all_vacancies}
+            timeout = SystemRandom().uniform(1.0, 10.0)
+            await asyncio.sleep(timeout)
+            return links
+        except (httpx.HTTPError, httpx.TimeoutException):
+            logger.warning("🚨 Error occurred while scanning simplyhired.com.")
             await asyncio.sleep(60)
     return None
 
 
-async def scan_all_search_results(job_title: str, session: ClientSession):
+async def scan_all_search_results(job_title: str, client: httpx.AsyncClient):
     # Schedule all search results for asynchronous processing.
     tasks = []
     sh_max_pages = 90 + 1
     for page_num in range(1, sh_max_pages):
-        task = asyncio.create_task(scan_single_search_page(job_title, page_num, session))
+        task = asyncio.create_task(scan_single_search_page(job_title, page_num, client))
         tasks.append(task)
     all_sets = await asyncio.gather(*tasks)
     # Unpack the list of sets into a single set of all links.
@@ -69,41 +49,31 @@ async def scan_all_search_results(job_title: str, session: ClientSession):
     return all_links
 
 
-async def fetch_vacancy_page(link: str, session: ClientSession):
+async def fetch_vacancy_page(link: str, client: httpx.AsyncClient):
     # Put the link, title and content in a dict – so far without skills.
     for _ in range(5):
         try:
-            async with session.get(link) as resp:
-                html = await resp.text()
-                soup = BeautifulSoup(html, "html.parser")
-                title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
-                content = soup.find(attrs={"class": "p"}).text
-                vacancy_page = {"url": link, "title": title, "content": content}
-                timeout = SystemRandom().uniform(1.0, 5.0)
-                await asyncio.sleep(timeout)
-                return vacancy_page
-        except AttributeError:
-            logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
-            return None
-        except ClientPayloadError:
-            logger.warning(f"🚨 ClientPayloadError occurred while fetching: {link}")
-            return None
-        except ServerDisconnectedError:
-            logger.warning(f"🚨 ServerDisconnectedError occurred while fetching: {link}")
-            await asyncio.sleep(60)
-        except asyncio.TimeoutError:
-            logger.warning(f"🚨 TimeoutError occurred while fetching: {link}")
+            response = await client.get(link)
+            html = response.text
+            soup = BeautifulSoup(html, "html.parser")
+            title = soup.find(attrs={"class": "viewjob-jobTitle h2"}).text
+            content = soup.find(attrs={"class": "p"}).text
+            vacancy_page = {"url": link, "title": title, "content": content}
+            timeout = SystemRandom().uniform(1.0, 5.0)
+            await asyncio.sleep(timeout)
+            return vacancy_page
+        except (httpx.HTTPError, httpx.TimeoutException) as e:
+            logger.warning(f"🚨 Error occurred while fetching: {str(e)}")
             await asyncio.sleep(60)
     return None
 
 
-async def fetch_all_vacancy_pages(all_links: set[str], sh_links_we_already_have: list[str], session: ClientSession):
+async def fetch_all_vacancy_pages(all_links: set[str], sh_links_we_already_have: list[str], client: httpx.AsyncClient):
     # Schedule all the vacancy pages for asynchronous processing.
     tasks = []
-    # Reduce pressure on simplyhired.com by checking if we have this link.
     new_links = [link for link in all_links if link not in sh_links_we_already_have]
     for link in new_links:
-        task = asyncio.create_task(fetch_vacancy_page(link, session))
+        task = asyncio.create_task(fetch_vacancy_page(link, client))
         tasks.append(task)
     vacancies_without_skills = await asyncio.gather(*tasks)
     return vacancies_without_skills
@@ -114,7 +84,7 @@ def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_proc
     try:
         content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
-        counts = json.dumps(Counter(keywords_found))
+        counts = Counter(keywords_found)
         # Only return vacancies with relevant skills, otherwise it is useless.
         if len(counts) == 0:
             return None
@@ -130,22 +100,22 @@ def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_proc
 async def main(job_title: str, sh_links_we_already_have: list[str], skills: dict[str, list[str]]):
     # Import this function to collect vacancies for a given job title.
     fake_agent = get_user_agent()
-    async with ClientSession(headers={"user-agent": fake_agent, "Connection": "close"}) as session:
-        all_links = await scan_all_search_results(job_title, session)
+    async with httpx.AsyncClient(headers={"user-agent": fake_agent, "Connection": "close"}) as client:
+        all_links = await scan_all_search_results(job_title, client)
         for _ in range(10):
             try:
-                vacancies_without_skills = await fetch_all_vacancy_pages(all_links, sh_links_we_already_have, session)
+                vacancies_without_skills = await fetch_all_vacancy_pages(all_links, sh_links_we_already_have, client)
                 keyword_processor = KeywordProcessor()
                 keyword_processor.add_keywords_from_dict(skills)
-                collected_jobs = (
+                collected_jobs = [
                     process_vacancy_content(vacancy_without_skills, keyword_processor)
                     for vacancy_without_skills in vacancies_without_skills
                     if vacancy_without_skills is not None
-                )
+                ]
                 await asyncio.sleep(60)
                 return collected_jobs
-            except OSError:
-                logger.warning(f"🚨 OSError occured for {job_title}.")
+            except OSError as e:
+                logger.warning(f"🚨 OSError occurred for {job_title}: {str(e)}")
         # If couldn't recover after errors, then return an empty list.
         await asyncio.sleep(60)
         return []

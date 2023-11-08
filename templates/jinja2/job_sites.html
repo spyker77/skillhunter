@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class="pt-3">
-            <a href='https://www.google.com/search?q="{{ skills_dict.vacancy_name | urlencode }}"&ibp=htl;jobs'
+            <a href='https://www.google.com/search?q="{{ vacancy_name | urlencode }}"+jobs+near+me'
                 class="bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white py-2 px-12 border border-fuchsia-500 hover:border-transparent rounded-full transition ease-in duration-200"
                 role="button" target="_blank" rel="noopener">See jobs</a>
         </div>
@@ -23,7 +23,7 @@
             </p>
         </div>
         <div class="pt-3">
-            <a href='https://www.glassdoor.com/Job/jobs.htm?sc.keyword={{ skills_dict.vacancy_name | urlencode }}'
+            <a href='https://www.glassdoor.com/Job/jobs.htm?sc.keyword="{{ vacancy_name | urlencode }}"'
                 class="bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white py-2 px-12 border border-fuchsia-500 hover:border-transparent rounded-full transition ease-in duration-200"
                 role="button" target="_blank" rel="noopener">See jobs</a>
         </div>
@@ -36,7 +36,7 @@
                 estimations, career path tips and insights – everything is here.</p>
         </div>
         <div class="pt-3">
-            <a href='https://www.dice.com/jobs?q="{{ skills_dict.vacancy_name | urlencode }}"'
+            <a href='https://www.dice.com/jobs?q="{{ vacancy_name | urlencode }}"'
                 class="bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white py-2 px-12 border border-fuchsia-500 hover:border-transparent rounded-full transition ease-in duration-200"
                 role="button" target="_blank" rel="noopener">See jobs</a>
         </div>

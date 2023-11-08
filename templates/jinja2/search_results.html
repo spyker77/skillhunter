@@ -1,20 +1,20 @@
 {% extends "_base.html" %}
 
-{% block title %}Skills you need to be a {{ skills_dict.vacancy_name }} • SkillHunter{% endblock title %}
+{% block title %}Skills you need to be a {{ vacancy_name }} • SkillHunter{% endblock title %}
 {% block description %}Here is a list of the skills you need to have in order to get a new job as soon as possible.
 Learn this and you will be hired quickly!{% endblock description %}
 
 {% block content %}
 
-{% if skills_dict.rated_skills|length > 0 %}
-<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ skills_dict.rated_skills|length }}
+{% if rated_skills|length > 0 %}
+<h1 class="text-center text-4xl font-medium pb-5">TOP-{{ rated_skills|length }}
     most wanted hard
-    {% if skills_dict.rated_skills|length == 1 %} skill{% else %} skills{% endif %} for <br>
-    <div class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">{{skills_dict.vacancy_name
+    {% if rated_skills|length == 1 %} skill{% else %} skills{% endif %} for <br>
+    <div class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">{{vacancy_name
         }}</div>
 </h1>
 <div class="text-center text-4xl font-medium pt-2 pb-5">👇</div>
-{% for tailored_skill in skills_dict.rated_skills %}
+{% for tailored_skill in rated_skills %}
 <p class="text-center text-lg font-semibold pb-2">
     <a href="https://www.google.com/search?q=What is {{ tailored_skill.skill | urlencode }}"
         class="hover:text-fuchsia-500 transition ease-in duration-200" target="_blank" rel="noopener">{{
@@ -29,8 +29,8 @@ Learn this and you will be hired quickly!{% endblock description %}
     <span>(based on an analysis of <abbr
             class="cursor-pointer underline decoration-fuchsia-500 decoration-wavy decoration-1"
             title="Posted over the last 7 days.">{{
-            skills_dict.number_of_vacancies }}</abbr>
-        {% if skills_dict.number_of_vacancies == 1 %} vacancy){% else %}vacancies) {% endif %} </span>
+            number_of_vacancies }}</abbr>
+        {% if number_of_vacancies == 1 %} vacancy){% else %}vacancies) {% endif %} </span>
 </div>
 <h2 class="text-center text-4xl font-medium pt-12 pb-8">Still not sure where to start?
     <br>Give these <u class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">online

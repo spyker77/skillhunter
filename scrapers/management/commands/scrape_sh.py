@@ -1,4 +1,3 @@
-import ast
 import asyncio
 import logging
 import random
@@ -16,7 +15,7 @@ class Command(BaseCommand):
     help = "Scan simplyhired.com and analyze available IT vacancies."
 
     jobs = [job.title for job in Job.objects.all()]
-    skills = {skill.clean_name: ast.literal_eval(skill.unclean_names) for skill in Skill.objects.all()}
+    skills = {skill.clean_name: skill.unclean_names for skill in Skill.objects.all()}
 
     def handle(self, *args, **options):
         logger.info("🚀 simplyhired.com launched to parse!")

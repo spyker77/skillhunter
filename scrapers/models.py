@@ -13,7 +13,7 @@ class Vacancy(models.Model):
     url = models.URLField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    rated_skills = models.TextField()
+    rated_skills = models.JSONField()
     created_date = models.DateTimeField(default=timezone.now)
     search_vector = SearchVectorField(null=True)
 
@@ -78,7 +78,7 @@ class Search(models.Model):
 class Skill(models.Model):
     id = models.BigAutoField(primary_key=True)
     clean_name = models.CharField(max_length=50, unique=True)
-    unclean_names = models.TextField()
+    unclean_names = models.JSONField()
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

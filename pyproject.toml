@@ -17,6 +17,10 @@ line-length = 119
 target-version = "py312"
 exclude = ["*/migrations/*"]
 
+[tool.bandit]
+exclude_dirs = ["tests.py", "test_*.py", "*_tests.py"]
+skips = ["B101", "B601"]
+
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
 

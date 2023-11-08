@@ -1,4 +1,3 @@
-import json
 import logging
 import re
 from collections import Counter
@@ -121,7 +120,7 @@ def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_proc
     try:
         content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
-        counts = json.dumps(Counter(keywords_found))
+        counts = Counter(keywords_found)
         # Only return vacancies with relevant skills, otherwise it is useless.
         if len(counts) == 0:
             return None

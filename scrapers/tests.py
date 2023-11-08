@@ -88,13 +88,15 @@ class TestVacancyModel:
 class TestJobModel:
     title = "Test job"
 
-    def test_jobmodel_str_method(self):
-        Job.objects.create(title=self.title)
-        job_object = Job.objects.get(title=self.title)
-        assert str(job_object) == job_object.title
+    @pytest.fixture
+    def job(self):
+        return Job.objects.create(title=self.title)
 
-    def test_jobmodel_get_absolute_url(self):
-        url = Job.get_absolute_url(self)
+    def test_jobmodel_str_method(self, job):
+        assert str(job) == job.title
+
+    def test_jobmodel_get_absolute_url(self, job):
+        url = job.get_absolute_url()
         parsed_url = urlparse(url)
         query = urlencode({"q": self.title.lower()})
         assert isinstance(url, str)
@@ -116,7 +118,7 @@ class TestSearchModel:
 class TestSkillModel:
     def test_skillmodel_str_method(self):
         test_name = "Test"
-        Skill.objects.create(clean_name=test_name, unclean_names='["python", "python3", "phyton"]')
+        Skill.objects.create(clean_name=test_name, unclean_names=["python", "python3", "phyton"])
         skill_object = Skill.objects.get(clean_name=test_name)
         assert str(skill_object) == skill_object.clean_name
 

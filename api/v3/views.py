@@ -1,6 +1,5 @@
-from collections import OrderedDict
-
 import pdftotext
+from django.contrib.postgres.search import SearchQuery
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status, viewsets
 from rest_framework.parsers import MultiPartParser
@@ -47,12 +46,8 @@ class TailoredSkillsViewSet(viewsets.GenericViewSet):
     pagination_class = None
 
     def get_queryset(self, query):
-        # SearchVector is currently disabled as it does not work properly on AWS RDS due to lack of
-        # pg_catalog.english support from the migrations file. Retaled discussions:
-        # https://stackoverflow.com/q/40032685/10748367
-        # https://forums.aws.amazon.com/thread.jspa?threadID=143920
-        # return Vacancy.objects.filter(search_vector=query)
-        return Vacancy.objects.filter(title__search=query)
+        search_query = SearchQuery(query)
+        return Vacancy.objects.filter(search_vector=search_query)
 
     @extend_schema(
         parameters=[
@@ -75,13 +70,11 @@ class TailoredSkillsViewSet(viewsets.GenericViewSet):
         save_query_with_metadata.delay(query, user_agent, ip_address)
         queryset = self.get_queryset(query)
         tailored_skills = sort_skills(queryset)[:limit]
-        data = OrderedDict(
-            {
-                "vacancy_name": query,
-                "number_of_vacancies": len(queryset),
-                "rated_skills": tailored_skills,
-            }
-        )
+        data = {
+            "vacancy_name": query,
+            "number_of_vacancies": queryset.count(),
+            "rated_skills": tailored_skills,
+        }
         return Response(data)
 
 
