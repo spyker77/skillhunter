@@ -3,13 +3,13 @@ version: "3.9"
 services:
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.2-alpine
 
   rabbitmq:
-    image: rabbitmq:3.11-management
+    image: rabbitmq:3.12-management
 
   db:
-    image: postgres:15.2-alpine
+    image: postgres:16.0-alpine
     command: -c max_wal_size=2GB
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
@@ -32,7 +32,7 @@ services:
     build: .
     environment:
       - PYTHONDEVMODE=1
-    command: sh -c "python manage.py collectstatic --no-input --clear && gunicorn -b 0.0.0.0:8000 -w 8 -k uvicorn.workers.UvicornWorker core.asgi:application"
+    command: sh -c "python manage.py collectstatic --no-input --clear && gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker core.asgi:application"
     volumes:
       - .:/code
       - static_volume:/code/staticfiles
@@ -42,7 +42,7 @@ services:
     depends_on:
       - redis
       - rabbitmq
-      - db
+      - pgbouncer
 
   celery:
     env_file:
@@ -54,7 +54,7 @@ services:
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     depends_on:
-      - web
+      - pgbouncer
 
   nginx:
     build: ./nginx
