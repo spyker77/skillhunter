@@ -8,43 +8,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Build and run containers
         run: docker-compose up -d --quiet-pull
 
-      - name: Pytest
-        run: docker-compose exec -T web pytest -n auto --cov="." --cov-report=xml
+      - name: Run tests
+        run: docker-compose exec -e DB_HOST=db web pytest -n auto --cov="." --cov-report=xml
 
-      - name: Codecov
-        uses: codecov/codecov-action@v2.1.0
+      - name: Send results to Codecov
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-#
-#   Disable CD since there is no hosting at the moment.
-#
-#   build-and-deploy:
-#     name: Build Production Images and Deploy to Amazon ECR
-#     runs-on: ubuntu-latest
-#     needs: [test]
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
+      - name: Clean up
+        run: docker-compose down -v
 
-#       - name: Configure AWS credentials
-#         uses: aws-actions/configure-aws-credentials@v1
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: eu-central-1
+  # # Disable CD since there is no hosting at the moment.
+  # build-and-deploy:
+  #   name: Build Production Images and Deploy to Amazon ECR
+  #   runs-on: ubuntu-latest
+  #   needs: [test]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-#       - name: Login to Amazon ECR
-#         id: login-ecr
-#         uses: aws-actions/amazon-ecr-login@v1
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: eu-central-1
 
-#       - name: Build, tag, and push images to Amazon ECR
-#         run: |
-#           touch .env.prod
-#           docker-compose -f docker-compose.prod.yml build
-#           docker-compose -f docker-compose.prod.yml push
+  #     - name: Login to Amazon ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v2
+
+  #     - name: Build, tag, and push images to Amazon ECR
+  #       run: |
+  #         touch .env.prod
+  #         docker-compose -f docker-compose.prod.yml build
+  #         docker-compose -f docker-compose.prod.yml push

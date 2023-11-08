@@ -18,16 +18,17 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.11"]
+        python-version: ["3.12"]
+        language: [python]
         # Learn more...
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -39,14 +40,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential libpq-dev libpoppler-cpp-dev pkg-config curl
           python -m pip install --upgrade pip
-          curl -sSL https://install.python-poetry.org | python3 -
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.7.0
           export PATH="/root/.local/bin:$PATH"
-          poetry export -f requirements.txt --output requirements.txt --dev --without-hashes
-          pip install -r requirements.txt
+          poetry config virtualenvs.create false && \
+          poetry install --with dev
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+        uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
           # Override the default behavior so that the action doesn't attempt
@@ -56,7 +57,7 @@ jobs:
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v1
+        uses: github/codeql-action/autobuild@v2
 
       # ℹ️ Command-line programs to run using the OS shell.
       # 📚 https://git.io/JvXDl
@@ -70,4 +71,4 @@ jobs:
       #   make release
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
