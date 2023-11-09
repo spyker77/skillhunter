@@ -36,6 +36,7 @@ DJANGO_SETTINGS_MODULE = "core.settings"
 addopts = "--cov-report term-missing --strict-markers --reuse-db"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 xfail_strict = true
+markers = ["value_error_side_effect: Marks tests that generate 'OperationalError' side effect."]
 
 [tool.poetry]
 authors = ["Evgeni Sautin <evgeni.sautin@gmail.com>"]
