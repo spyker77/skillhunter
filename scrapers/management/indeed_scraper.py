@@ -11,20 +11,22 @@ from selenium import webdriver
 from selenium.common.exceptions import MoveTargetOutOfBoundsException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.firefox import GeckoDriverManager
 
 from .utils import get_user_agent
 
 logger = logging.getLogger("django")
 
 
-def initialize_webdriver():
+def initialize_webdriver() -> WebDriver:
     # Run webdriver with a new user agent each time it starts.
-    service = Service(log_path="/dev/null")
+    service = FirefoxService(executable_path=GeckoDriverManager().install(), log_path="/dev/null")
     options = Options()
-    options.headless = True
+    options.add_argument("--headless")
     options.set_preference("general.useragent.override", get_user_agent())
     options.set_preference("dom.webdriver.enabled", False)
     options.set_preference("useAutomationExtension", False)
@@ -33,7 +35,7 @@ def initialize_webdriver():
     return driver
 
 
-def check_subscription_popup(driver: webdriver):
+def check_subscription_popup(driver: WebDriver):
     # Check if there is a subscription popup, then close it.
     try:
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]')))
@@ -81,7 +83,7 @@ def scan_all_search_results(job_title: str):
         driver.quit()
 
 
-def fetch_vacancy_page(link: str, driver: webdriver):
+def fetch_vacancy_page(link: str, driver: WebDriver):
     # Put the link, title and content in a dict – so far without skills.
     try:
         driver.get(link)
