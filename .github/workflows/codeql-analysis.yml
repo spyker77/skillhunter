@@ -23,7 +23,7 @@ jobs:
           python-version: "3.12"
 
       - name: Cache Poetry installation
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.local/bin
@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-poetry-
 
       - name: Cache Python dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cache/pypoetry
