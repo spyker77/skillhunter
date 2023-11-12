@@ -27,11 +27,7 @@ class Command(BaseCommand):
                 indeed_links_we_already_have = [
                     url for url in Vacancy.objects.filter(url__contains="indeed.com").values_list("url", flat=True)
                 ]
-                collected_jobs = main(
-                    job_title,
-                    indeed_links_we_already_have,
-                    self.skills,
-                )
+                collected_jobs = main(job_title, indeed_links_we_already_have, self.skills)
                 all_jobs = (
                     Vacancy(
                         url=job["url"],

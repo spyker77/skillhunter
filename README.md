@@ -45,9 +45,9 @@ docker compose exec web python manage.py loaddata jobs.json skills.json
 4. [Optional] Run scrapers to collect initial data on available vacancies:
 
 ```bash
-docker compose exec web python manage.py scrape_hh
-docker compose exec web python manage.py scrape_indeed
-docker compose exec web python manage.py scrape_sh
+docker compose exec worker python manage.py scrape_hh
+docker compose exec worker python manage.py scrape_indeed
+docker compose exec worker python manage.py scrape_sh
 ```
 
 ...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:

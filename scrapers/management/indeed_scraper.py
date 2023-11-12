@@ -1,149 +1,139 @@
 import logging
-import re
 from collections import Counter
-from secrets import SystemRandom
-from time import sleep
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
 from flashtext import KeywordProcessor
-from selenium import webdriver
-from selenium.common.exceptions import MoveTargetOutOfBoundsException, TimeoutException
+from selenium.common.exceptions import MoveTargetOutOfBoundsException, NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.firefox import GeckoDriverManager
 
-from .utils import get_user_agent
+from .utils import get_webdriver
 
 logger = logging.getLogger("django")
 
 
-def initialize_webdriver() -> WebDriver:
-    # Run webdriver with a new user agent each time it starts.
-    service = FirefoxService(executable_path=GeckoDriverManager().install(), log_path="/dev/null")
-    options = Options()
-    options.add_argument("--headless")
-    options.set_preference("general.useragent.override", get_user_agent())
-    options.set_preference("dom.webdriver.enabled", False)
-    options.set_preference("useAutomationExtension", False)
-    driver = webdriver.Firefox(service=service, options=options)
-    driver.maximize_window()
-    return driver
-
-
 def check_subscription_popup(driver: WebDriver):
-    # Check if there is a subscription popup, then close it.
+    # Checks and closes the subscription popup if present on the page.
     try:
-        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="popover-email-div"]')))
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="popover-x"]')))
-        close_alert_button = driver.find_element(By.XPATH, '//*[@id="popover-x"]')
-        webdriver.ActionChains(driver).move_to_element(close_alert_button).perform()
+        close_selector = "#popover-x"
+
+        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#popover-email-div")))
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, close_selector)))
+        close_alert_button = driver.find_element(By.CSS_SELECTOR, close_selector)
         close_alert_button.click()
     except TimeoutException:
         # If there is no pop-up, do nothing and continue the flow.
         pass
 
 
-def scan_all_search_results(job_title: str):
-    # Scan each search page for vacancy links and continue while the Next button is presented.
-    all_links: set[str] = set()
-    driver = initialize_webdriver()
+def navigate_to_next_page(driver: WebDriver):
+    # Navigates to the next page of the search results.
     try:
-        payload = {"q": f"title:({job_title})", "fromage": 7, "filter": 0}
+        next_button = driver.find_element(By.CSS_SELECTOR, '[aria-label="Next Page"]')
+        driver.execute_script("arguments[0].scrollIntoView();", next_button)
+        next_button.click()
+        return True
+    except (NoSuchElementException, MoveTargetOutOfBoundsException):
+        # It usually happens on the last page when there is no Next button.
+        return False
+
+
+def scan_single_search_page(driver: WebDriver):
+    # Scans and collects job vacancy links from a single search page.
+    check_subscription_popup(driver)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    soup = BeautifulSoup(driver.page_source, "lxml")
+    all_vacancies = soup.select("a[href*='/rc/clk']")
+    links = {"https://www.indeed.com/viewjob?jk=" + str(vacancy["href"]).split("jk=")[-1] for vacancy in all_vacancies}
+    return links
+
+
+def scan_all_search_results(job_title: str):
+    # Scans and collects job vacancy links for the specified job title.
+    with get_webdriver() as driver:
+        all_links = set()
+        payload = {"q": job_title, "fromage": 7}
         driver.get("https://www.indeed.com/jobs?" + urlencode(payload))
         while True:
+            # Need to wait for the dynamic page to load, otherwise StaleElementReferenceException.
+            WebDriverWait(driver, 10).until(lambda d: d.execute_script("return document.readyState") == "complete")
+
+            new_links = scan_single_search_page(driver)
+            if new_links.issubset(all_links):
+                break
+            all_links.update(new_links)
+
+            if not navigate_to_next_page(driver):
+                break
+        return all_links
+
+
+def fetch_vacancy_page(link: str):
+    # Fetches and parses the content of a specific vacancy page.
+    with get_webdriver() as driver:
+        try:
+            driver.get(link)
             check_subscription_popup(driver)
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            html = driver.page_source
-            soup = BeautifulSoup(html, "html.parser")
-            all_vacancies = soup.find_all("a", href=re.compile(r"/rc/clk"))
-            links = {
-                "https://www.indeed.com/viewjob?jk=" + vacancy["href"].split("jk=")[-1] for vacancy in all_vacancies
-            }
-            # Exit if we started collecting the same links or vacancies are not displayed at all.
-            if links.issubset(all_links):
-                return all_links
-            all_links.update(links)
-            # Or if there is no the Next button.
-            if 'aria-label="Next"' not in html:
-                return all_links
-            # Otherwise, continue with normal flow.
-            else:
-                next_button = driver.find_element(By.CSS_SELECTOR, '[aria-label="Next"]')
-                webdriver.ActionChains(driver).move_to_element(next_button).perform()
-                next_button.click()
-    except MoveTargetOutOfBoundsException:
-        logger.warning(f'🚨 MoveTargetOutOfBoundsException occurred while parsing "{job_title}"')
-        return all_links
-    finally:
-        driver.quit()
 
+            title_selector = '[data-testid="jobsearch-JobInfoHeader-title"]'
+            content_selector = "#jobDescriptionText"
 
-def fetch_vacancy_page(link: str, driver: WebDriver):
-    # Put the link, title and content in a dict – so far without skills.
-    try:
-        driver.get(link)
-        check_subscription_popup(driver)
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        html = driver.page_source
-        soup = BeautifulSoup(html, "html.parser")
-        title = soup.find(attrs={"class": "jobsearch-JobInfoHeader-title-container"}).text
-        content = soup.find(attrs={"class": "jobsearch-jobDescriptionText"}).text
-        vacancy_page = {"url": link, "title": title, "content": content}
-        timeout = SystemRandom().uniform(1.0, 5.0)
-        sleep(timeout)
-        return vacancy_page
-    except AttributeError:
-        logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
-        return None
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, title_selector)))
+            soup = BeautifulSoup(driver.page_source, "lxml")
+            title = soup.select_one(title_selector).get_text(strip=True)
+            content = soup.select_one(content_selector).get_text(strip=True)
+            vacancy_page = {"url": link, "title": title, "content": content}
+            return vacancy_page
+        except TimeoutException:
+            logger.warning(f"🚨 TimeoutException occurred while fetching: {link}")
+        except AttributeError:
+            logger.warning(f"🚨 AttributeError occurred while fetching: {link}")
 
 
 def fetch_all_vacancy_pages(all_links: set[str], indeed_links_we_already_have: list[str]):
-    # Parse all the vacancy pages one by one.
-    driver = initialize_webdriver()
-    try:
-        vacancies_without_skills = list()
-        # Reduce pressure on indeed.com by checking if we have this link.
-        new_links = [link for link in all_links if link not in indeed_links_we_already_have]
-        for link in new_links:
-            result = fetch_vacancy_page(link, driver)
-            vacancies_without_skills.append(result)
-        return tuple(vacancies_without_skills)
-    finally:
-        driver.quit()
+    # Fetches all new vacancy pages from the collected links.
+    vacancies_without_skills = []
+    new_links = set(all_links) - set(indeed_links_we_already_have)
+    with ThreadPoolExecutor(10) as executor:
+        future_to_link = {executor.submit(fetch_vacancy_page, link): link for link in new_links}
+        for future in as_completed(future_to_link):
+            link = future_to_link[future]
+            try:
+                result = future.result()
+                if result:
+                    vacancies_without_skills.append(result)
+            except Exception as e:
+                logger.error(f"🚨 {link} generated an exception: {e}")
+        return vacancies_without_skills
 
 
 def process_vacancy_content(vacancy_without_skills: dict[str, str], keyword_processor: KeywordProcessor):
-    # Extract keywords from the content of the vacancy and count each keyword.
+    # Processes the vacancy content to extract and count relevant skills.
     try:
         content = vacancy_without_skills["content"]
         keywords_found = keyword_processor.extract_keywords(content)
         counts = Counter(keywords_found)
-        # Only return vacancies with relevant skills, otherwise it is useless.
-        if len(counts) == 0:
+        if not counts:
             return None
-        skills = {"rated_skills": counts}
-        vacancy_plus_skills = vacancy_without_skills.copy()
-        vacancy_plus_skills.update(skills)
-        return vacancy_plus_skills
+        return {**vacancy_without_skills, "rated_skills": counts}
     except TypeError:
         logger.warning("🚨 TypeError occurred while processing vacancy content.")
-        return None
 
 
 def main(job_title: str, indeed_links_we_already_have: list[str], skills: dict[str, list[str]]):
-    # Main flow of parsing the vacancies and counting the relevant skills.
+    # Main function orchestrating the flow of parsing vacancies and extracting skills.
     all_links = scan_all_search_results(job_title)
     vacancies_without_skills = fetch_all_vacancy_pages(all_links, indeed_links_we_already_have)
     keyword_processor = KeywordProcessor()
     keyword_processor.add_keywords_from_dict(skills)
     collected_jobs = (
-        process_vacancy_content(vacancy_without_skills, keyword_processor)
-        for vacancy_without_skills in vacancies_without_skills
-        if vacancy_without_skills is not None
+        process_vacancy_content(vacancy, keyword_processor)
+        for vacancy in vacancies_without_skills
+        if vacancy is not None
     )
     return collected_jobs

@@ -1,4 +1,4 @@
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import MagicMock
 
 import pytest
 from django.core.management import call_command
@@ -33,50 +33,27 @@ class TestCleanOutdatedVacancies:
 
 
 @pytest.mark.parametrize(
-    "command, scraper_main, site_name, existing_job_url",
+    "command, scraper_main, site_name",
     [
-        (
-            "scrape_hh",
-            "scrapers.management.hh_scraper.main",
-            "hh.ru",
-            "https://hh.ru/existing-job-1",
-        ),
-        (
-            "scrape_indeed",
-            "scrapers.management.indeed_scraper.main",
-            "indeed.com",
-            "https://indeed.com/existing-job-1",
-        ),
-        (
-            "scrape_sh",
-            "scrapers.management.sh_scraper.main",
-            "simplyhired.com",
-            "https://simplyhired.com/existing-job-1",
-        ),
+        ("scrape_hh", "scrapers.management.hh_scraper.main", "hh.ru"),
+        ("scrape_indeed", "scrapers.management.indeed_scraper.main", "indeed.com"),
+        ("scrape_sh", "scrapers.management.sh_scraper.main", "simplyhired.com"),
     ],
 )
 @pytest.mark.django_db
 class TestScrapeCommand:
-    def test_normal_flow_without_errors(self, monkeypatch, command, scraper_main, site_name, existing_job_url, caplog):
-        monkeypatch.setattr("scrapers.models.Vacancy.objects.bulk_create", MagicMock())
-        mock_main = MagicMock() if "indeed_scraper" in scraper_main else AsyncMock()
+    def test_normal_flow_without_errors(self, monkeypatch, command, scraper_main, site_name, caplog):
+        mock_main = MagicMock()
         monkeypatch.setattr(scraper_main, mock_main)
 
         call_command(command)
 
         assert f"vacancies parsed from {site_name}" in caplog.text
 
-    @pytest.mark.value_error_side_effect
-    def test_handling_operational_error(self, monkeypatch, command, scraper_main, site_name, existing_job_url, caplog):
-        # Note: This test generates an exception like this in the test results:
-        # Exception ignored in: <django.core.management.base.OutputWrapper object at 0x7f3099303d90>
-        # Traceback (most recent call last):
-        # File "/usr/local/lib/python3.12/site-packages/django/core/management/base.py", line 170, in flush
-        #     self._out.flush()
-        # ValueError: I/O operation on closed file.
+    def test_handling_operational_error(self, monkeypatch, command, scraper_main, site_name, caplog):
         mock_bulk_create = MagicMock(side_effect=OperationalError("Database error"))
         monkeypatch.setattr("scrapers.models.Vacancy.objects.bulk_create", mock_bulk_create)
-        mock_main = MagicMock() if "indeed_scraper" in scraper_main else AsyncMock()
+        mock_main = MagicMock()
         monkeypatch.setattr(scraper_main, mock_main)
 
         call_command(command)

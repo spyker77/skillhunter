@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import random
 
@@ -29,7 +28,7 @@ class Command(BaseCommand):
                     url
                     for url in Vacancy.objects.filter(url__contains="simplyhired.com").values_list("url", flat=True)
                 ]
-                collected_jobs = asyncio.run(main(job_title, sh_links_we_already_have, self.skills))
+                collected_jobs = main(job_title, sh_links_we_already_have, self.skills)
                 all_jobs = (
                     Vacancy(
                         url=job["url"],

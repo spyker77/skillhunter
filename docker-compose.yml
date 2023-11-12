@@ -30,8 +30,6 @@ services:
     env_file:
       - .env
     build: .
-    environment:
-      - PYTHONDEVMODE=1
     command: sh -c "python manage.py collectstatic --no-input --clear && gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker core.asgi:application"
     volumes:
       - .:/code
@@ -44,7 +42,7 @@ services:
       - rabbitmq
       - pgbouncer
 
-  celery:
+  worker:
     env_file:
       - .env
     build: .
