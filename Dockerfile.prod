@@ -9,7 +9,7 @@ ENV APP_HOME=/code
 WORKDIR $APP_HOME
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential libpq-dev libpoppler-cpp-dev curl && \
+    apt-get install -y --no-install-recommends build-essential libpq-dev curl && \
     rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml poetry.lock ./
@@ -33,7 +33,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR $APP_HOME
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq5 libpoppler-cpp0v5 firefox-esr && \
+    apt-get install -y --no-install-recommends libpq5 firefox-esr && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/local/ /usr/local/

@@ -1,5 +1,5 @@
-import pdftotext
 from django.shortcuts import render
+from pypdf.errors import PdfStreamError
 
 from .analyzer import analyze_resume
 from .forms import UploadResumeForm
@@ -19,6 +19,6 @@ def upload_resume(request):
             resume_in_memory = request.FILES["resume"]
             try:
                 tailored_vacancies = analyze_resume(resume_in_memory)
-            except pdftotext.Error:
+            except PdfStreamError:
                 return render(request, "home.html", context_for_error)
             return render(request, "tailored_vacancies.html", {"vacancies": tailored_vacancies[:LIMIT_OF_VACANCIES]})

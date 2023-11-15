@@ -74,7 +74,7 @@ docker compose exec -e DB_HOST=db web pytest -n auto --cov="."
 
 **Note** ⚠️
 
-For the local development you may need to install **poppler** (e.g. using `brew install poppler`) for the **pdftotext** package, and **pg_config** for the **psycopg** (e.g. using `brew install postgresql`).
+For the local development you may need to install **pg_config** for the **psycopg** (e.g. using `brew install postgresql`).
 
 ## Architecture
 

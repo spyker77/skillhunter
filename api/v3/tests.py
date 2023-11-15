@@ -80,8 +80,8 @@ class TestTailoredVacanciesViewSet:
     def test_tailoredvacanciesviewset_with_fake_resume(self, client):
         with open("resume_analyzer/test_resumes/fake_format.pdf", "rb") as resume:
             response = client.post(path=self.url, data={"resume": resume}, secure=True)
-        assert response.status_code == 404
-        assert response.json()["detail"] == "Vacancies not found."
+        assert response.status_code == 400
+        assert response.json()["detail"] == "Error processing resume."
 
     def test_tailoredvacanciesviewset_with_empty_resume(self, client):
         with open("resume_analyzer/test_resumes/empty_file.pdf", "rb") as resume:

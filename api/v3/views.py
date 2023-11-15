@@ -1,6 +1,6 @@
-import pdftotext
 from django.contrib.postgres.search import SearchQuery
 from drf_spectacular.utils import OpenApiParameter, extend_schema
+from pypdf.errors import PdfStreamError
 from rest_framework import status, viewsets
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import AllowAny
@@ -94,5 +94,5 @@ class TailoredVacanciesViewSet(viewsets.ViewSet):
         try:
             tailored_vacancies = analyze_resume(request.FILES["resume"])
             return Response(tailored_vacancies[: self.LIMIT_OF_VACANCIES], status=status.HTTP_200_OK)
-        except pdftotext.Error:
-            return Response({"detail": "Vacancies not found."}, status=status.HTTP_404_NOT_FOUND)
+        except PdfStreamError:
+            return Response({"detail": "Error processing resume."}, status=status.HTTP_400_BAD_REQUEST)

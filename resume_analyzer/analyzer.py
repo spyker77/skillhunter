@@ -2,34 +2,18 @@ from collections.abc import Generator
 from operator import itemgetter
 from tempfile import SpooledTemporaryFile
 
-import pdftotext
 from django.core.cache import cache
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from flashtext import KeywordProcessor
+from pypdf import PdfReader
 
 from scrapers.models import Skill, Vacancy
-
-# # https://stackoverflow.com/a/60458555/10748367
-# def convert_to(input_file, output_folder, output_format):
-#     # Convert uploaded resume to pdf format using libreoffice.
-#     args = [
-#         "soffice",
-#         "--headless",
-#         "--convert-to",
-#         output_format,
-#         "--outdir",
-#         output_folder,
-#         input_file,
-#     ]
-#     process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#     filename = re.search("-> (.*?) using filter", process.stdout.decode())
-#     return filename.group(1)
 
 
 def extract_text_from_resume(resume_in_memory: SpooledTemporaryFile | InMemoryUploadedFile) -> str:
     # Extract text from a PDF resume.
-    pdf = pdftotext.PDF(resume_in_memory)
-    text_from_resume = "\n\n".join(pdf)
+    reader = PdfReader(resume_in_memory)
+    text_from_resume = "\n\n".join([page.extract_text() for page in reader.pages])
     return text_from_resume
 
 

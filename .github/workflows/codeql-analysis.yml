@@ -42,7 +42,7 @@ jobs:
             ${{ runner.os }}-python-
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential libpq-dev libpoppler-cpp-dev pkg-config curl
+        run: sudo apt-get update && sudo apt-get install -y build-essential libpq-dev curl
 
       - name: Install Poetry
         run: |
