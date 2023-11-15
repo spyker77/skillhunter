@@ -3,7 +3,8 @@ from collections import Counter
 from urllib.parse import urlencode
 
 from flashtext import KeywordProcessor
-from playwright.sync_api import Page, TimeoutError
+from playwright.sync_api import Page
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from tenacity import RetryError, Retrying, stop_after_attempt, wait_random_exponential
 
 from .utils import get_playwright_page
@@ -16,7 +17,7 @@ logger = logging.getLogger("django")
 #     try:
 #         if page.is_visible("#popover-email-div", timeout=1000):
 #             page.click("#popover-x")
-#     except TimeoutError:
+#     except PlaywrightTimeoutError:
 #         # If there is no pop-up, do nothing and continue the flow.
 #         pass
 
@@ -37,7 +38,7 @@ def next_page(page: Page, page_number: int):
             return True
         else:
             return False
-    except TimeoutError:
+    except PlaywrightTimeoutError:
         logger.warning(f"Timeout error while navigating to next page: {page_number}.")
         return False
     except Exception as e:

@@ -3,7 +3,8 @@ from collections import Counter
 from urllib.parse import urlencode
 
 from flashtext import KeywordProcessor
-from playwright.sync_api import Page, TimeoutError
+from playwright.sync_api import Page
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from tenacity import RetryError, Retrying, stop_after_attempt, wait_random_exponential
 
 from .utils import get_playwright_page
@@ -27,7 +28,7 @@ def next_page(page: Page, page_number: int):
             return True
         else:
             return False
-    except TimeoutError:
+    except PlaywrightTimeoutError:
         logger.warning(f"Timeout error while navigating to next page: {page_number}.")
         return False
     except Exception as e:
@@ -41,7 +42,7 @@ def scan_single_search_page(page: Page):
     page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
     try:
         page.wait_for_selector(selector, state="attached", timeout=5000)
-    except TimeoutError:
+    except PlaywrightTimeoutError:
         # This can happen, for example, when there are no vacancies or the page does not load for some reason.
         logger.warning(f"Timeout error while waiting for selector: {selector}")
         return set()
