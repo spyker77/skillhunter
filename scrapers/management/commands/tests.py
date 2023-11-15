@@ -58,5 +58,5 @@ class TestScrapeCommand:
 
         call_command(command)
 
-        assert "🚨 Got an OperationalError for" in caplog.text
+        assert "Got an OperationalError for" in caplog.text
         assert f"💃🕺 {site_name} finished to parse" in caplog.text

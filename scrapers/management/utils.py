@@ -2,9 +2,7 @@ import platform
 from contextlib import contextmanager
 
 from faker import Faker
-from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.firefox.service import Service as FirefoxService
+from playwright.sync_api import sync_playwright
 
 
 def get_user_agent():
@@ -29,19 +27,16 @@ def get_user_agent():
 
 
 @contextmanager
-def get_webdriver():
-    # Initializes and returns a WebDriver instance with specific options for Firefox.
-    service = FirefoxService(log_path="/dev/null")
-    options = FirefoxOptions()
-    options.add_argument("--headless")
-    options.set_preference("general.useragent.override", get_user_agent())
-    options.set_preference("dom.webdriver.enabled", False)
-    options.set_preference("useAutomationExtension", False)
-
-    driver = Firefox(service=service, options=options)
-    driver.maximize_window()
-
+def get_playwright_page():
+    # Initializes Playwright and yields new page.
+    playwright = sync_playwright().start()
+    browser = playwright.firefox.launch(headless=True)
+    context = browser.new_context(user_agent=get_user_agent(), viewport={"width": 1920, "height": 1080})
+    page = context.new_page()
     try:
-        yield driver
+        yield page
     finally:
-        driver.quit()
+        page.close()
+        context.close()
+        browser.close()
+        playwright.stop()

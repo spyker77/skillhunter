@@ -1,6 +1,7 @@
 import pytest
+from playwright.sync_api import Error, Page
 
-from .utils import get_user_agent, get_webdriver
+from .utils import get_playwright_page, get_user_agent
 
 
 @pytest.mark.parametrize(
@@ -17,14 +18,10 @@ def test_get_user_agent(monkeypatch, os_name, expected_agent):
     assert expected_agent in user_agent
 
 
-def test_get_webdriver():
-    with get_webdriver() as driver:
-        # Check WebDriver is initialized correctly.
-        assert driver.service is not None
-        assert driver.capabilities["browserName"] == "firefox"
+def test_get_playwright_page():
+    with get_playwright_page() as page:
+        assert isinstance(page, Page)
 
-        # WebDriver should still be operational at this point.
-        assert driver.service.is_connectable()
-
-    # WebDriver should be closed after exiting the context.
-    assert not driver.service.is_connectable()
+    # After the context manager exits, the page should be closed.
+    with pytest.raises(Error):
+        _ = page.title()
