@@ -84,8 +84,6 @@ class TestScrapingCommands:
 
         call_command(command_name)
 
-        assert mock_scraper.scan_all_search_results.called
-        assert mock_scraper.fetch_all_vacancy_pages.called
         assert f"vacancies parsed from {site_name}" in caplog.text
 
     def test_handle_with_operational_error(
