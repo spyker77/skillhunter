@@ -1,15 +1,19 @@
+import time
+from concurrent.futures import ThreadPoolExecutor
 from io import StringIO
+from unittest.mock import patch
 
 import pytest
+from django.conf import settings
 from django.core.management import call_command
 from django.test import override_settings
 from storages.backends.s3boto3 import S3Boto3Storage
 
-from core import settings
-from core.tasks import save_query_with_metadata
 from scrapers.models import Search
 
 from .storage_backends import MediaStorage, StaticStorage
+from .tasks import save_query_with_metadata
+from .utils.celery import lock_task
 
 
 class TestSettings:
@@ -70,3 +74,45 @@ class TestTasks:
         instance = Search.objects.get(ip_address=self.ip_address)
         assert instance.query == self.query
         assert instance.user_agent == self.user_agent
+
+
+class TestLockTaskDecorator:
+    def mock_task(self, key, raise_exception=False, sleep_time=2):
+        @lock_task(key, timeout=10)
+        def task():
+            # Simulate task execution time and handle exceptions.
+            try:
+                time.sleep(sleep_time)
+                if raise_exception:
+                    raise Exception("Simulated Task Failure")
+                return "Executed"
+            except Exception as e:
+                return str(e)
+
+        return task
+
+    def test_lock_acquisition_exception(self):
+        task = self.mock_task("test_lock_acquisition")
+        with patch("core.utils.celery.redis_client.lock") as mock_lock:
+            mock_lock.return_value.acquire.side_effect = Exception("Lock acquisition failed")
+            task()
+        assert mock_lock.call_count == 1
+
+    def test_lock_release_after_exception(self):
+        task_with_exception = self.mock_task("test_lock_release", raise_exception=True)
+        assert task_with_exception() == "Simulated Task Failure"
+        task = self.mock_task("test_lock_release", raise_exception=False)
+        assert task() == "Executed"
+
+    def test_concurrent_execution_with_lock(self):
+        task = self.mock_task("test_concurrent_execution")
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            first_task = executor.submit(task)
+            time.sleep(0.2)
+            second_task = executor.submit(task, raise_exception=True)
+
+            first_result = first_task.result()
+            second_result = second_task.result()
+
+            # Validate that one task executed successfully and the other raised an exception.
+            assert (first_result == "Executed") != (second_result == "Simulated Task Failure")

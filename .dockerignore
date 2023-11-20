@@ -18,3 +18,4 @@ staticfiles
 mediafiles
 htmlcov
 certs
+celerybeat-schedule

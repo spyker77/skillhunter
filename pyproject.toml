@@ -45,6 +45,7 @@ Faker = "^19.13.0"
 Jinja2 = "^3.1.2"
 boto3 = "^1.28.78"
 celery = { extras = ["pytest"], version = "^5.3.4" }
+django-celery-beat = "^2.5.0"
 django-csp = "^3.7"
 django-debug-toolbar = "^4.2.0"
 django-linear-migrations = "^2.12.0"
@@ -59,6 +60,7 @@ gunicorn = "^21.2.0"
 pypdf = "^3.17.1"
 python = "^3.12"
 python-multipart = "^0.0.6"
+python-decouple = "^3.8"
 qrcode = "^7.4.2"
 redis = { extras = ["hiredis"], version = "^5.0.1" }
 beautifulsoup4 = { extras = ["lxml"], version = "^4.12.2" }

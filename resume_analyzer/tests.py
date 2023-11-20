@@ -1,8 +1,11 @@
+from unittest.mock import call, patch
+
 import pytest
 from django.core.cache import cache
 from django.urls import reverse
 
 from .forms import UploadResumeForm
+from .tasks import task_warmup_cache
 from .views import upload_resume
 
 
@@ -104,3 +107,19 @@ class TestUploadResumeEmpty:
 
     def test_uploadresumeempty_does_not_contain_incorrect_html(self, response):
         assert "Hi there! I should not be on the page." not in response.content.decode()
+
+
+@pytest.mark.django_db
+@patch("resume_analyzer.tasks.call_command")
+@patch("core.utils.celery.redis_client.lock")
+class TestWarmupCacheTask:
+    def test_task_warmup_cache(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = True
+        task_warmup_cache()
+        assert mock_call_command.call_count == 1
+        assert mock_call_command.call_args == call("warmup_cache")
+
+    def test_locking_behavior(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = False
+        task_warmup_cache()
+        assert mock_call_command.call_count == 0

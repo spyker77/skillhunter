@@ -1,25 +1,24 @@
-import ast
-import os
 from pathlib import Path
 
 import sentry_sdk
+from celery.schedules import crontab
+from decouple import config
 from django.core.management.utils import get_random_secret_key
 from sentry_sdk.integrations.redis import RedisIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", default="production")
+ENVIRONMENT = config("ENVIRONMENT", default="production")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = config("DJANGO_SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = ast.literal_eval(os.getenv("DEBUG", default="False"))
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 DEFAULT_HOSTS = "localhost,0.0.0.0,127.0.0.1"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", default=DEFAULT_HOSTS).split(",")
-
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=DEFAULT_HOSTS).split(",")
 SITE_ID = 1
 
 # Application definition
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
     "django_otp.plugins.otp_totp",
     "storages",
     "django_linear_migrations",
+    "django_celery_beat",
     # Local apps
     "resume_analyzer",
     "scrapers",
@@ -104,11 +104,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME", "postgres"),
-        "USER": os.getenv("DB_USER", "postgres"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "postgres"),
-        "HOST": os.getenv("DB_HOST", "pgbouncer"),
-        "PORT": os.getenv("DB_PORT", 5432),
+        "NAME": config("DB_NAME", default="postgres"),
+        "USER": config("DB_USER", default="postgres"),
+        "PASSWORD": config("DB_PASSWORD", default="postgres"),
+        "HOST": config("DB_HOST", default="pgbouncer"),
+        "PORT": config("DB_PORT", default=5432, cast=int),
         # # Connections are managed by PgBouncer.
         "CONN_MAX_AGE": 0,
         "DISABLE_SERVER_SIDE_CURSORS": True,
@@ -123,15 +123,47 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL", default="redis://redis"),
+        "LOCATION": config("REDIS_URL", default="redis://redis"),
     }
 }
 
 
 # Celery
 # https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", default="amqp://rabbitmq")
-CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", default="redis://redis")
+CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="amqp://rabbitmq")
+CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND", default="redis://redis")
+CELERY_BEAT_SCHEDULE = {
+    "warmup-cache": {
+        "task": "resume_analyzer.tasks.task_warmup_cache",
+        "schedule": crontab(*config("WARMUP_CACHE_SCHEDULE", default="* * * * *").split(" "))
+        if config("ENABLE_WARMUP_CACHE", default=False, cast=bool)
+        else None,
+    },
+    "purge-db": {
+        "task": "scrapers.tasks.task_purge_db",
+        "schedule": crontab(*config("PURGE_DB_SCHEDULE", default="0 21 * * *").split(" "))
+        if config("ENABLE_PURGE_DB", default=False, cast=bool)
+        else None,
+    },
+    "scrape-hh": {
+        "task": "scrapers.tasks.task_scrape_hh",
+        "schedule": crontab(*config("SCRAPE_HH_SCHEDULE", default="30 21,9 * * *").split(" "))
+        if config("ENABLE_SCRAPE_HH", default=False, cast=bool)
+        else None,
+    },
+    "scrape-indeed": {
+        "task": "scrapers.tasks.task_scrape_indeed",
+        "schedule": crontab(*config("SCRAPE_INDEED_SCHEDULE", default="30 0,12 * * *").split(" "))
+        if config("ENABLE_SCRAPE_INDEED", default=False, cast=bool)
+        else None,
+    },
+    "scrape-sh": {
+        "task": "scrapers.tasks.task_scrape_sh",
+        "schedule": crontab(*config("SCRAPE_SH_SCHEDULE", default="30 3,15 * * *").split(" "))
+        if config("ENABLE_SCRAPE_SH", default=False, cast=bool)
+        else None,
+    },
+}
 
 
 # Password validation
@@ -186,17 +218,17 @@ CSP_INCLUDE_NONCE_IN = ["script-src"]
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-USE_S3 = ast.literal_eval(os.getenv("USE_S3", default="False"))
+USE_S3 = config("USE_S3", default=False, cast=bool)
 
 if USE_S3:
     # AWS S3 storage settings
     # https://django-storages.readthedocs.io/en/latest/index.html
-    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
-    AWS_S3_CUSTOM_DOMAIN = os.getenv("AWS_S3_CUSTOM_DOMAIN", "")
+    AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME")
+    AWS_S3_CUSTOM_DOMAIN = config("AWS_S3_CUSTOM_DOMAIN", "")
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=2592000"}
-    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
     # Static files
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
     STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
@@ -294,9 +326,15 @@ LOGGING = {
         },
     },
     "loggers": {
+        "celery": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
         "django": {
             "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "level": config("DJANGO_LOG_LEVEL", default="INFO"),
+            "propagate": False,
         },
         "django.security.DisallowedHost": {
             "handlers": ["console", "mail_admins"],
@@ -336,7 +374,7 @@ if ENVIRONMENT == "production":
     # Django error and performance monitoring with Sentry.
     # https://docs.sentry.io/platforms/python/django/
     sentry_sdk.init(
-        dsn=os.getenv("SENTRY_DSN"),
+        dsn=config("SENTRY_DSN", default=None),
         # Notice: DjangoIntegration is enabled by default thanks to auto_enabling_integrations,
         # LoggingIntegration is enabled by default thanks to default_integrations.
         integrations=[RedisIntegration()],

@@ -1,4 +1,5 @@
 from pathlib import Path
+from unittest.mock import call, patch
 from urllib.parse import urlencode, urlparse
 
 import pytest
@@ -8,6 +9,7 @@ from core.tasks import save_query_with_metadata
 
 from .apps import ScrapersConfig
 from .models import Job, Search, Skill, Vacancy
+from .tasks import task_purge_db, task_scrape_hh, task_scrape_indeed, task_scrape_sh
 from .views import SearchResultsListView
 
 
@@ -128,3 +130,46 @@ class TestScrapersConfig:
         app_path = Path(__file__).resolve().parent
         app_name = str(app_path).split("/")[-1]
         assert ScrapersConfig.name == app_name
+
+
+@patch("scrapers.tasks.call_command")
+@patch("core.utils.celery.redis_client.lock")
+class TestScraperTasks:
+    def test_task_scrape_hh(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = True
+        task_scrape_hh()
+        assert mock_call_command.call_count == 1
+        assert mock_call_command.call_args == call("scrape_hh")
+
+    def test_task_scrape_indeed(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = True
+        task_scrape_indeed()
+        assert mock_call_command.call_count == 1
+        assert mock_call_command.call_args == call("scrape_indeed")
+
+    def test_task_scrape_sh(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = True
+        task_scrape_sh()
+        assert mock_call_command.call_count == 1
+        assert mock_call_command.call_args == call("scrape_sh")
+
+    def test_locking_behavior(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = False
+        for task in [task_scrape_hh, task_scrape_indeed, task_scrape_sh]:
+            task()
+            assert mock_call_command.call_count == 0
+
+
+@patch("scrapers.tasks.call_command")
+@patch("core.utils.celery.redis_client.lock")
+class TestPurgeDBTask:
+    def test_task_purge_db(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = True
+        task_purge_db()
+        assert mock_call_command.call_count == 1
+        assert mock_call_command.call_args == call("purge_db")
+
+    def test_locking_behavior(self, mock_lock, mock_call_command):
+        mock_lock.return_value.acquire.return_value = False
+        task_purge_db()
+        assert mock_call_command.call_count == 0

@@ -7,10 +7,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from core.tasks import save_query_with_metadata
-from core.utils import parse_request
+from core.utils.common import parse_request, sort_skills
 from resume_analyzer.analyzer import analyze_resume
 from scrapers.models import Job, Skill, Vacancy
-from scrapers.utils import sort_skills
 
 from .serializers import (
     JobSerializer,

@@ -42,7 +42,7 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py loaddata jobs.json skills.json
 ```
 
-4. [Optional] Run scrapers to collect initial data on available vacancies:
+4. [Optional] Run scrapers manually to collect data about available vacancies:
 
 ```bash
 docker compose exec worker python manage.py scrape_hh
@@ -50,11 +50,7 @@ docker compose exec worker python manage.py scrape_indeed
 docker compose exec worker python manage.py scrape_sh
 ```
 
-...or run scrapers periodically using **cron** and additionally cleaning the database from outdated records:
-
-```bash
-docker compose exec web python manage.py purge_db
-```
+Or rely on the Celery beat to run this and other tasks periodically – see the `CELERY_BEAT_SCHEDULE` setting.
 
 **Tada** 🎉
 

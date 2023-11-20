@@ -2,10 +2,9 @@ from django.contrib.postgres.search import SearchQuery
 from django.views.generic import ListView
 
 from core.tasks import save_query_with_metadata
-from core.utils import parse_request
+from core.utils.common import parse_request, sort_skills
 
 from .models import Vacancy
-from .utils import sort_skills
 
 LIMIT_OF_SKILLS = 20
 
