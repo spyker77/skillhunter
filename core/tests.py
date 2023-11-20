@@ -4,6 +4,7 @@ from io import StringIO
 from unittest.mock import patch
 
 import pytest
+from celery.exceptions import Retry
 from django.conf import settings
 from django.core.management import call_command
 from django.test import override_settings
@@ -67,13 +68,32 @@ class TestTasks:
     ip_address = "123.123.123.123"
     user_agent = "Test User-Agent"
 
-    @override_settings(CELERY_TASK_ALWAYS_EAGER=True, CELERY_TASK_EAGER_PROPOGATES=True)
-    def test_celery_task_save_query_with_metadata(self):
+    @pytest.fixture(autouse=True)
+    def setup_tests(self):
+        with override_settings(CELERY_TASK_ALWAYS_EAGER=True, CELERY_TASK_EAGER_PROPOGATES=True):
+            yield
+
+    def test_celery_task_save_query_with_metadata_success(self):
         result = save_query_with_metadata.delay(self.query, self.user_agent, self.ip_address)
-        assert result.successful() is True
+        assert result.successful()
         instance = Search.objects.get(ip_address=self.ip_address)
         assert instance.query == self.query
         assert instance.user_agent == self.user_agent
+
+    @patch("core.tasks.save_query_with_metadata.retry", side_effect=Retry())
+    @patch("scrapers.models.Search.objects.create")
+    def test_celery_task_save_query_with_metadata_retry(self, mock_create, mock_retry):
+        mock_create.side_effect = [Exception("Transient Error"), None]
+        with pytest.raises(Retry):
+            save_query_with_metadata(self.query, self.user_agent, self.ip_address)
+        assert mock_retry.call_count == 1
+
+    @patch("core.tasks.save_query_with_metadata.retry", side_effect=Retry())
+    @patch("scrapers.models.Search.objects.create", side_effect=Exception("Persistent Error"))
+    def test_celery_task_save_query_with_metadata_logging(self, mock_create, mock_retry, caplog):
+        with pytest.raises(Retry):
+            save_query_with_metadata(self.query, self.user_agent, self.ip_address)
+        assert "Error saving search query." in caplog.text
 
 
 class TestLockTaskDecorator:
