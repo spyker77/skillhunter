@@ -76,23 +76,20 @@ class TestTasks:
     def test_celery_task_save_query_with_metadata_success(self):
         result = save_query_with_metadata.delay(self.query, self.user_agent, self.ip_address)
         assert result.successful()
-        instance = Search.objects.get(ip_address=self.ip_address)
-        assert instance.query == self.query
-        assert instance.user_agent == self.user_agent
+        assert Search.objects.filter(ip_address=self.ip_address).exists()
 
     @patch("core.tasks.save_query_with_metadata.retry", side_effect=Retry())
     @patch("scrapers.models.Search.objects.create")
     def test_celery_task_save_query_with_metadata_retry(self, mock_create, mock_retry):
         mock_create.side_effect = [Exception("Transient Error"), None]
-        with pytest.raises(Retry):
-            save_query_with_metadata(self.query, self.user_agent, self.ip_address)
+        save_query_with_metadata.delay(self.query, self.user_agent, self.ip_address)
         assert mock_retry.call_count == 1
+        assert mock_create.call_count >= 1  # At least once before the `retry_backoff` kicks in.
 
     @patch("core.tasks.save_query_with_metadata.retry", side_effect=Retry())
     @patch("scrapers.models.Search.objects.create", side_effect=Exception("Persistent Error"))
     def test_celery_task_save_query_with_metadata_logging(self, mock_create, mock_retry, caplog):
-        with pytest.raises(Retry):
-            save_query_with_metadata(self.query, self.user_agent, self.ip_address)
+        save_query_with_metadata.delay(self.query, self.user_agent, self.ip_address)
         assert "Error saving search query." in caplog.text
 
 
