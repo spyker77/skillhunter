@@ -19,3 +19,4 @@ mediafiles
 htmlcov
 certs
 celerybeat-schedule
+node_modules

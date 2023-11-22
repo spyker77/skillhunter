@@ -190,7 +190,6 @@ PERMISSIONS_POLICY = {
     "accelerometer": [],
     "autoplay": [],
     "camera": [],
-    "document-domain": [],
     "encrypted-media": [],
     "fullscreen": [],
     "geolocation": [],

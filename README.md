@@ -70,7 +70,7 @@ docker compose exec -e DB_HOST=db web pytest -n auto --cov="."
 
 **Note** ⚠️
 
-For the local development you may need to install **pg_config** for the **psycopg** (e.g. using `brew install postgresql`).
+For the local development you may need to install **pg_config** for the **psycopg** (e.g. using `brew install postgresql`), and **Node.js** in case you want to update the packages for a production build of CSS.
 
 ## Architecture
 

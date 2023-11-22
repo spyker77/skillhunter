@@ -28,7 +28,8 @@ most relevant IT vacancies from all over the world.{% endblock description %}
 <form action="{{ url ('upload-resume') }}" enctype="multipart/form-data" method="POST">
     {{ csrf_input }}
     <div class=" flex justify-center">
-        <label
+        <input type="file" id="resume" name="resume" class="hidden">
+        <label for="resume"
             class="h-9 w-full lg:w-auto lg:px-10 lg:h-10 mx-2 inline-flex items-center justify-center cursor-pointer bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white rounded-full shadow-lg shadow-fuchsia-500/20 hover:shadow-2xl hover:shadow-fuchsia-500/50 border border-fuchsia-500 hover:border-transparent transition ease-in duration-200">
             <svg class="w-6 h-6 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path
