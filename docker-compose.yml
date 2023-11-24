@@ -1,7 +1,6 @@
 version: "3.9"
 
 services:
-
   redis:
     image: redis:7.2-alpine
 
@@ -33,6 +32,7 @@ services:
     command: sh -c "python manage.py collectstatic --no-input --clear && gunicorn -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker core.asgi:application"
     volumes:
       - .:/code
+      - /code/static/css # Exclude directory from mount to avoid masking new CSS file
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     expose:
@@ -49,6 +49,7 @@ services:
     command: celery -A core worker --without-heartbeat --without-gossip --without-mingle -l INFO
     volumes:
       - .:/code
+      - /code/static/css # Exclude directory from mount to avoid masking new CSS file
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     depends_on:
@@ -63,6 +64,7 @@ services:
     command: celery -A core beat -l INFO
     volumes:
       - .:/code
+      - /code/static/css # Exclude directory from mount to avoid masking new CSS file
       - static_volume:/code/staticfiles
       - media_volume:/code/mediafiles
     depends_on:
