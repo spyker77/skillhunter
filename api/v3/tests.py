@@ -73,18 +73,18 @@ class TestTailoredVacanciesViewSet:
 
     def test_tailoredvacanciesviewset_with_correct_resume(self, client):
         with open("resume_analyzer/test_resumes/correct_resume.pdf", "rb") as resume:
-            response = client.post(path=self.url, data={"resume": resume}, secure=True)
+            response = client.post(path=self.url, data={"file": resume}, secure=True)
         assert response.status_code == 200
         assert response.json() != []
 
     def test_tailoredvacanciesviewset_with_fake_resume(self, client):
         with open("resume_analyzer/test_resumes/fake_format.pdf", "rb") as resume:
-            response = client.post(path=self.url, data={"resume": resume}, secure=True)
+            response = client.post(path=self.url, data={"file": resume}, secure=True)
         assert response.status_code == 400
         assert response.json()["detail"] == "Error processing resume."
 
     def test_tailoredvacanciesviewset_with_empty_resume(self, client):
         with open("resume_analyzer/test_resumes/empty_file.pdf", "rb") as resume:
-            response = client.post(path=self.url, data={"resume": resume}, secure=True)
+            response = client.post(path=self.url, data={"file": resume}, secure=True)
         assert response.status_code == 200
         assert response.json() == []

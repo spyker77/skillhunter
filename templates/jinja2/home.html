@@ -12,9 +12,9 @@ most relevant IT vacancies from all over the world.{% endblock description %}
     <u class="font-semibold underline decoration-fuchsia-500 decoration-wavy decoration-2">IT</u>
 </h1>
 <form action="{{ url ('search-results') }}" autocomplete="off" method="GET">
+    <div id="search-help" class="hidden">Enter the job title you are looking for, e.g., 'Software Engineer'.</div>
     <div class="flex justify-center text-center text-fuchsia-500">
-        <input name="q" placeholder="Enter desired job title" aria-label="Search" maxlength="100" required autofocus
-            class="h-10 pl-6 pr-14 w-full lg:w-4/6 text-center outline-none shadow-lg focus:shadow-2xl rounded-full transition ease-in duration-200">
+        {{ search_form.q.as_widget(attrs={"class": "h-10 pl-6 pr-14 w-full lg:w-4/6 text-center outline-none shadow-lg focus:shadow-2xl rounded-full transition ease-in duration-200"}) }}
         <button type="submit" class="-ml-10 mr-5 text-2xl">👉</button>
     </div>
 </form>
@@ -28,7 +28,8 @@ most relevant IT vacancies from all over the world.{% endblock description %}
 <form action="{{ url ('upload-resume') }}" enctype="multipart/form-data" method="POST">
     {{ csrf_input }}
     <div class=" flex justify-center">
-        <input type="file" id="resume" name="resume" class="hidden">
+        <div id="resume-help" class="hidden">Please upload your resume in PDF format.</div>
+        {{ upload_resume_form.file }}
         <label for="resume"
             class="h-9 w-full lg:w-auto lg:px-10 lg:h-10 mx-2 inline-flex items-center justify-center cursor-pointer bg-transparent hover:bg-fuchsia-500 text-fuchsia-500 hover:text-white rounded-full shadow-lg shadow-fuchsia-500/20 hover:shadow-2xl hover:shadow-fuchsia-500/50 border border-fuchsia-500 hover:border-transparent transition ease-in duration-200">
             <svg class="w-6 h-6 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -36,14 +37,6 @@ most relevant IT vacancies from all over the world.{% endblock description %}
                     d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
             </svg>
             <span>Upload resume</span>
-            {% if form %}
-            {{ form }}
-            <script nonce="{{ request.csp_nonce }}">
-                document.getElementById('resume').onchange = function () {
-                    this.form.submit();
-                };
-            </script>
-            {% endif %}
         </label>
     </div>
     {% if error_uploading_resume %}
@@ -52,4 +45,11 @@ most relevant IT vacancies from all over the world.{% endblock description %}
     </div>
     {% endif %}
 </form>
+
+<script nonce="{{ request.csp_nonce }}">
+    document.getElementById('resume').onchange = function () {
+        this.form.submit();
+    };
+</script>
+
 {% endblock content %}

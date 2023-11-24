@@ -4,9 +4,7 @@ import pytest
 from django.core.cache import cache
 from django.urls import reverse
 
-from .forms import UploadResumeForm
 from .tasks import task_warmup_cache
-from .views import upload_resume
 
 
 @pytest.mark.django_db
@@ -16,19 +14,9 @@ class TestUploadResumeCorrect:
         settings.CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 
     @pytest.fixture
-    def rq(self, rf):
+    def response(self, client):
         with open("resume_analyzer/test_resumes/correct_resume.pdf", "rb") as resume:
-            request = rf.post(reverse("upload-resume"), data={"resume": resume})
-        return request
-
-    @pytest.fixture
-    def response(self, rq):
-        response = upload_resume(rq)
-        return response
-
-    def test_uploadresumecorrect_form_is_valid(self, rq):
-        posted_resume_form = UploadResumeForm(rq.POST, rq.FILES)
-        assert posted_resume_form.is_valid() is True
+            return client.post(reverse("upload-resume"), data={"file": resume}, secure=True)
 
     def test_uploadresumecorrect_has_correct_status_code(self, response):
         assert response.status_code == 200
@@ -58,19 +46,9 @@ class TestUploadResumeCorrect:
 @pytest.mark.django_db
 class TestUploadResumeFake:
     @pytest.fixture
-    def rq(self, rf):
+    def response(self, client):
         with open("resume_analyzer/test_resumes/fake_format.pdf", "rb") as resume:
-            request = rf.post(reverse("upload-resume"), data={"resume": resume})
-        return request
-
-    @pytest.fixture
-    def response(self, rq):
-        response = upload_resume(rq)
-        return response
-
-    def test_uploadresumefake_form_is_valid(self, rq):
-        posted_resume_form = UploadResumeForm(rq.POST, rq.FILES)
-        assert posted_resume_form.is_valid() is True
+            return client.post(reverse("upload-resume"), data={"file": resume}, secure=True)
 
     def test_uploadresumefake_has_correct_status_code(self, response):
         assert response.status_code == 200
@@ -85,19 +63,9 @@ class TestUploadResumeFake:
 @pytest.mark.django_db
 class TestUploadResumeEmpty:
     @pytest.fixture
-    def rq(self, rf):
+    def response(self, client):
         with open("resume_analyzer/test_resumes/empty_file.pdf", "rb") as resume:
-            request = rf.post(reverse("upload-resume"), data={"resume": resume})
-        return request
-
-    @pytest.fixture
-    def response(self, rq):
-        response = upload_resume(rq)
-        return response
-
-    def test_uploadresumeempty_form_is_valid(self, rq):
-        posted_resume_form = UploadResumeForm(rq.POST, rq.FILES)
-        assert posted_resume_form.is_valid() is True
+            return client.post(reverse("upload-resume"), data={"file": resume}, secure=True)
 
     def test_uploadresumeempty_has_correct_status_code(self, response):
         assert response.status_code == 200

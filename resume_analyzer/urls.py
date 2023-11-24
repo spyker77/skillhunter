@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import upload_resume
+from .views import UploadResumeView
 
 urlpatterns = [
-    path("", upload_resume, name="upload-resume"),
+    path("", UploadResumeView.as_view(), name="upload-resume"),
 ]

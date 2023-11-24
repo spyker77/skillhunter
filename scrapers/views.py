@@ -21,7 +21,7 @@ class SearchResultsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query, limit, user_agent, ip_address = parse_request(self.request)
+        query, _, user_agent, ip_address = parse_request(self.request)
 
         save_query_with_metadata.delay(query, user_agent, ip_address)
 

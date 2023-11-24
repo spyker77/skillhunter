@@ -42,7 +42,7 @@ class TailoredVacancySerializer(serializers.Serializer):
 
 
 class ResumeSerializer(serializers.Serializer):
-    resume = serializers.FileField()
+    file = serializers.FileField()
 
     class Meta:
-        fields = ["resume"]
+        fields = ["file"]

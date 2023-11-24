@@ -91,7 +91,7 @@ class TailoredVacanciesViewSet(viewsets.ViewSet):
     )
     def create(self, request):
         try:
-            tailored_vacancies = analyze_resume(request.FILES["resume"])
+            tailored_vacancies = analyze_resume(request.FILES["file"])
             return Response(tailored_vacancies[: self.LIMIT_OF_VACANCIES], status=status.HTTP_200_OK)
         except PdfStreamError:
             return Response({"detail": "Error processing resume."}, status=status.HTTP_400_BAD_REQUEST)

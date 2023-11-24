@@ -40,12 +40,13 @@ name = "SkillHunter"
 version = "3.0.0"
 
 [tool.poetry.dependencies]
-Django = "^4.2.7"
+Django = "^5.0rc1"
 Faker = "^19.13.0"
 Jinja2 = "^3.1.2"
 boto3 = "^1.28.78"
 celery = { extras = ["pytest"], version = "^5.3.4" }
-django-celery-beat = "^2.5.0"
+# Switch to regular version after Django 5.0 support is released
+django-celery-beat = { git = "https://github.com/celery/django-celery-beat.git", branch = "main" }
 django-csp = "^3.7"
 django-debug-toolbar = "^4.2.0"
 django-linear-migrations = "^2.12.0"

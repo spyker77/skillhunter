@@ -29,7 +29,7 @@ repos:
     hooks:
       - id: django-upgrade
         name: Upgrade Django Syntax
-        args: [--target-version, "4.2"]
+        args: [--target-version, "5.0"]
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5

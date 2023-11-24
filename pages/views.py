@@ -1,16 +1,19 @@
 from django.views.generic import TemplateView
 
 from resume_analyzer.forms import UploadResumeForm
+from scrapers.forms import SearchForm
 
 
-class HomePageView(TemplateView):
-    template_name = "home.html"
-    upload_resume_form = UploadResumeForm()
-
+class BaseFormWithContextView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = self.upload_resume_form
+        context["upload_resume_form"] = UploadResumeForm()
+        context["search_form"] = SearchForm()
         return context
+
+
+class HomePageView(BaseFormWithContextView):
+    template_name = "home.html"
 
 
 class AboutPageView(TemplateView):
