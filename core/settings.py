@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "django_otp.plugins.otp_totp",
     "storages",
     "django_linear_migrations",
-    "django_celery_beat",
     # Local apps
     "resume_analyzer",
     "scrapers",
