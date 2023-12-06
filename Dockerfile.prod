@@ -13,7 +13,7 @@ RUN apt-get update && \
 COPY pyproject.toml poetry.lock ./
 
 RUN pip install --upgrade pip && \
-    curl -sSL https://install.python-poetry.org | python3 - --version 1.7.0 && \
+    curl -sSL https://install.python-poetry.org | python3 - --version 1.7.1 && \
     export PATH="/root/.local/bin:$PATH" && \
     poetry config virtualenvs.create false && \
     poetry install --without dev && \

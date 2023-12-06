@@ -93,7 +93,7 @@ TEMPLATES = [
     },
 ]
 
-FORM_RENDERER = "django.forms.renderers.Jinja2DivFormRenderer"
+FORM_RENDERER = "django.forms.renderers.Jinja2"
 
 WSGI_APPLICATION = "core.wsgi.application"
 
