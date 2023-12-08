@@ -3,8 +3,8 @@ import random
 
 from django.core.management.base import BaseCommand
 from django.db import OperationalError
-from flashtext import KeywordProcessor
 
+from keyword_processor import KeywordProcessor
 from scrapers.models import Job, Skill, Vacancy
 
 from .base_scraper import BaseScraper

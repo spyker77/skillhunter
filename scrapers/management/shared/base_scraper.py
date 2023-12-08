@@ -3,10 +3,11 @@ from abc import ABC, abstractmethod
 from collections import Counter
 from urllib.parse import urlencode
 
-from flashtext import KeywordProcessor
 from playwright.sync_api import ElementHandle, Page
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from tenacity import RetryError, Retrying, stop_after_attempt, wait_random_exponential
+
+from keyword_processor import KeywordProcessor
 
 from .utils import get_playwright_page
 
@@ -178,7 +179,7 @@ class BaseScraper(AbstractScraper):
 
         Args:
             vacancy_without_skills (dict[str, str]): A dictionary containing vacancy details.
-            keyword_processor (KeywordProcessor): An instance of flashtext.KeywordProcessor.
+            keyword_processor (KeywordProcessor): An instance of KeywordProcessor.
 
         Returns:
             dict: A dictionary with vacancy details and extracted skills.

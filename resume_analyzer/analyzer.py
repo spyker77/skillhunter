@@ -4,9 +4,9 @@ from tempfile import SpooledTemporaryFile
 
 from django.core.cache import cache
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from flashtext import KeywordProcessor
 from pypdf import PdfReader
 
+from keyword_processor import KeywordProcessor
 from scrapers.models import Skill, Vacancy
 
 
@@ -25,9 +25,8 @@ def find_skills_in_resume(text_from_resume: str) -> set[str]:
         cache.set("skills_from_db", skills_from_db, 12 * 60 * 60)
 
     keyword_processor = KeywordProcessor()
-    for clean_name, unclean_names in skills_from_db:
-        for unclean_name in unclean_names:
-            keyword_processor.add_keyword(unclean_name, clean_name)
+    dict_of_skills = {clean_name: unclean_names for clean_name, unclean_names in skills_from_db}
+    keyword_processor.add_keywords_from_dict(dict_of_skills)
 
     skills_from_resume = set(keyword_processor.extract_keywords(text_from_resume))
     return skills_from_resume
