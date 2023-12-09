@@ -1,6 +1,6 @@
 import pytest
 
-from .processor import KeywordProcessor
+from keyword_processor import KeywordProcessor
 
 
 class TestKeywordProcessor:
@@ -8,16 +8,36 @@ class TestKeywordProcessor:
     def processor(self):
         return KeywordProcessor(case_sensitive=False)
 
-    def test_add_keyword(self, processor):
-        processor.add_keyword("Python", "Python Programming")
-        assert "python" in processor.keyword_map
-        assert processor.keyword_map["python"] == "Python Programming"
+    @pytest.mark.parametrize(
+        "case_sensitive, keyword, expected_node_path",
+        [
+            (False, "Python", "python"),
+            (True, "Python", "Python"),
+        ],
+    )
+    def test_add_keyword_with_case_sensitivity(self, case_sensitive, keyword, expected_node_path):
+        processor = KeywordProcessor(case_sensitive=case_sensitive)
+        processor.add_keyword(keyword, "Python Programming")
 
-    def test_case_sensitivity(self):
-        processor = KeywordProcessor(case_sensitive=True)
-        processor.add_keyword("Python", "Python Programming")
-        assert "Python" in processor.keyword_map
-        assert "python" not in processor.keyword_map
+        node = processor.root
+        for char in expected_node_path:
+            assert char in node.children
+            node = node.children[char]
+
+        assert node.is_end_of_word
+        assert node.clean_name == "Python Programming"
+
+    def test_add_keywords_from_dict(self, processor):
+        keyword_dict = {"Programming": ["Python", "Java", "C++"]}
+        processor.add_keywords_from_dict(keyword_dict)
+        # Check if the keywords are correctly added to the Trie.
+        for lang in ["Python", "Java", "C++"]:
+            node = processor.root
+            for char in processor._normalize(lang):
+                assert char in node.children
+                node = node.children[char]
+            assert node.is_end_of_word
+            assert node.clean_name == "Programming"
 
     def test_extract_keywords(self, processor):
         processor.add_keyword("python", "Python Programming")
@@ -25,31 +45,9 @@ class TestKeywordProcessor:
         extracted_keywords = processor.extract_keywords("I love Python and Java.")
         assert extracted_keywords == ["Python Programming", "Java Programming"]
 
-    def test_add_keywords_from_dict(self, processor):
-        keyword_dict = {"Programming": ["Python", "Java", "C++"]}
-        processor.add_keywords_from_dict(keyword_dict)
-        assert "python" in processor.keyword_map
-        assert "java" in processor.keyword_map
-        assert "c++" in processor.keyword_map
-        assert processor.keyword_map["python"] == "Programming"
-
-    def test_add_keyword_from_file(self, processor, tmpdir):
-        # Create a temporary keyword file
-        keyword_file = tmpdir.join("keywords.txt")
-        keyword_file.write("Python=>Python Programming\nJava=>Java Programming")
-        processor.add_keyword_from_file(str(keyword_file))
-        assert "python" in processor.keyword_map
-        assert "java" in processor.keyword_map
-        assert processor.keyword_map["python"] == "Python Programming"
-        assert processor.keyword_map["java"] == "Java Programming"
-
-    def test_add_keyword_from_file_with_invalid_path(self, processor):
-        invalid_path = "invalid/path/to/file.txt"
-        with pytest.raises(IOError) as excinfo:
-            processor.add_keyword_from_file(invalid_path)
-        assert str(excinfo.value) == f"Invalid file path {invalid_path}"
-
     def test_extract_keywords_with_span_info(self, processor):
         processor.add_keyword("python", "Python Programming")
+        extracted_keywords = processor.extract_keywords("I love Python.", span_info=True)
+        assert extracted_keywords == [("Python Programming", 7, 13)]
         extracted_keywords = processor.extract_keywords("I love Python.", span_info=True)
         assert extracted_keywords == [("Python Programming", 7, 13)]

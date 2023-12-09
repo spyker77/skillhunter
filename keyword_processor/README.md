@@ -8,7 +8,7 @@ This module presents a reworked and optimized version of the [FlashText](https:/
 
 - **Case Sensitivity**: Supports both case-sensitive and case-insensitive keyword processing.
 - **Efficient Extraction**: Offers efficient extraction of keywords from large text datasets.
-- **Flexible Keyword Addition**: Allows adding keywords from various sources including files, dictionaries, or directly as strings.
+- **Flexible Keyword Addition**: Allows adding keywords from dictionaries or directly as strings.
 - **Optimized Trie Structure**: Utilizes a custom Trie data structure for optimized search performance.
 
 ## Usage
