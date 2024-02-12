@@ -57,7 +57,7 @@ drf-spectacular = "^0.26.5"
 gunicorn = "^21.2.0"
 pypdf = "^3.17.1"
 python = "^3.12"
-python-multipart = "^0.0.6"
+python-multipart = "^0.0.7"
 python-decouple = "^3.8"
 qrcode = "^7.4.2"
 redis = { extras = ["hiredis"], version = "^5.0.1" }
